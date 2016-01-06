@@ -1,9 +1,6 @@
 # RIA-projekt
 
-Ideje koje sam nasla negdje na kompu:
-* IMDB, ali za predstave
-* ocjenjivanje kolegija tako da npr kad biramo kolegije s drugih smjerova moremo vidit ca su drugi pisali
+Online sustav za narudžbu pizze. Gost ili prijavljen korisnik (ranije se registrirao i time kreirao svoj korisnički račun) može napraviti narudžbu i odabrati pizzu, željene dodatke i piće te želi li je preuzeti sam ili želi li dostavu na kućnu adresu. Nakon završetka narudžbe, korisnik može pratiti status svoje narudžbe.
 
-http://blog.teamtreehouse.com/7-awesome-things-can-build-node-js
-https://www.reddit.com/r/PHP/comments/14i6i4/good_examples_of_oop_projects/
-http://stackoverflow.com/questions/3781530/some-examples-of-hobby-projects-for-learning-oop-php
+Za potrebe projekta, kreirat će se jednostavno API sučelje za komunikaciju s bazom gdje će biti pohranjene ponude pizza, dovršene narudžbe, registrirani korisnici, lokacije pizzeria i sl.
+
