@@ -4,6 +4,31 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var passport = require('passport');
+var request = require('request');
+var api = "https://ria-projekt-api-natnat.c9users.io/";
+var api_autohorization = {
+  username: 'ria',
+  password: 'pswd'
+}
+
+app.use(passport.initialize());
+
+passport.serializeUser(function(user, done) {
+  done(null, user._id);
+});
+ 
+passport.deserializeUser(function (id, done) {
+    var json = encodeURIComponent(JSON.stringify({account_id: "testni_id"}));
+    request.get(api + '/users' + json, api_autohorization, function (err, _res, body) {
+      if (err) {
+        return done(err);
+      }
+      console.log(JSON.parse(body).items[0].body);
+      done(null, JSON.parse(body).items[0].body);
+    });
+
+});
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
