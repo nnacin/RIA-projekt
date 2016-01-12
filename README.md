@@ -4,3 +4,8 @@ Online sustav za narudžbu pizze. Gost ili prijavljen korisnik (ranije se regist
 
 Za potrebe projekta, kreirat će se jednostavno API sučelje za komunikaciju s bazom gdje će biti pohranjene ponude pizza, dovršene narudžbe, registrirani korisnici, lokacije pizzeria i sl. (https://github.com/nnacin/RIA-projekt-api/)
 
+Specifikacija projekta:
+https://dl.dropboxusercontent.com/u/51070823/Projekt%20-%20Specifikacija.docx
+
+
+
