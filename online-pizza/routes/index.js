@@ -1,27 +1,21 @@
 var express = require('express');
 var router = express.Router();
 var request = require('request');
-var crypto = require('crypto');
-var bcrypt = require('bcrypt-nodejs');
-var moment = require('moment-timezone');
-var async = require('async');
+var creds = require('../creds');
 
+/* GET users listing. */
+router.get('/', function(req, res, next) {
 
-// routes/users.js
-module.exports = function (passport) {
+    var url = creds.api_url + '/users/';
+    console.log('url:' + url);
+    //console.log('json:' +json);
+    request.get(url, creds.api_autohorization, function (err, _res, body) {
+      if (err) {
+        return next(err);
+      }
+      res.render('../views/users', {results:JSON.parse(body) })
 
-
-  // process the login form
-  router.post('/',
-    passport.authenticate('local-login', {
-      //successRedirect : '/', // redirect to the secure profile section -> off so callback is called
-      failureRedirect: '/', // redirect back to the signup page if there is an error
-      failureFlash: true // allow flash messages
-    }),
-    function (req, res) {
-      res.redirect('http://www.9gag.com');
     });
+});
 
-  // return router instance
-  return router;
-};
+module.exports = router;
