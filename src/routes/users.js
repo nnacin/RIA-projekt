@@ -1,12 +1,12 @@
 var express = require('express');
 var router = express.Router();
 var request = require('request');
-var creds = require('../creds');
+var creds = require('../../creds');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
 
-    var url = creds.api_url + '/users/';
+    var url = creds.api_url + 'users/';
     console.log('url:' + url);
     //console.log('json:' +json);
     request.get(url, creds.api_autohorization, function (err, _res, body) {
