@@ -1,6 +1,6 @@
 {
     "api_url": "https://ria-projekt-api-natnat.c9users.io/",
-    "api_autohorization": {
+    "api_authorization": {
         "auth": {
           "username": "ria",
           "password": "ria"

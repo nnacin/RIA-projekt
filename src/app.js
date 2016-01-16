@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 const passport = require('passport');
 const request = require('request');
 const routeLoader = require('express4-route-loader');
+const Adapter = require('./adapter');
 
 const app = express();
 
@@ -28,6 +29,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 //load all routes from ./routes
 routeLoader(app, __dirname + '/routes');
 
+//attach adapter to app
+app.locals.adapter = new Adapter();
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   let err = new Error('Not Found');
