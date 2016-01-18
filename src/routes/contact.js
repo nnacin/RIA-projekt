@@ -9,8 +9,8 @@ const getAllPizza = Promise.promisify(Adapter.getAllPizza);
 const debug = require('debug')('index');
 
 /* GET users listing. */
-router.get('/', (req, res, next) => {
-  res.render('index');
+router.get('/contact', (req, res, next) => {
+  res.render('contact');
 });
 
 module.exports = router;
