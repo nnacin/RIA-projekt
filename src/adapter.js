@@ -33,6 +33,11 @@ Adapter.prototype.addPizza = (name, price, ingredients, callback) => {
   query(endpoints.PIZZA, 'POST', data, callback);
 };
 
+Adapter.prototype.getAllEmployee = (callback) => {
+  let data = {};
+  query(endpoints.EMPLOYEE, 'POST', data, callback);
+};
+
 function query(url, verb, data, callback) {
   let options = {
     uri: url,
