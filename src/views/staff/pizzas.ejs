@@ -7,7 +7,7 @@
 	<meta name="author" content="DevOOPS">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link href="/css/bootstrap.css" rel="stylesheet">
-	<link href="/js/jquery-ui.min.css" rel="stylesheet">
+	<link href="/css/jquery-ui.min.css" rel="stylesheet">
 	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 	<link href='https://fonts.googleapis.com/css?family=Righteous' rel='stylesheet' type='text/css'>
 	<link href="/css/style_v2.css" rel="stylesheet">
@@ -131,6 +131,11 @@
 		</div>
 		<!--Start Content-->
 		<div id="content" class="col-xs-12 col-sm-10">
+			<% pizza.forEach(pizza => { %>
+            	<div class="item-title">
+            		<a><%= pizza.name %></a>
+        		</div>
+          	<% }) %>
 
 		</div>
 		<!--End Content-->

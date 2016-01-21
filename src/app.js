@@ -5,6 +5,7 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const passport = require('passport');
+const expressSession = require('express-session');
 const request = require('request');
 const routeLoader = require('express4-route-loader');
 const Promise = require('bluebird');
@@ -14,7 +15,11 @@ const app = express();
 
 app.enable('trust proxy');
 
+// Configuring Passport
+app.use(expressSession({secret: 'verySuperSecret'}));
 app.use(passport.initialize());
+app.use(passport.session());
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
