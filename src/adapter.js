@@ -10,6 +10,8 @@ const endpoints = {
   , DRINK: baseURL +        "drink"
   , USER: baseURL +         "user"
   , ORDER: baseURL +        "order"
+  , LOCATION: baseURL +     "location"
+  , EMPLOYEE: baseURL +     "employee"
 };
 
 function Adapter() {
