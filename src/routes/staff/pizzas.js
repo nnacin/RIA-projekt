@@ -10,7 +10,10 @@ const debug = require('debug')('staff/pizzas');
 
 /* GET users listing. */
 router.get('/pizzas', (req, res, next) => {
-  res.render('staff/pizzas');
+    getAllPizza()
+        .then(r => {
+        res.render('staff/pizzas', { pizza: r });
+    });
 });
 
 module.exports = router;

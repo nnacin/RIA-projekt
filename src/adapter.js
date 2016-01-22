@@ -144,6 +144,11 @@ Adapter.prototype.addOrder = (data, callback) => {
   query(endpoints.ORDER, 'POST', data, callback);
 }
 
+Adapter.prototype.getAllEmployee = (callback) => {
+  let data = {};
+  query(endpoints.EMPLOYEE, 'POST', data, callback);
+};
+
 function query(url, verb, data, callback) {
   let options = {
     uri: url,

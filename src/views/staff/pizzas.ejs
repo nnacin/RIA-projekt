@@ -6,11 +6,11 @@
 	<meta name="description" content="description">
 	<meta name="author" content="DevOOPS">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link href="css/bootstrap.css" rel="stylesheet">
-	<link href="js/jquery-ui.min.css" rel="stylesheet">
+	<link href="/css/bootstrap.css" rel="stylesheet">
+	<link href="/css/jquery-ui.min.css" rel="stylesheet">
 	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 	<link href='https://fonts.googleapis.com/css?family=Righteous' rel='stylesheet' type='text/css'>
-	<link href="css/style_v2.css" rel="stylesheet">
+	<link href="/css/style_v2.css" rel="stylesheet">
 	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!--[if lt IE 9]>
 	<script src="http://getbootstrap.com/docs-assets/js/html5shiv.js"></script>
@@ -66,13 +66,13 @@
 								</a>
 								<ul class="dropdown-menu">
 									<li>
-										<a href="/profile">
+										<a href="/staff/profile">
 											<i class="fa fa-user"></i>
 											<span>Profile</span>
 										</a>
 									</li>
 									<li>
-										<a href="/logout">
+										<a href="/staff/logout">
 											<i class="fa fa-power-off"></i>
 											<span>Logout</span>
 										</a>
@@ -93,30 +93,30 @@
 		<div id="sidebar-left" class="col-xs-2 col-sm-2">
 			<ul class="nav main-menu">
 				<li>
-					<a href="/orders" class="ajax-link">
+					<a href="/staff/orders" class="ajax-link">
 						<i class="fa fa-orders"></i>
-						<span class="hidden-xs">Orders</span>
+						<span>Orders</span>
 					</a>
 				</li>
 
 				<li class="active">
-					<a href="/pizzas" class="ajax-link">
+					<a href="/staff/pizzas" class="ajax-link">
 						<i class="fa fa-pizzas"></i>
-						<span class="hidden-xs">Pizzas</span>
+						<span>Pizzas</span>
 					</a>
 				</li>
 
 				<li>
-					<a href="/drinks" class="ajax-link">
+					<a href="/staff/drinks" class="ajax-link">
 						<i class="fa fa-drinks"></i>
-						<span class="hidden-xs">Drinks</span>
+						<span>Drinks</span>
 					</a>
 				</li>
 
 				<li>
-					<a href="/employees" class="ajax-link">
+					<a href="/staff/employees" class="ajax-link">
 						<i class="fa fa-employees"></i>
-						<span class="hidden-xs">Employees</span>
+						<span>Employees</span>
 					</a>
 				</li>
 
@@ -131,13 +131,18 @@
 		</div>
 		<!--Start Content-->
 		<div id="content" class="col-xs-12 col-sm-10">
+			<% pizza.forEach(pizza => { %>
+            	<div class="item-title">
+            		<a><%= pizza.name %></a>
+        		</div>
+          	<% }) %>
 
 		</div>
 		<!--End Content-->
 	</div>
 </div>
-<script src="js/jquery.min.js"></script>
-<script src="js/jquery-ui.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery-ui.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
 </body>
 </html>
