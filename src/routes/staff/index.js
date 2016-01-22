@@ -6,6 +6,7 @@ const Promise = require('bluebird')
 const ad = require('../../adapter');
 const Adapter = new ad();
 const getAllPizza = Promise.promisify(Adapter.getAllPizza);
+const getAllDrink = Promise.promisify(Adapter.getAllDrink);
 const debug = require('debug')('staff/index');
 
 /* GET users listing. */
@@ -44,10 +45,17 @@ router.post('/drink', (req, res, next) => {
 });
 
 router.get('/drinks', (req, res, next) => {
-    Adapter.getAllDrink()
+    getAllDrink()
         .then(r => {
         res.render('staff/drinks', { drinks: r });
     });
+});
+
+router.get('/deletedrink', (req, res, next) => {
+  const id = req.query.id;
+  Adapter.deleteDrink(id, (e, r) => {
+    res.redirect('drinks');
+  })
 });
 //end drinks
 
@@ -91,7 +99,7 @@ router.post('/pizza', (req, res, next) => {
 router.get('/deletepizza', (req, res, next) => {
   const id = req.query.id;
   Adapter.deletePizza(id, (e, r) => {
-    res.redirect('staff/pizzas');
+    res.redirect('pizzas');
   })
 });
 

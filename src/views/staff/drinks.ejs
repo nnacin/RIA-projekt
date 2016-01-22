@@ -134,8 +134,7 @@
 			<% drinks.forEach(drink => { %>
             	<div class="item-title">
             		<a href="/staff/drink?id=<%= drink._id %>"><%= drink.name %></a> 
-            		<a class="btn btn-danger" href="/staff/drink/delete?id=<%= drink._id %>">Delete</a>
-            		<button class="btn-danger">Delete</button>
+            		<a class="btn btn-danger" href="/staff/deletedrink?id=<%= drink._id %>">Delete</a>
         		</div>
           	<% }) %>
 
