@@ -18,6 +18,7 @@ function Adapter() {
 
 }
 
+/* PIZZA */
 Adapter.prototype.getPizza = (id, callback) => {
   let data = { id: id };
   query(endpoints.PIZZA, 'GET', data, callback);
@@ -31,7 +32,117 @@ Adapter.prototype.getAllPizza = (callback) => {
 Adapter.prototype.addPizza = (name, price, ingredients, callback) => {
   let data = {name: name, price: price, ingredients: ingredients};
   query(endpoints.PIZZA, 'POST', data, callback);
-};
+}
+
+Adapter.prototype.editPizza = (id, name, price, ingredients, callback) => {
+  let data = {id: id, name: name, price: price, ingredients: ingredients};
+  query(endpoints.PIZZA, 'PUT', data, callback);
+}
+
+Adapter.prototype.deletePizza = (id, callback) => {
+  let data = {id: id};
+  query(endpoints.PIZZA, 'DELETE', data, callback);
+}
+
+/* DRINKS */
+Adapter.prototype.getDrink = (id, callback) => {
+  let data = { id: id };
+  query(endpoints.DRINK, 'GET', data, callback);
+}
+
+Adapter.prototype.getAllDrink = (callback) => {
+  let data = {};
+  query(endpoints.DRINK, 'GET', data, callback);
+}
+
+Adapter.prototype.addDrink = (name, price, quantity, callback) => {
+  let data = {name: name, price: price, quantity: quantity};
+  query(endpoints.DRINK, 'POST', data, callback);
+}
+
+Adapter.prototype.editDrink = (id, name, price, quantity, callback) => {
+  let data = {id: id, name: name, price: price, quantity: quantity};
+  query(endpoints.DRINK, 'PUT', data, callback);
+}
+
+Adapter.prototype.deleteDrink = (id, callback) => {
+  let data = {id: id};
+  query(endpoints.DRINK, 'DELETE', data, callback);
+}
+
+/*LOCATION*/
+Adapter.prototype.getLocation = (id, callback) => {
+  let data = { id: id };
+  query(endpoints.LOCATION, 'GET', data, callback);
+}
+
+Adapter.prototype.getAllLocation = (callback) => {
+  let data = {};
+  query(endpoints.LOCATION, 'GET', data, callback);
+}
+
+Adapter.prototype.addLocation = (name, address, city, zipCode, workHours, callback) => {
+  let data = {name: name, address: address, city: city, zipCode: zipCode, workHours: workHours};
+  query(endpoints.LOCATION, 'POST', data, callback);
+}
+
+Adapter.prototype.editLocation = (id, name, address, city, zipCode, workHours, callback) => {
+  let data = {id: id, name: name, address: address, city: city, zipCode: zipCode, workHours: workHours};
+  query(endpoints.LOCATION, 'PUT', data, callback);
+}
+
+Adapter.prototype.deleteLocation = (id, callback) => {
+  let data = {id: id};
+  query(endpoints.LOCATION, 'DELETE', data, callback);
+}
+
+/*USER*/
+Adapter.prototype.getUser = (id, callback) => {
+  let data = {id: id};
+  query(endpoints.USER, 'GET', data, callback);
+}
+
+Adapter.prototype.addUser = (data, callback) => {
+  query(endpoints.USER, 'POST', data, callback);
+}
+
+Adapter.prototype.editUser = (data, callback) => {
+  query(endpoints.USER, 'PUT', data, callback);
+}
+
+/*EMPLOYEE*/
+Adapter.prototype.getUser = (id, callback) => {
+  let data = {id: id};
+  query(endpoints.EMPLOYEE, 'GET', data, callback);
+}
+
+Adapter.prototype.addUser = (data, callback) => {
+  query(endpoints.EMPLOYEE, 'POST', data, callback);
+}
+
+Adapter.prototype.editUser = (data, callback) => {
+  query(endpoints.EMPLOYEE, 'PUT', data, callback);
+}
+
+/*ORDER*/
+Adapter.prototype.getOrder = (id, callback) => {
+  let data = {id: id};
+  query(endpoints.ORDER, 'GET', data, callback);
+}
+
+Adapter.prototype.getAllOrder = (callback) => {
+  let data = {};
+  query(endpoints.ORDER, 'GET', data, callback);
+}
+
+Adapter.prototype.getUserOrder = (id, callback) => {
+  let data = {id: id};
+  query(endpoints.ORDER, 'GET', data, callback);
+}
+
+Adapter.prototype.addOrder = (data, callback) => {
+  query(endpoints.ORDER, 'POST', data, callback);
+}
 
 function query(url, verb, data, callback) {
   let options = {
