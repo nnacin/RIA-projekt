@@ -133,7 +133,9 @@
 		<div id="content" class="col-xs-12 col-sm-10">
 			<% pizza.forEach(pizza => { %>
             	<div class="item-title">
-            		<a><%= pizza.name %></a>
+            		<a href="/staff/pizza?id=<%= pizza._id %>"><%= pizza.name %></a> 
+            		<a class="btn btn-danger" href="/staff/deletepizza?id=<%= pizza._id %>">Delete</a>
+            		<button class="btn-danger">Delete</button>
         		</div>
           	<% }) %>
 
