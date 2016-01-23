@@ -1,0 +1,55 @@
+    <!--
+    footer  start
+    ============================= -->
+    <section id="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                  <div class="gmap" id="<%= location._id %>" style="margin: 10%;margin-top:10%;margin-bottom:10%;height:100%"></div>
+                  <input type="text" class="<%= location._id %>" name="fname" style="display:none" value="<%= JSON.stringify(location.coordinates) %>">
+                </div>
+                <div class="col-md-4">
+                    <div class="block wow fadeInLeft"  data-wow-delay="200ms">
+                        <h3></h3>
+                        <div class="info">
+                            <ul>
+                                <li>
+                                  <h4><i class="fa fa-home"></i><%= location.name %></h4>
+                                  <p>Pizzamins shop: <%= location.city %></p>
+                                </li>
+                                <li>
+                                  <h4><i class="fa fa-map-marker"></i>Address</h4>
+                                  <p>Street: <%= location.address + ' ' + location.zipCode %> <%= location.zipcode %> Croatia</p>
+                                </li>
+                                <li>
+                                  <h4><i class="fa fa-phone"></i>Telephone</h4>
+                                  <p>For info call: <%= location.phone %></p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- .col-md-4 close -->
+                <div class="col-md-4">
+                    <div class="block wow fadeInLeft"  data-wow-delay="700ms">
+                        <h3></h3>
+                        <div class="blog">
+                            <ul>
+                                <li>
+                                    <h4><a href="#">Work Hours</a></h4>
+                                    <% var wh = location.workHours%>
+                                    <p>Monday:    <%= wh.monday.open + ' - ' + wh.monday.close %></p>
+                                    <p>Tuesday:   <%= wh.tuesday.open + ' - ' + wh.tuesday.close %></p>
+                                    <p>Wednesday: <%= wh.wednesday.open + ' - ' + wh.wednesday.close %></p>
+                                    <p>Thursday:  <%= wh.thursday.open + ' - ' + wh.thursday.close %></p>
+                                    <p>Friday:    <%= wh.friday.open + ' - ' + wh.friday.close %></p>
+                                    <p>Saturday:  <%= wh.saturday.open + ' - ' + wh.saturday.close %></p>
+                                    <p>Sunday:    <%= wh.sunday.open + ' - ' + wh.sunday.close %></p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- .row close -->
+        </div><!-- .containe close -->
+    </section><!-- #footer close -->

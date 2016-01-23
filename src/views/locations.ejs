@@ -1,4 +1,39 @@
 <% include ./header %>
 
-   
+<% locations.forEach(location => { %>
+  <% include ./parts/location %>
+<% }) %>
+<script>
+  function initMap() {
+    var mapDivs = document.getElementsByClassName('gmap')
+    for (var i = 0; i < mapDivs.length; i++) {
+      displayMap(mapDivs[i].id);
+    }
+  }
+  function displayMap (divId) {
+    var latlng = document.getElementsByClassName(divId)[0].value;
+    latlng = JSON.parse(latlng);
+    var map = new google.maps.Map(document.getElementById(divId), {
+      center: latlng,
+      zoom: 12
+    });
+    var marker = new google.maps.Marker({
+      position: latlng,
+      title:"Pizzamins!"
+    });
+    marker.setMap(map);
+  }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD__GI36Kz6wu_Qqwv2FegOqUDC_-YNPcg&callback=initMap"
+    async defer></script>
+
+<script>
+  $( document ).ready(function() {
+    var heights = $(".col-md-4").map(function() {
+        return $(this).height();
+    }).get(),
+    maxHeight = Math.max.apply(null, heights);
+    $(".col-md-4").height(maxHeight);
+  });
+</script>
 <% include ./footer %>

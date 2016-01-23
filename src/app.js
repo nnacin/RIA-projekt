@@ -17,9 +17,10 @@ const app = express();
 app.enable('trust proxy');
 
 // Configuring Passport
+/*
 app.use(expressSession({secret: 'verySuperSecret'}));
 app.use(passport.initialize());
-app.use(passport.session());
+app.use(passport.session());*/
 
 
 // view engine setup

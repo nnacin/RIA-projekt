@@ -33,7 +33,7 @@ router.get('/test', (req, res, next) => {
   getAllOrder()
   .then(r => {
     debug(r);
-    getOrder("569704dde1014e6013f3e25f")
+    getAllLocation()
     .then(user => {
       res.render('test', { results: JSON.stringify(user) });
     })
