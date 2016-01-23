@@ -49,11 +49,18 @@ routeLoader(app, __dirname + '/routes');
 passport.use('local-login', new LocalStrategy(
   function(username, password, done) { // callback with email and password from our form
     Adapter.getEmployeeByUsername(username, (e, r) => {
-      if (r.length > 0) {
-        done(null, { user: r });
-      } else {
-        return done(null, false,{});
-      }
+      if (e)
+        return done(e);
+        
+      if (!r)
+        return done(null, false, {}); // req.flash is the way to set flashdata using connect-flash
+
+      // if the user is found but the password is wrong
+      if (!isValidPassword(r[0], password))
+          return done(null, false, {}); // create the loginMessage and save it to session as flashdata
+
+      // all is well, return successful user
+      return done(null, { user: r });
     })
   }
 ));
@@ -112,6 +119,10 @@ var isAuthenticated = function (req, res, next) {
   if (req.isAuthenticated())
     return next();
   res.redirect('/');
+}
+
+var isValidPassword = function(user, password){
+  return (password == user.password);
 }
 
 module.exports = app;
