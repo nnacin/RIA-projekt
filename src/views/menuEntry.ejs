@@ -1,10 +1,50 @@
 <li class="wow fadeInUp" data-wow-duration="300ms" data-wow-delay="400ms">
     <div class="item">
         <div class="item-title">
-            <h2><%= pizza.name %></h2>
+            <h2 class="pizza-link" id="<%= pizza.name %>" data-price="<%= pizza.price %>"><%= pizza.name %></h2>
             <div class="border-bottom"></div>
             <span><%= pizza.price %>kn</span>
         </div>
         <p><%= pizza.ingredients %></p>
     </div>
 </li>
+
+<script>
+    $(function(){
+        NodeList.prototype.forEach = Array.prototype.forEach;
+        
+        $('.pizza-link').on('click', function (e) {
+            var pizza = $(e.target).eq(0)
+            var pizza_entry = "<div class='row pizza-order'><div class='col-md-4'>" + pizza.attr("id") + "</div><div class='col-md-4'><input  class='form-control' type='number' min='1' name='quantity' value='1'></div><div class='col-md-4 price' style='text-align:right;'>" + pizza.attr("data-price") + "</div></div>";
+            $( "#form" ).append(pizza_entry);
+            $( "#form" ).add(pizza_entry);
+            recalculateTotal();
+            //$( "#total" ).replaceWith( "<div id='total'>TOTAL: " + total + "</div>" );
+            //.attr("data-price");
+            //console.log($(e.target).eq(0).attr("data-price"));
+        })
+        $( "#form" ).on( "change", "input", function(e) {
+            total = 9;
+            recalculateTotal();
+            //$( "#total" ).replaceWith( "<div id='total'>TOTAL: " + total + "</div>");
+        });
+        
+        function recalculateTotal () {
+            var total = 0
+            var pizzas = $('.pizza-order');
+            console.log(pizzas.length);
+            for (i = 0; i <	pizzas.length; i++) {
+                console.log(pizzas[i]);
+                pizzas[i] =  $(pizzas[i]).clone();
+                var quantity = Number(pizzas[i].find('input').val());
+                var price = Number(pizzas[i].find('.price').text());
+                total += quantity * price;
+            }
+
+            //pizzas.find('input').val()
+            
+            //foreach element/pizza with class order-pizza-name and order-pizza-quantity multiply those too and this is the new total
+            $( "#total" ).replaceWith( "<div id='total'>TOTAL: " + total + "</div>");
+        }
+    });
+</script>

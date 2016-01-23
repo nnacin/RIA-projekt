@@ -7,7 +7,7 @@
             <div class="col-md-12">
                 <div class="block">
                     <h1 class="heading wow fadeInUp" data-wow-duration="300ms" data-wow-delay="300ms">our <span>MENU</span> . the <span>PRICE</span></h1>
-                    <p class="wow fadeInUp" data-wow-duration="300ms" data-wow-delay="400ms">Take a look at our menu. If anything catches your eye, order (we already know you will)</p>
+                    <p class="wow fadeInUp" data-wow-duration="300ms" data-wow-delay="400ms">Take a look at our menu. If anything catches your eye, order (we already know you will)<br> Order by simply clicking on the desired pizza, it will appear at the bottom. You can change the quantity too. When you are done click on next to go to the drinks page.</p>
                     <div class="pricing-list">
                         <div class="title">
                             <h3><span>Pizzas</span></h3>
@@ -18,6 +18,8 @@
                           <% }) %>
                         </ul>
                     </div>
+                    <form id="form" method="POST" action="/menu_drinks"></form>
+                    <div id="total"></div>
                 </div>
             </div><!-- .col-md-12 close -->
         </div><!-- .row close -->
