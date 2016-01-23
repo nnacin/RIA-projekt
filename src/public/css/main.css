@@ -259,6 +259,11 @@ nav .block .navbar-default .navbar-nav > .active > a:hover:before {
   font-size: 40px;
   color: #AA9D84;
 }
+
+#owl-example .img-responsive {
+  height: 237px;
+  width: 265px;
+}
 /*--
     about-us Start
 --*/

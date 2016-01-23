@@ -1,29 +1,27 @@
 <% include ./header %>
 <% include ./menuSlider %>
 
-    price start
-    ============================ -->
-    <section id="price">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="block">
-                        <h1 class="heading wow fadeInUp" data-wow-duration="300ms" data-wow-delay="300ms">our <span>MENU</span> the <span>PRICE</span></h1>
-                        <p class="wow fadeInUp" data-wow-duration="300ms" data-wow-delay="400ms">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco </p>
-                        <div class="pricing-list">
-                            <div class="title">
-                                <h3>Featured <span>on the week</span></h3>
-                            </div>
-                            <ul>
-                              <% pizza.forEach(pizza => { %>
-                                <% include ./menuEntry %>
-                              <% }) %>
-                            </ul>
+<section id="price">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="block">
+                    <h1 class="heading wow fadeInUp" data-wow-duration="300ms" data-wow-delay="300ms">our <span>MENU</span> . the <span>PRICE</span></h1>
+                    <p class="wow fadeInUp" data-wow-duration="300ms" data-wow-delay="400ms">Take a look at our menu. If anything catches your eye, order (we already know you will)</p>
+                    <div class="pricing-list">
+                        <div class="title">
+                            <h3><span>Pizzas</span></h3>
                         </div>
+                        <ul>
+                          <% pizza.forEach(pizza => { %>
+                            <% include ./menuEntry %>
+                          <% }) %>
+                        </ul>
                     </div>
-                </div><!-- .col-md-12 close -->
-            </div><!-- .row close -->
-        </div><!-- .containe close -->
-    </section><!-- #price close -->
+                </div>
+            </div><!-- .col-md-12 close -->
+        </div><!-- .row close -->
+    </div><!-- .containe close -->
+</section><!-- #price close -->
 
 <% include ./footer %>
