@@ -102,6 +102,11 @@ Adapter.prototype.getUser = (id, callback) => {
   query(endpoints.USER, 'GET', data, callback);
 }
 
+Adapter.prototype.getUserByUsername = (username, callback) => {
+  let data = {username: username};
+  query(endpoints.USER, 'GET', data, callback);
+}
+
 Adapter.prototype.addUser = (data, callback) => {
   query(endpoints.USER, 'POST', data, callback);
 }
@@ -111,16 +116,22 @@ Adapter.prototype.editUser = (data, callback) => {
 }
 
 /*EMPLOYEE*/
-Adapter.prototype.getUser = (id, callback) => {
+Adapter.prototype.getEmployee = (id, callback) => {
   let data = {id: id};
   query(endpoints.EMPLOYEE, 'GET', data, callback);
 }
 
-Adapter.prototype.addUser = (data, callback) => {
-  query(endpoints.EMPLOYEE, 'POST', data, callback);
+Adapter.prototype.getEmployeeByUsername = (username, callback) => {
+  let data = {username: username};
+  query(endpoints.EMPLOYEE, 'GET', data, callback);
 }
 
-Adapter.prototype.editUser = (data, callback) => {
+Adapter.prototype.getAllEmployee = (callback) => {
+  let data = {};
+  query(endpoints.EMPLOYEE, 'POST', data, callback);
+};
+
+Adapter.prototype.editEmployee = (data, callback) => {
   query(endpoints.EMPLOYEE, 'PUT', data, callback);
 }
 
@@ -143,11 +154,6 @@ Adapter.prototype.getUserOrder = (id, callback) => {
 Adapter.prototype.addOrder = (data, callback) => {
   query(endpoints.ORDER, 'POST', data, callback);
 }
-
-Adapter.prototype.getAllEmployee = (callback) => {
-  let data = {};
-  query(endpoints.EMPLOYEE, 'POST', data, callback);
-};
 
 function query(url, verb, data, callback) {
   let options = {
