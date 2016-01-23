@@ -18,12 +18,12 @@ router.get('/drinks', (req, res, next) => {
 
 /* GET users listing. */
 router.post('/drinks', (req, res, next) => {
-    var ids = req.body['id'];
-    var quantities = req.body['quantity'];
-    var pizzas = [];
-    ids.forEach(function (id){
+    //var ids = req.body['id'];
+    //var quantities = req.body['quantity'];
+    //var pizzas = [];
+    /*ids.forEach(function (id){
        pizzas.push({id: id});
-    });
+    });*/
 
     getAllDrink()
         .then(r => {

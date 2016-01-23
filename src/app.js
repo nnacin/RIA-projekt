@@ -4,24 +4,26 @@ const favicon = require('serve-favicon');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
-const passport = require('./passport');
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
 const expressSession = require('express-session');
 const request = require('request');
 const routeLoader = require('express4-route-loader');
 const Promise = require('bluebird');
-const Adapter = require('./adapter');
+const Adpt = require('./adapter');
+const Adapter = new Adpt();
 
 const app = express();
 
+//attach adapter to app
+app.set('adapter', Adapter);
 
 app.enable('trust proxy');
 
 // Configuring Passport
-/*
 app.use(expressSession({secret: 'verySuperSecret'}));
 app.use(passport.initialize());
-app.use(passport.session());*/
-
+app.use(passport.session());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -44,9 +46,37 @@ app.use(function (req, res, next) {
 //load all routes from ./routes
 routeLoader(app, __dirname + '/routes');
 
-//attach adapter to app
-app.locals.adapter = new Adapter();
-app.set('adapter', new Adapter());
+passport.use('local-login', new LocalStrategy(
+  function(username, password, done) { // callback with email and password from our form
+    Adapter.getEmployeeByUsername(username, (e, r) => {
+      if (r.length > 0) {
+        done(null, { user: r });
+      } else {
+        return done(null, false,{});
+      }
+    })
+  }
+));
+
+passport.serializeUser( function(user, done) {
+  return done(null, user);
+});
+
+passport.deserializeUser( function(user, done) {
+  return done(null, user);
+});
+
+app.use(function(req, res, next){
+  if (!req.isAuthenticated()) {
+    return next();
+  }
+  res.locals.user = {
+    account_id: req.user.username,
+    account_phone1: req.user.email
+  };
+  next();
+});
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   let err = new Error('Not Found');
