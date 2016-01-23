@@ -163,7 +163,6 @@ nav .block .navbar-default .navbar-nav {
 }
 nav .block .navbar-default .navbar-nav > li > a {
   color: #2E2E2E;
-  padding: 10px 0px;
   margin: 0px 15px;
   font-size: 15px;
   text-transform: uppercase;
@@ -402,6 +401,23 @@ nav .block .navbar-default .navbar-nav > .active > a:hover:before {
   background: #fff;
   transform: rotate(45deg);
 }
+
+a.login-link {
+  background: #ff530a;
+}
+
+nav .block .navbar-default .navbar-nav > .active > a.login-link:focus,
+nav .block .navbar-default .navbar-nav > .active > a.login-link:hover,
+nav .block .navbar-default .navbar-nav > li.current > a.login-link:before,
+nav .block .navbar-default .navbar-nav > li > a.login-link:before,
+nav .block .navbar-default .navbar-nav > li > a.login-link:hover,
+nav .block .navbar-default .navbar-nav > li > a.login-link:focus {
+    background: transparent;
+    color: #ff530a;
+    border: 1px solid #ff530a;
+    text-decoration: none;
+}
+
 #blog .block .btn-more-info {
   float: right;
   padding: 28px 102.5px;
