@@ -15,16 +15,23 @@
         
         $('.pizza-link').on('click', function (e) {
             var pizza = $(e.target).eq(0)
-            var pizza_entry = "<div class='row pizza-order'><div class='col-md-4'>" + pizza.attr("id") + "</div><div class='col-md-4'><input  class='form-control' type='number' min='1' name='quantity' value='1'></div><div class='col-md-4 price' style='text-align:right;'>" + pizza.attr("data-price") + "</div></div>";
-            $( "#form" ).append(pizza_entry);
-            $( "#form" ).add(pizza_entry);
+            console.log(pizza);
+            var pizza_entry = "";
+            pizza_entry = "<div class='row pizza-order'><div class='col-md-4'>" + pizza.attr("id") + "</div><div class='col-md-4'><input  class='form-control' type='number' min='1' name='quantity' value='1'></div><div class='col-md-3 price' style='text-align:right;'>" + pizza.attr("data-price") + "</div><div class='col-md-1'><button class='remove'>x</button></div></div>";
+            $( "#order" ).append(pizza_entry);
+            $( "#order" ).add(pizza_entry);
             recalculateTotal();
             //$( "#total" ).replaceWith( "<div id='total'>TOTAL: " + total + "</div>" );
             //.attr("data-price");
             //console.log($(e.target).eq(0).attr("data-price"));
         })
-        $( "#form" ).on( "change", "input", function(e) {
-            total = 9;
+        $( "#order" ).on( "change", "input", function(e) {
+            recalculateTotal();
+            //$( "#total" ).replaceWith( "<div id='total'>TOTAL: " + total + "</div>");
+        });
+        
+        $( "#order" ).on( "click", ".remove", function(e) {
+            $(this).closest('.pizza-order').remove();
             recalculateTotal();
             //$( "#total" ).replaceWith( "<div id='total'>TOTAL: " + total + "</div>");
         });
@@ -33,6 +40,16 @@
             var total = 0
             var pizzas = $('.pizza-order');
             console.log(pizzas.length);
+            if (pizzas.length) {
+                $('#next').css("display", "block");
+            } else {
+                $( "#total" ).replaceWith( "<div id='total'>TOTAL: </div>");
+                 $('#next').css("display", "none");
+                 
+                 console.log('makni');
+            }
+            
+            
             for (i = 0; i <	pizzas.length; i++) {
                 console.log(pizzas[i]);
                 pizzas[i] =  $(pizzas[i]).clone();
@@ -44,7 +61,7 @@
             //pizzas.find('input').val()
             
             //foreach element/pizza with class order-pizza-name and order-pizza-quantity multiply those too and this is the new total
-            $( "#total" ).replaceWith( "<div id='total'>TOTAL: " + total + "</div>");
+            $( ".total" ).replaceWith( "<div class='total'>TOTAL: " + total + "</div>");
         }
     });
 </script>

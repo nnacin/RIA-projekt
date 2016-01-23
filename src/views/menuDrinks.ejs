@@ -7,27 +7,27 @@
             <div class="col-md-12">
                 <div class="block">
                     <h1 class="heading wow fadeInUp" data-wow-duration="300ms" data-wow-delay="300ms">our <span>MENU</span> . the <span>PRICE</span></h1>
-                    <p class="wow fadeInUp" data-wow-duration="300ms" data-wow-delay="400ms">Take a look at our menu. If anything catches your eye, order (we already know you will)<br> Order by simply clicking on the desired pizza, it will appear at the bottom. You can change the quantity too. When you are done click on next to go to the drinks page.</p>
+                    <p class="wow fadeInUp" data-wow-duration="300ms" data-wow-delay="400ms">Take a look at our drinks menu. <br> Add it to the list by simply clicking on the desired drinks, it will appear at the bottom. You can change the quantity too. When you are done click on next to go to the next page.</p>
                     <div class="pricing-list">
                         <div class="title">
-                            <h3><span>Pizzas</span></h3>
+                            <h3><span>Drinks</span></h3>
                         </div>
                         <ul>
-                          <% pizza.forEach(pizza => { %>
+                          <% drink.forEach(drink => { %>
                             <li class="wow fadeInUp" data-wow-duration="300ms" data-wow-delay="400ms">
                                 <div class="item">
                                     <div class="item-title">
-                                        <h2 class="pizza-link" data-db-id="<%= pizza._id %>" id="<%= pizza.name %>" data-price="<%= pizza.price %>"><%= pizza.name %></h2>
+                                        <h2 class="drink-link" id="<%= drink.name %>" data-price="<%= drink.price %>"><%= drink.name %></h2>
                                         <div class="border-bottom"></div>
-                                        <span><%= pizza.price %>kn</span>
+                                        <span><%= drink.price %>kn</span>
                                     </div>
-                                    <p><%= pizza.ingredients %></p>
+                                    <p><%= drink.quantity %>L</p>
                                 </div>
                             </li>
                           <% }) %>
                         </ul>
                     </div>
-                    <form id="form" method="POST" action="/drinks">
+                    <form id="form" method="POST" action="/continue">
                         <div id="order">
                             
                         </div>
@@ -46,34 +46,29 @@
     $(function(){
         NodeList.prototype.forEach = Array.prototype.forEach;
         
-        $('.pizza-link').on('click', function (e) {
-            //PROVJERA DA LI VEC POSTOJI TA PIZZA, AKO DA - samo quantity povecat
-            var pizza = $(e.target).eq(0)
-            pizza_entry = "<div class='row pizza-order'><div class='col-md-4'>" + pizza.attr("id") + "</div><div class='col-md-4'><input  class='form-control' type='number' min='1' name='quantity' value='1'></div><div class='col-md-3 price' style='text-align:right;'>" + pizza.attr("data-price") + "</div><div class='col-md-1'><button class='remove'>x</button></div></div>";
-            pizza_entry += "<input type='hidden' name='id' value='"+pizza.attr("data-db-id")+"'/>";
-            $( "#order" ).append(pizza_entry);
-            //$( "#order" ).add(pizza_entry);
+        $('.drink-link').on('click', function (e) {
+            //PROVJERA DA LI VEC POSTOJI TO PICE, AKO DA - samo quantity povecat
+            var drink = $(e.target).eq(0)
+            var drink_entry = "<div class='row drink-order'><div class='col-md-4'>" + drink.attr("id") + "</div><div class='col-md-4'><input  class='form-control' type='number' min='1' name='quantity' value='1'></div><div class='col-md-3 price' style='text-align:right;'>" + drink.attr("data-price") + "</div><div class='col-md-1'><button class='remove'>x</button></div></div>";
+            drink_entry += "<input type='hidden' name='id' value='"+drink.attr("data-db-id")+"'/>";
+            $( "#order" ).append(drink_entry);
             recalculateTotal();
-            //$( "#total" ).replaceWith( "<div id='total'>TOTAL: " + total + "</div>" );
-            //.attr("data-price");
-            //console.log($(e.target).eq(0).attr("data-price"));
         })
         $( "#order" ).on( "change", "input", function(e) {
             recalculateTotal();
-            //$( "#total" ).replaceWith( "<div id='total'>TOTAL: " + total + "</div>");
         });
         
         $( "#order" ).on( "click", ".remove", function(e) {
-            $(this).closest('.pizza-order').remove();
+            $(this).closest('.drink-order').remove();
             recalculateTotal();
             //$( "#total" ).replaceWith( "<div id='total'>TOTAL: " + total + "</div>");
         });
         
         function recalculateTotal () {
             var total = 0
-            var pizzas = $('.pizza-order');
-            console.log(pizzas.length);
-            if (pizzas.length) {
+            var drinks = $('.drink-order');
+            console.log(drinks.length);
+            if (drinks.length) {
                 $('#next').css("display", "block");
             } else {
                 //total se nece izbrisat ne znan zasto
@@ -84,11 +79,11 @@
             }
             
             
-            for (i = 0; i <	pizzas.length; i++) {
-                console.log(pizzas[i]);
-                pizzas[i] =  $(pizzas[i]).clone();
-                var quantity = Number(pizzas[i].find('input').val());
-                var price = Number(pizzas[i].find('.price').text());
+            for (i = 0; i <	drinks.length; i++) {
+                console.log(drinks[i]);
+                drinks[i] =  $(drinks[i]).clone();
+                var quantity = Number(drinks[i].find('input').val());
+                var price = Number(drinks[i].find('.price').text());
                 total += quantity * price;
             }
 
@@ -99,3 +94,4 @@
         }
     });
 </script>
+
