@@ -36,12 +36,22 @@ router.get('/drink', (req, res, next) => {
 
 router.post('/drink', (req, res, next) => {
   const id = req.body.id;
-  const name = req.body.name;
-  const price = req.body.price;
-  const quantity = req.body.quantity;
-  Adapter.editDrink(id, name, price, quantity, (e, r) => {
-    res.redirect('drink?id=' + id);
-  })
+  if (id) {
+      const name = req.body.name;
+      const price = req.body.price;
+      const quantity = req.body.quantity;
+      Adapter.editDrink(id, name, price, quantity, (e, r) => {
+        res.redirect('drink?id=' + id);
+      });
+  } else {
+      const name = req.body.name;
+      const price = req.body.price;
+      const quantity = req.body.quantity;
+      Adapter.addDrink(name, price, quantity, (e, r) => {
+        res.redirect('drinks');
+      });
+  }
+  
 });
 
 router.get('/drinks', (req, res, next) => {
@@ -88,12 +98,21 @@ router.get('/pizza', (req, res, next) => {
 
 router.post('/pizza', (req, res, next) => {
   const id = req.body.id;
-  const name = req.body.name;
-  const price = req.body.price;
-  const ingredients = req.body.ingredients;
-  Adapter.editPizza(id, name, price, ingredients, (e, r) => {
-    res.redirect('pizza?id=' + id);
-  })
+  if (id) {
+    const name = req.body.name;
+    const price = req.body.price;
+    const ingredients = req.body.ingredients;
+    Adapter.editPizza(id, name, price, ingredients, (e, r) => {
+      res.redirect('pizza?id=' + id);
+    })
+  } else {
+    const name = req.body.name;
+    const price = req.body.price;
+    const ingredients = req.body.ingredients;
+    Adapter.addPizza(name, price, ingredients, (e, r) => {
+      res.redirect('pizzas');
+    })
+  }
 });
 
 router.get('/deletepizza', (req, res, next) => {
