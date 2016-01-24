@@ -6,7 +6,6 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-const expressSession = require('express-session');
 const request = require('request');
 const routeLoader = require('express4-route-loader');
 const Promise = require('bluebird');
@@ -21,7 +20,9 @@ app.set('adapter', Adapter);
 app.enable('trust proxy');
 
 // Configuring Passport
-app.use(expressSession({secret: 'verySuperSecret'}));
+app.use(require('express-session')({
+    secret: 'verySuperSecret'
+}));
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -43,16 +44,14 @@ app.use(function (req, res, next) {
   next();
 });
 
-//load all routes from ./routes
-routeLoader(app, __dirname + '/routes');
-
-passport.use('local-login', new LocalStrategy(
-  function(username, password, done) { // callback with email and password from our form
+passport.use('local-login', new LocalStrategy({
+      passReqToCallback: true // allows us to pass back the entire request to the callback
+  }, function(req,username, password, done) { // callback with email and password from our form
     Adapter.getEmployeeByUsername(username, (e, r) => {
       if (e)
         return done(e);
-        
-      if (!r)
+
+      if (r.length == 0)
         return done(null, false, {}); // req.flash is the way to set flashdata using connect-flash
 
       // if the user is found but the password is wrong
@@ -60,29 +59,35 @@ passport.use('local-login', new LocalStrategy(
           return done(null, false, {}); // create the loginMessage and save it to session as flashdata
 
       // all is well, return successful user
-      return done(null, { user: r });
+      return done(null, r[0]);
     })
   }
 ));
 
 passport.serializeUser( function(user, done) {
-  return done(null, user);
+  done(null, user._id);
 });
 
-passport.deserializeUser( function(user, done) {
-  return done(null, user);
+passport.deserializeUser( function(id, done) {
+  Adapter.getEmployee(id, function(e, r) {
+    done(e, r[0]);
+  });
 });
 
-app.use(function(req, res, next){
+app.use(function (req, res, next) {
   if (!req.isAuthenticated()) {
     return next();
   }
   res.locals.user = {
-    account_id: req.user.username,
-    account_phone1: req.user.email
+    username: req.user.username,
+    email: req.user.email
+    ///access level rights odnosno da li je user ili employee
   };
-  next();
+  return next();
 });
+
+//load all routes from ./routes
+routeLoader(app, __dirname + '/routes');
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -114,12 +119,6 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
-
-var isAuthenticated = function (req, res, next) {
-  if (req.isAuthenticated())
-    return next();
-  res.redirect('/');
-}
 
 var isValidPassword = function(user, password){
   return (password == user.password);

@@ -9,32 +9,19 @@ const getAllPizza = Promise.promisify(Adapter.getAllPizza);
 const getAllDrink = Promise.promisify(Adapter.getAllDrink);
 const debug = require('debug')('staff/index');
 
-/* GET users listing. */
-/*router.get('/', isLoggedIn , function (req, res)  {
+router.get('/', isLoggedIn , function (req, res)  {
   res.render('staff/orders');
-});*/
-
-
-
-function isLoggedIn(req, res, next) {
-
-    // if user is authenticated in the session, carry on 
-    if (req.isAuthenticated())
-        return next();
-
-    // if they aren't redirect them to the home page
-    res.redirect('/');
-}
+});
 
 // drinks
-router.get('/drink', (req, res, next) => {
+router.get('/drink', isLoggedIn, (req, res, next) => {
   const id = req.query.id;
   Adapter.getDrink(id, (e, r) => {
     res.render('staff/drink', { results: r });
   })
 });
 
-router.post('/drink', (req, res, next) => {
+router.post('/drink', isLoggedIn, (req, res, next) => {
   const id = req.body.id;
   if (id) {
       const name = req.body.name;
@@ -54,14 +41,14 @@ router.post('/drink', (req, res, next) => {
   
 });
 
-router.get('/drinks', (req, res, next) => {
+router.get('/drinks', isLoggedIn, (req, res, next) => {
     getAllDrink()
         .then(r => {
         res.render('staff/drinks', { drinks: r });
     });
 });
 
-router.get('/deletedrink', (req, res, next) => {
+router.get('/deletedrink', isLoggedIn, (req, res, next) => {
   const id = req.query.id;
   Adapter.deleteDrink(id, (e, r) => {
     res.redirect('drinks');
@@ -71,7 +58,7 @@ router.get('/deletedrink', (req, res, next) => {
 
 
 // employees
-router.get('/employees', (req, res, next) => {
+router.get('/employees', isLoggedIn, (req, res, next) => {
   res.render('staff/employees');
 });
 //end employees
@@ -83,20 +70,20 @@ router.get('/login', (req, res, next) => {
 //end login 
 
 //orders
-router.get('/orders', (req, res, next) => {
+router.get('/orders', isLoggedIn, (req, res, next) => {
   res.render('staff/orders');
 });
 //end orders
 
 //pizzas
-router.get('/pizza', (req, res, next) => {
+router.get('/pizza', isLoggedIn, (req, res, next) => {
   const id = req.query.id;
   Adapter.getPizza(id, (e, r) => {
     res.render('staff/pizza', { results: r });
   })
 });
 
-router.post('/pizza', (req, res, next) => {
+router.post('/pizza', isLoggedIn, (req, res, next) => {
   const id = req.body.id;
   if (id) {
     const name = req.body.name;
@@ -115,14 +102,14 @@ router.post('/pizza', (req, res, next) => {
   }
 });
 
-router.get('/deletepizza', (req, res, next) => {
+router.get('/deletepizza', isLoggedIn, (req, res, next) => {
   const id = req.query.id;
   Adapter.deletePizza(id, (e, r) => {
     res.redirect('pizzas');
   })
 });
 
-router.get('/pizzas', (req, res, next) => {
+router.get('/pizzas', isLoggedIn, (req, res, next) => {
     getAllPizza()
         .then(r => {
         res.render('staff/pizzas', { pizza: r });
@@ -130,6 +117,13 @@ router.get('/pizzas', (req, res, next) => {
 });
 //end pizzas
 
+function isLoggedIn(req, res, next) {
+    // if user is authenticated in the session, carry on 
+    if (req.isAuthenticated())
+        return next();
 
+    // if they aren't redirect them to the home page
+    res.redirect('/staff/login');
+}
 
 module.exports = router;
