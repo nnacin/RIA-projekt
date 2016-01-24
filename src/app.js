@@ -122,7 +122,8 @@ app.use(function (req, res, next) {
       username: req.user.username,
       email: req.user.email,
       employee: true,
-      admin: req.user.admin
+      admin: req.user.admin,
+      location: req.user.location
     }
   } else {
     res.locals.user = {

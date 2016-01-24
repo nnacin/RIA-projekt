@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const request = require('request');
+const moment = require('moment');
 const creds = require('../../../creds');
 const Promise = require('bluebird')
 const ad = require('../../adapter');
@@ -8,6 +9,7 @@ const Adapter = new ad();
 const getAllPizza = Promise.promisify(Adapter.getAllPizza);
 const getAllDrink = Promise.promisify(Adapter.getAllDrink);
 const getAllLocation = Promise.promisify(Adapter.getAllLocation);
+const getAllOrder = Promise.promisify(Adapter.getAllOrder);
 const debug = require('debug')('staff/index');
 
 router.get('/', isLoggedIn , function (req, res)  {
@@ -70,9 +72,35 @@ router.get('/login', (req, res, next) => {
 });
 //end login 
 
+//profile 
+router.get('/profile', isLoggedIn, (req, res, next) => {
+  const id = req.query.id;
+  Adapter.getEmployee(id, (e, r) => {
+    res.render('staff/profile', { results: r });
+  })
+});
+
+router.post('/profile', isLoggedIn, (req, res, next) => {
+  const id = req.body.id;
+  
+  const firstName = req.body.firstName;
+  const lastName = req.body.firstName;
+  const birthday = req.body.lastName;
+  
+  Adapter.editEmployee(id, firstName, lastName, birthday, (e, r) => {
+    res.redirect('profile?id=' + id);
+  });
+
+});
+
+//end profile
+
 //orders
 router.get('/orders', isLoggedIn, (req, res, next) => {
-  res.render('staff/orders');
+  getAllOrder()
+      .then(r => {
+      res.render('staff/orders', { orders: r });
+  });
 });
 //end orders
 
@@ -94,7 +122,7 @@ router.post('/pizza', isLoggedIn, (req, res, next) => {
   if (id) {
     Adapter.editPizza(id, name, price, ingredients, (e, r) => {
       res.redirect('pizza?id=' + id);
-    })
+    });
   } else {
     Adapter.addPizza(name, price, ingredients, (e, r) => {
       res.redirect('pizzas');
