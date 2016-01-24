@@ -10,6 +10,7 @@ const getAllPizza = Promise.promisify(Adapter.getAllPizza);
 const getAllDrink = Promise.promisify(Adapter.getAllDrink);
 const getAllLocation = Promise.promisify(Adapter.getAllLocation);
 const getAllOrder = Promise.promisify(Adapter.getAllOrder);
+const getAllEmployee = Promise.promisify(Adapter.getAllEmployee);
 const debug = require('debug')('staff/index');
 
 router.get('/', isLoggedIn , function (req, res)  {
@@ -62,14 +63,33 @@ router.get('/deletedrink', isLoggedIn, (req, res, next) => {
 
 // employees
 router.get('/employees', isLoggedIn, (req, res, next) => {
-  res.render('staff/employees');
+  getAllEmployee()
+        .then(r => {
+        res.render('staff/employees', { employees: r });
+    });
 });
+
+router.get('/employee', isLoggedIn, (req, res, next) => {
+  const id = req.query.id;
+  Adapter.getEmployee(id, (e, r) => {
+    res.render('staff/employee', { results: r });
+  })
+});
+
+/*post route - not yet functional
+router.post('/employee', isLoggedIn, (req, res, next) => {
+  const id = req.query.id;
+  Adapter.editEmployee(id, (e, r) => {
+    res.render('staff/employee', { results: r });
+  })
+});*/
 //end employees
 
 //login
-router.get('/login', (req, res, next) => {
+// zasto je ovo tu?
+/*router.get('/login', (req, res, next) => {
   res.render('staff/login');
-});
+});*/
 //end login 
 
 //profile 

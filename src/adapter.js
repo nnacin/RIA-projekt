@@ -128,7 +128,7 @@ Adapter.prototype.getEmployeeByUsername = (username, callback) => {
 
 Adapter.prototype.getAllEmployee = (callback) => {
   let data = {};
-  query(endpoints.EMPLOYEE, 'POST', data, callback);
+  query(endpoints.EMPLOYEE, 'GET', data, callback);
 };
 
 Adapter.prototype.editEmployee = (id, firstName, lastName, location, active, callback) => {

@@ -142,20 +142,20 @@
 		<div id="content" class="col-xs-12 col-sm-10">
 			Upcoming Orders
 			<% orders.forEach(order => { %>
-            	<% if (order.location._id == user.location._id && order.dateFinished > Date.now()) { %>
+            	<% //if (order.location._id == user.location._id && order.dateFinished > Date.now()) { %>
 	            	<div class="item-title">
 	            		<a href="/staff/order?id=<%= order._id %>"><%= order.name %></a> 
 	        		</div>
-	        	<% } %>
+	        	<% //} %>
           	<% }) %>
           	<br>
           	Past Orders
 			<% orders.forEach(order => { %>
-				<% if (order.location._id == user.location._id && order.dateFinished < Date.now()) { %>
+				<% //if (order.location._id == user.location._id && order.dateFinished < Date.now()) { %>
 	            	<div class="item-title">
 	            		<a href="/staff/order?id=<%= order._id %>"><%= order.name %></a> 
 	        		</div>
-	        	<% } %>
+	        	<% //} %>
           	<% }) %>
 
 		</div>
