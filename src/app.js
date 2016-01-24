@@ -44,10 +44,31 @@ app.use(function (req, res, next) {
   next();
 });
 
-passport.use('local-login', new LocalStrategy({
+passport.use('local-login-employee', new LocalStrategy({
       passReqToCallback: true // allows us to pass back the entire request to the callback
   }, function(req,username, password, done) { // callback with email and password from our form
     Adapter.getEmployeeByUsername(username, (e, r) => {
+      if (e)
+        return done(e);
+
+      if (r.length == 0)
+        return done(null, false, {}); // req.flash is the way to set flashdata using connect-flash
+
+      // if the user is found but the password is wrong
+      if (!isValidPassword(r[0], password))
+          return done(null, false, {}); // create the loginMessage and save it to session as flashdata
+
+      
+      // all is well, return successful user
+      return done(null, r[0]);
+    })
+  }
+));
+
+passport.use('local-login-user', new LocalStrategy({
+      passReqToCallback: true // allows us to pass back the entire request to the callback
+  }, function(req,username, password, done) { // callback with email and password from our form
+    Adapter.getUserByUsername(username, (e, r) => {
       if (e)
         return done(e);
 
@@ -65,24 +86,51 @@ passport.use('local-login', new LocalStrategy({
 ));
 
 passport.serializeUser( function(user, done) {
-  done(null, user._id);
+  if (user.active) {
+    user = {
+      id: user._id,
+      employee: true
+    } 
+  } else {
+    user = {
+      id: user._id,
+    } 
+  }
+  done(null, user);
 });
 
-passport.deserializeUser( function(id, done) {
-  Adapter.getEmployee(id, function(e, r) {
-    done(e, r[0]);
-  });
+passport.deserializeUser( function(user, done) {
+  if (user.employee) {
+    Adapter.getEmployee(user.id, function(e, r) {
+      done(e, r[0]);
+    });
+  } else {
+    Adapter.getUser(user.id, function(e, r) {
+      done(e, r[0]);
+    });
+  }
 });
 
 app.use(function (req, res, next) {
   if (!req.isAuthenticated()) {
     return next();
   }
-  res.locals.user = {
-    username: req.user.username,
-    email: req.user.email
-    ///access level rights odnosno da li je user ili employee
-  };
+  
+  if (req.user.active) {
+    res.locals.user = {
+      username: req.user.username,
+      email: req.user.email,
+      employee: true,
+      admin: req.user.admin
+    }
+  } else {
+    res.locals.user = {
+      username: req.user.username,
+      email: req.user.email,
+      // da li treba linija ispod ili samo pustit da nis ne postavi u employee property
+      employee: false
+    };
+  }
   return next();
 });
 

@@ -6,7 +6,7 @@ router.get('/login', function(req, res) {
     res.render('login'); 
 });
     
-router.post('/login', passport.authenticate('local-login',  {
+router.post('/login', passport.authenticate('local-login-user',  {
     successRedirect : '/', // redirect to the secure profile section
     failureRedirect : '/login', // redirect back to the signup page if there is an error
     session: true
