@@ -7,6 +7,7 @@ const ad = require('../../adapter');
 const Adapter = new ad();
 const getAllPizza = Promise.promisify(Adapter.getAllPizza);
 const getAllDrink = Promise.promisify(Adapter.getAllDrink);
+const getAllLocation = Promise.promisify(Adapter.getAllLocation);
 const debug = require('debug')('staff/index');
 
 router.get('/', isLoggedIn , function (req, res)  {
@@ -116,6 +117,48 @@ router.get('/pizzas', isLoggedIn, (req, res, next) => {
     });
 });
 //end pizzas
+
+//locations
+router.get('/location', isLoggedIn, (req, res, next) => {
+  const id = req.query.id;
+  Adapter.getLocation(id, (e, r) => {
+    res.render('staff/location', { results: r });
+  })
+});
+
+router.post('/location', isLoggedIn, (req, res, next) => {
+  const id = req.body.id;
+  if (id) {
+    const name = req.body.name;
+    const price = req.body.price;
+    const ingredients = req.body.ingredients;
+    Adapter.editLocation(id, name, price, ingredients, (e, r) => {
+      res.redirect('location?id=' + id);
+    })
+  } else {
+    const name = req.body.name;
+    const price = req.body.price;
+    const ingredients = req.body.ingredients;
+    Adapter.addLocation(name, price, ingredients, (e, r) => {
+      res.redirect('location');
+    })
+  }
+});
+
+router.get('/deletelocation', isLoggedIn, (req, res, next) => {
+  const id = req.query.id;
+  Adapter.deleteLocation(id, (e, r) => {
+    res.redirect('location');
+  })
+});
+
+router.get('/locations', isLoggedIn, (req, res, next) => {
+    getAllLocation()
+        .then(r => {
+        res.render('staff/locations', { locations: r });
+    });
+});
+//end location
 
 function isLoggedIn(req, res, next) {
     // if user is authenticated in the session, carry on 

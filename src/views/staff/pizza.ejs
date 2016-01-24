@@ -113,12 +113,14 @@
 					</a>
 				</li>
 
-				<li>
-					<a href="/staff/employees" class="ajax-link">
-						<i class="fa fa-employees"></i>
-						<span>Employees</span>
-					</a>
-				</li>
+				<% if (locals.user.admin) { %>
+					<li>
+						<a href="/staff/employees" class="ajax-link">
+							<i class="fa fa-employees"></i>
+							<span>Employees</span>
+						</a>
+					</li>
+				<% } %>
 
 
 

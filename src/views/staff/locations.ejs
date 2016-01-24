@@ -66,7 +66,7 @@
 								</a>
 								<ul class="dropdown-menu">
 									<li>
-										<a href="/staff/profile">
+										<a href="/staff/profile?username=<%= locals.user.username %>">
 											<i class="fa fa-user"></i>
 											<span>Profile</span>
 										</a>
@@ -92,7 +92,7 @@
 	<div class="row">
 		<div id="sidebar-left" class="col-xs-2 col-sm-2">
 			<ul class="nav main-menu">
-				<li class="active">
+				<li>
 					<a href="/staff/orders" class="ajax-link">
 						<i class="fa fa-orders"></i>
 						<span>Orders</span>
@@ -113,13 +113,13 @@
 					</a>
 				</li>
 				
-				<li>
+				<li class="active">
 					<a href="/staff/locations" class="ajax-link">
 						<i class="fa fa-locations"></i>
 						<span>Locations</span>
 					</a>
 				</li>
-				
+
 				<% if (locals.user.admin) { %>
 					<li>
 						<a href="/staff/employees" class="ajax-link">
@@ -140,6 +140,13 @@
 		</div>
 		<!--Start Content-->
 		<div id="content" class="col-xs-12 col-sm-10">
+			<a class="btn btn-success" data-toggle="modal" data-target="#add-location">Add new</a>
+			<% locations.forEach(location => { %>
+            	<div class="item-title">
+            		<a href="/staff/location?id=<%= location._id %>"><%= location.name %></a> 
+            		<a class="btn btn-danger" href="/staff/deletedrink?id=<%= location._id %>">Delete</a>
+        		</div>
+          	<% }) %>
 
 		</div>
 		<!--End Content-->
@@ -150,3 +157,34 @@
 <script src="/js/bootstrap.min.js"></script>
 </body>
 </html>
+
+<div class="modal fade" id="add-location" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Modal title</h4>
+      </div>
+      <div class="modal-body">
+        <form method="POST" action="/staff/location">
+			<div class="form-group">
+				<label>Name</label>
+				<input  class="form-control" type="text" name="name">
+			</div>
+			<div class="form-group">
+				<label>Price</label>
+				<input  class="form-control" type="text" name="price">
+			</div>
+			<div class="form-group">
+				<label>Ingridients</label>
+				<input  class="form-control" type="text" name="quantity">
+			</div>
+			<button class="btn-primary">Save</button>
+		</form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
