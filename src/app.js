@@ -118,6 +118,7 @@ app.use(function (req, res, next) {
   
   if (req.user.active) {
     res.locals.user = {
+      id: req.user._id,
       username: req.user.username,
       email: req.user.email,
       employee: true,
@@ -125,6 +126,7 @@ app.use(function (req, res, next) {
     }
   } else {
     res.locals.user = {
+      id: req.user._id,
       username: req.user.username,
       email: req.user.email,
       // da li treba linija ispod ili samo pustit da nis ne postavi u employee property
