@@ -86,8 +86,8 @@ Adapter.prototype.addLocation = (name, address, city, zipCode, phone, workHours,
   query(endpoints.LOCATION, 'POST', data, callback);
 }
 
-Adapter.prototype.editLocation = (id, name, address, city, zipCode, workHours, callback) => {
-  let data = {id: id, name: name, address: address, city: city, zipCode: zipCode, workHours: workHours};
+Adapter.prototype.editLocation = (id, name, address, city, zipCode, phone, workHours, callback) => {
+  let data = {id: id, name: name, address: address, city: city, zipCode: zipCode, phone: phone, workHours: workHours};
   query(endpoints.LOCATION, 'PUT', data, callback);
 }
 

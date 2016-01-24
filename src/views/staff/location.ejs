@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Pizzamins Staff Panel</title>
+	<meta name="description" content="description">
+	<meta name="author" content="DevOOPS">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="/css/bootstrap.css" rel="stylesheet">
+	<link href="/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+	<link href="/css/jquery-ui.min.css" rel="stylesheet">
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+	<link href='https://fonts.googleapis.com/css?family=Righteous' rel='stylesheet' type='text/css'>
+	<link href="/css/style_v2.css" rel="stylesheet">
+	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+	<script src="http://getbootstrap.com/docs-assets/js/html5shiv.js"></script>
+	<script src="http://getbootstrap.com/docs-assets/js/respond.min.js"></script>
+	<![endif]-->
+</head>
+<body>
+<!--Start Header-->
+<div id="screensaver">
+	<canvas id="canvas"></canvas>
+	<i class="fa fa-lock" id="screen_unlock"></i>
+</div>
+<div id="modalbox">
+	<div class="devoops-modal">
+		<div class="devoops-modal-header">
+			<div class="modal-header-name">
+				<span>Basic table</span>
+			</div>
+			<div class="box-icons">
+				<a class="close-link">
+					<i class="fa fa-times"></i>
+				</a>
+			</div>
+		</div>
+		<div class="devoops-modal-inner">
+		</div>
+		<div class="devoops-modal-bottom">
+		</div>
+	</div>
+</div>
+<header class="navbar">
+	<div class="container-fluid expanded-panel">
+		<div class="row">
+			<div id="logo" class="col-xs-12 col-sm-2">
+				<a href="/">Pizzamins</a>
+			</div>
+			<div id="top-panel" class="col-xs-12 col-sm-10">
+				<div class="row">
+					<div class="col-xs-8 col-sm-4">
+
+					</div>
+					<div class="col-xs-4 col-sm-8 top-panel-right">
+						<ul class="nav navbar-nav pull-right panel-menu">
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle account" data-toggle="dropdown">
+									<div class="avatar">
+									</div>
+									<i class="fa fa-angle-down pull-right"></i>
+									<div class="user-mini pull-right">
+										<span class="welcome">Welcome,</span>
+										<span>Jane Devoops</span>
+									</div>
+								</a>
+								<ul class="dropdown-menu">
+									<li>
+										<a href="/staff/profile">
+											<i class="fa fa-user"></i>
+											<span>Profile</span>
+										</a>
+									</li>
+									<li>
+										<a href="/staff/logout">
+											<i class="fa fa-power-off"></i>
+											<span>Logout</span>
+										</a>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</header>
+<!--End Header-->
+<!--Start Container-->
+<div id="main" class="container-fluid">
+	<div class="row">
+		<div id="sidebar-left" class="col-xs-2 col-sm-2">
+			<ul class="nav main-menu">
+				<li>
+					<a href="/staff/orders" class="ajax-link">
+						<i class="fa fa-orders"></i>
+						<span>Orders</span>
+					</a>
+				</li>
+
+				<li>
+					<a href="/staff/pizzas" class="ajax-link">
+						<i class="fa fa-pizzas"></i>
+						<span>Pizzas</span>
+					</a>
+				</li>
+
+				<li>
+					<a href="/staff/drinks" class="ajax-link">
+						<i class="fa fa-drinks"></i>
+						<span>Drinks</span>
+					</a>
+				</li>
+				
+				<li class="active">
+					<a href="/staff/locations" class="ajax-link">
+						<i class="fa fa-locations"></i>
+						<span>Locations</span>
+					</a>
+				</li>
+
+				<% if (locals.user.admin) { %>
+					<li>
+						<a href="/staff/employees" class="ajax-link">
+							<i class="fa fa-employees"></i>
+							<span>Employees</span>
+						</a>
+					</li>
+				<% } %>
+
+
+
+
+
+
+
+
+			</ul>
+		</div>
+		<!--Start Content-->
+		<div id="content" class="col-xs-12 col-sm-10">
+			<form method="POST" action="/staff/location">
+				<input  type="hidden" name="id" value="<%= results[0]._id %>">
+				<div class="form-group">
+					<label>Name</label>
+					<input  class="form-control" type="text" name="name" value="<%= results[0].name %>">
+				</div>
+				<div class="form-group">
+					<label>Address</label>
+					<input  class="form-control" type="text" name="address" value="<%= results[0].address %>">
+				</div>
+				<div class="form-group">
+					<label>City</label>
+					<input  class="form-control" type="text" name="city" value="<%= results[0].city %>">
+				</div>
+				<div class="form-group">
+					<label>Zip Code</label>
+					<input  class="form-control" type="text" name="zipCode" value="<%= results[0].zipCode %>">
+				</div>
+				<div class="form-group">
+					<label>Phone</label>
+					<input  class="form-control" type="text" name="phone" value="<%= results[0].phone %>">
+				</div>
+				<div class="form-group">
+				    <label>Work Hours</label>
+				    
+				    <label>Monday</label>
+    				<div class='input-group date datetimepicker'>
+                        <input type='text' class="form-control" name="monday" value="<%= results[0].workHours.monday.open %>" />
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+    				<div class='input-group date datetimepicker'>
+                        <input type='text' class="form-control" name="monday" value="<%= results[0].workHours.monday.close %>" />
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+    				
+    				<label>Tuesday</label>
+    				<div class='input-group date datetimepicker'>
+                        <input type='text' class="form-control" name="tuesday" value="<%= results[0].workHours.tuesday.open %>" />
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                    <div class='input-group date datetimepicker'>
+                        <input type='text' class="form-control" name="tuesday" value="<%= results[0].workHours.monday.close %>" />
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+    				
+    				<label>Wednesay</label>
+    				<div class='input-group date datetimepicker'>
+                        <input type='text' class="form-control" name="wednesday" value="<%= results[0].workHours.wednesday.open %>" />
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                    <div class='input-group date datetimepicker'>
+                        <input type='text' class="form-control" name="wednesday" value="<%= results[0].workHours.wednesday.close %>" />
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+    				
+    				<label>Thursday</label>
+    				<div class='input-group date datetimepicker'>
+                        <input type='text' class="form-control" name="thursday" value="<%= results[0].workHours.thursday.open %>" />
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                    <div class='input-group date datetimepicker'>
+                        <input type='text' class="form-control" name="thursday"  value="<%= results[0].workHours.thursday.close %>" />
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+    				
+    				<label>Friday</label>
+    				<div class='input-group date datetimepicker'>
+                        <input type='text' class="form-control" name="friday" value="<%= results[0].workHours.friday.open %>" />
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                    <div class='input-group date datetimepicker'>
+                        <input type='text' class="form-control" name="friday" value="<%= results[0].workHours.friday.close %>" />
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+    				
+    				<label>Saturday</label>
+    				<div class='input-group date datetimepicker'>
+                        <input type='text' class="form-control" name="saturday" value="<%= results[0].workHours.saturday.open %>" />
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                    <div class='input-group date datetimepicker'>
+                        <input type='text' class="form-control" name="saturday" value="<%= results[0].workHours.saturday.close %>" />
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+    				
+    				<label>Sunday</label>
+    				<div class='input-group date datetimepicker'>
+                        <input type='text' class="form-control" name="sunday" value="<%= results[0].workHours.sunday.open %>" />
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                    <div class='input-group date datetimepicker'>
+                        <input type='text' class="form-control" name="sunday" value="<%= results[0].workHours.sunday.close %>" />
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+    			</div>
+				<button class="btn-primary">Update</button>
+			</form>
+        		
+
+		</div>
+		<!--End Content-->
+	</div>
+</div>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery-ui.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/moment.min.js"></script>
+<script src="/js/bootstrap-datetimepicker.min.js"></script>
+</body>
+</html>
+
+<script type="text/javascript">
+  	$(function () {
+	    $('.datetimepicker').datetimepicker({
+	        format: 'HH:mm'
+	    });
+	});
+</script>
