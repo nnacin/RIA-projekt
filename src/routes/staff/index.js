@@ -128,21 +128,55 @@ router.get('/location', isLoggedIn, (req, res, next) => {
 
 router.post('/location', isLoggedIn, (req, res, next) => {
   const id = req.body.id;
-  if (id) {
-    const name = req.body.name;
-    const price = req.body.price;
-    const ingredients = req.body.ingredients;
-    Adapter.editLocation(id, name, price, ingredients, (e, r) => {
-      res.redirect('location?id=' + id);
+
+  const name = req.body.name;
+  const address = req.body.address;
+  const city = req.body.city;
+  const zipCode = req.body.zipCode;
+  const phone = req.body.phone;
+  const workHours = {
+    'monday':     {
+      'open':     req.body.monday[0],
+      'close':    req.body.monday[1]
+    }
+  , 'tuesday':    {
+      'open':     req.body.tuesday[0],
+      'close':    req.body.tuesday[1]
+    }
+  , 'wednesday':  {
+      'open':     req.body.wednesday[0],
+      'close':    req.body.wednesday[1]
+    }
+  , 'thursday':   {
+      'open':     req.body.thursday[0],
+      'close':    req.body.thursday[1]
+    }
+  , 'friday':     {
+      'open':     req.body.thursday[0],
+      'close':    req.body.thursday[1]
+    }
+  , 'saturday':   {
+      'open':     req.body.saturday[0],
+      'close':    req.body.saturday[1]
+    }
+  , 'sunday':     {
+      'open':     req.body.sunday[0],
+      'close':    req.body.sunday[1]
+    }
+  }
+  //const id = req.body.id;
+  //if (id) {
+    Adapter.addLocation(name, address, city, zipCode, phone, workHours,  (e, r) => {
+      res.redirect('locations');
     })
-  } else {
+  /*} else {
     const name = req.body.name;
     const price = req.body.price;
     const ingredients = req.body.ingredients;
     Adapter.addLocation(name, price, ingredients, (e, r) => {
       res.redirect('location');
     })
-  }
+  }*/
 });
 
 router.get('/deletelocation', isLoggedIn, (req, res, next) => {

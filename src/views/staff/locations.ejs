@@ -7,6 +7,7 @@
 	<meta name="author" content="DevOOPS">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link href="/css/bootstrap.css" rel="stylesheet">
+	<link href="/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
 	<link href="/css/jquery-ui.min.css" rel="stylesheet">
 	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 	<link href='https://fonts.googleapis.com/css?family=Righteous' rel='stylesheet' type='text/css'>
@@ -66,7 +67,7 @@
 								</a>
 								<ul class="dropdown-menu">
 									<li>
-										<a href="/staff/profile?username=<%= locals.user.username %>">
+										<a href="/staff/profile?id=<%= user.id %>">
 											<i class="fa fa-user"></i>
 											<span>Profile</span>
 										</a>
@@ -155,6 +156,10 @@
 <script src="/js/jquery.min.js"></script>
 <script src="/js/jquery-ui.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
+<script src="/js/moment.min.js"></script>
+<script src="/js/bootstrap-datetimepicker.min.js"></script>
+
+
 </body>
 </html>
 
@@ -172,12 +177,120 @@
 				<input  class="form-control" type="text" name="name">
 			</div>
 			<div class="form-group">
-				<label>Price</label>
-				<input  class="form-control" type="text" name="price">
+				<label>Address</label>
+				<input  class="form-control" type="text" name="address">
 			</div>
 			<div class="form-group">
-				<label>Ingridients</label>
-				<input  class="form-control" type="text" name="quantity">
+				<label>City</label>
+				<input  class="form-control" type="text" name="city">
+			</div>
+			<div class="form-group">
+				<label>Zip Code</label>
+				<input  class="form-control" type="text" name="zipCode">
+			</div>
+			<div class="form-group">
+				<label>Phone</label>
+				<input  class="form-control" type="text" name="phone">
+			</div>
+			<div class="form-group">
+				<label>Work Hours</label>
+				<label>Monday</label>
+				<div class='input-group date datetimepicker'>
+                    <input type='text' class="form-control" name="monday"/>
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+				<div class='input-group date datetimepicker'>
+                    <input type='text' class="form-control" name="monday"/>
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+				
+				<label>Tuesday</label>
+				<div class='input-group date datetimepicker'>
+                    <input type='text' class="form-control" name="tuesday"/>
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+                <div class='input-group date datetimepicker'>
+                    <input type='text' class="form-control" name="tuesday"/>
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+				
+				<label>Wednesay</label>
+				<div class='input-group date datetimepicker'>
+                    <input type='text' class="form-control" name="wednesday"/>
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+                <div class='input-group date datetimepicker'>
+                    <input type='text' class="form-control" name="wednesday"/>
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+				
+				<label>Thursday</label>
+				<div class='input-group date datetimepicker'>
+                    <input type='text' class="form-control" name="thursday"/>
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+                <div class='input-group date datetimepicker'>
+                    <input type='text' class="form-control" name="thursday"/>
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+				
+				<label>Friday</label>
+				<div class='input-group date datetimepicker'>
+                    <input type='text' class="form-control" name="friday"/>
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+                <div class='input-group date datetimepicker'>
+                    <input type='text' class="form-control" name="friday"/>
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+				
+				<label>Saturday</label>
+				<div class='input-group date datetimepicker'>
+                    <input type='text' class="form-control" name="saturday"/>
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+                <div class='input-group date datetimepicker'>
+                    <input type='text' class="form-control" name="saturday"/>
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+				
+				<label>Sunday</label>
+				<div class='input-group date datetimepicker'>
+                    <input type='text' class="form-control" name="sunday"/>
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+                <div class='input-group date datetimepicker'>
+                    <input type='text' class="form-control" name="sunday"/>
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
 			</div>
 			<button class="btn-primary">Save</button>
 		</form>
@@ -188,3 +301,12 @@
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+
+<script type="text/javascript">
+  	$(function () {
+	    $('.datetimepicker').datetimepicker({
+	        format: 'HH:mm'
+	    });
+	});
+</script>
