@@ -107,7 +107,8 @@ Adapter.prototype.getUserByUsername = (username, callback) => {
   query(endpoints.USER, 'GET', data, callback);
 }
 
-Adapter.prototype.addUser = (data, callback) => {
+Adapter.prototype.addUser = (username, firstName, lastName, password, password2, email, phone, birthday, address, city, zipCode, callback) => {
+  let data = {username: username, firstName: firstName, lastName: lastName, password: password, password2:password2, email: email, phone: phone, birthday: birthday, address: address, city: city, zipCode: zipCode};
   query(endpoints.USER, 'POST', data, callback);
 }
 
