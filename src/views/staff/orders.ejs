@@ -140,22 +140,22 @@
 		</div>
 		<!--Start Content-->
 		<div id="content" class="col-xs-12 col-sm-10">
-			Upcoming Orders
+			Upcoming Orders<br>
 			<% orders.forEach(order => { %>
-            	<% //if (order.location._id == user.location._id && order.dateFinished > Date.now()) { %>
+            	<% if ((order.location._id == user.location._id) && (order.dateFinished > today)) { %>
 	            	<div class="item-title">
-	            		<a href="/staff/order?id=<%= order._id %>"><%= order.name %></a> 
+	            		<a href="/staff/order?id=<%= order._id %>"><%= order.total %></a> 
 	        		</div>
-	        	<% //} %>
+	        	<% } %>
           	<% }) %>
           	<br>
           	Past Orders
 			<% orders.forEach(order => { %>
-				<% //if (order.location._id == user.location._id && order.dateFinished < Date.now()) { %>
+					<% if ((order.location._id == user.location._id) && (order.dateFinished < today)) { %>
 	            	<div class="item-title">
-	            		<a href="/staff/order?id=<%= order._id %>"><%= order.name %></a> 
+	            		<a href="/staff/order?id=<%= order._id %>"><%= order.total %></a> 
 	        		</div>
-	        	<% //} %>
+	        	<% } %>
           	<% }) %>
 
 		</div>

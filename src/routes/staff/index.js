@@ -119,7 +119,11 @@ router.post('/profile', isLoggedIn, (req, res, next) => {
 router.get('/orders', isLoggedIn, (req, res, next) => {
   getAllOrder()
       .then(r => {
-      res.render('staff/orders', { orders: r });
+      r.forEach(function (order){
+        order.dateFinished = moment(order.dateFinished).format("YYYY-MM-DD HH:mm:ss");
+      });
+      
+      res.render('staff/orders', { orders: r , today: moment().format("YYYY-MM-DD HH:mm:ss")});
   });
 });
 //end orders
