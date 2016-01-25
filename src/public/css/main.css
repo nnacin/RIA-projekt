@@ -219,6 +219,13 @@ nav .block .navbar-default .navbar-nav > .active > a:hover:before {
   height: 2px;
   background: #FF5333;
 }
+
+.login-block {
+  margin-top: -85px;
+  background: #fff;
+  padding: 25px 40px;
+  background: rgba(255, 255, 255, 0.89);
+}
 /*--
     slider Start
 --*/
