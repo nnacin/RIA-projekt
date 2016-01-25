@@ -50,7 +50,6 @@ passport.use('local-signup', new LocalStrategy({
     Adapter.getUserByUsername(username, (e, r) => {
       if (e)
         return done(e);
-      console.log(r);
       if (r.length != 0)
         return done(null, false, {});
       
@@ -112,7 +111,6 @@ passport.use('local-loginUser', new LocalStrategy({
     Adapter.getUserByUsername(username, (e, r) => {
       if (e)
         return done(e);
-      console.log(r);
       if (r.length == 0)
         return done(null, false, {}); // req.flash is the way to set flashdata using connect-flash
 

@@ -62,14 +62,14 @@ router.get('/deletedrink', isLoggedIn, (req, res, next) => {
 
 
 // employees
-router.get('/employees', isLoggedIn, (req, res, next) => {
+router.get('/employees', isLoggedInAdmin, (req, res, next) => {
   getAllEmployee()
         .then(r => {
         res.render('staff/employees', { employees: r });
     });
 });
 
-router.get('/employee', isLoggedIn, (req, res, next) => {
+router.get('/employee', isLoggedInAdmin, (req, res, next) => {
   const id = req.query.id;
   Adapter.getEmployee(id, (e, r) => {
     res.render('staff/employee', { results: r });
@@ -241,12 +241,22 @@ router.get('/locations', isLoggedIn, (req, res, next) => {
 
 function isLoggedIn(req, res, next) {
     // if user is authenticated in the session, carry on 
-    console.log(req);
-    if (req.isAuthenticated())
+    if (req.isAuthenticated() && req.user.active)
         return next();
 
     // if they aren't redirect them to the home page
     res.redirect('/staff/login');
+}
+
+function isLoggedInAdmin(req, res, next) {
+    // if user is authenticated in the session, carry on 
+    if (req.isAuthenticated() && req.user.active) {
+      if (req.user.admin == true) 
+        return next();
+    }
+
+    // if they aren't redirect them to the home page
+    res.redirect('/staff/orders');
 }
 
 module.exports = router;
