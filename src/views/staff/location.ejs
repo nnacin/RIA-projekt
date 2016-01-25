@@ -62,7 +62,7 @@
 									<i class="fa fa-angle-down pull-right"></i>
 									<div class="user-mini pull-right">
 										<span class="welcome">Welcome,</span>
-										<span>Jane Devoops</span>
+										<span><%= user.firstName %></span>
 									</div>
 								</a>
 								<ul class="dropdown-menu">
@@ -272,13 +272,7 @@
 		<!--End Content-->
 	</div>
 </div>
-<script src="/js/jquery.min.js"></script>
-<script src="/js/jquery-ui.min.js"></script>
-<script src="/js/bootstrap.min.js"></script>
-<script src="/js/moment.min.js"></script>
-<script src="/js/bootstrap-datetimepicker.min.js"></script>
-</body>
-</html>
+<% include ./footer %>
 
 <script type="text/javascript">
   	$(function () {

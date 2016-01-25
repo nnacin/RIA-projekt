@@ -162,7 +162,8 @@ app.use(function (req, res, next) {
       email: req.user.email,
       employee: true,
       admin: req.user.admin,
-      location: req.user.location
+      location: req.user.location,
+      firstName: req.user.firstName
     }
   } else {
     res.locals.user = {
@@ -170,7 +171,8 @@ app.use(function (req, res, next) {
       username: req.user.username,
       email: req.user.email,
       // da li treba linija ispod ili samo pustit da nis ne postavi u employee property
-      employee: false
+      employee: false,
+      firstName: req.user.firstName
     };
   }
   return next();
