@@ -46,26 +46,46 @@ app.use(function (req, res, next) {
 
 passport.use('local-signup', new LocalStrategy({
       passReqToCallback: true // allows us to pass back the entire request to the callback
-  }, function(req,username, firstName, lastName, password, password2, email, phone, birthday, address, city, zipCode, done) { // callback with email and password from our form
+  }, function(req, username, password, done) { // callback with email and password from our form
     Adapter.getUserByUsername(username, (e, r) => {
       if (e)
         return done(e);
-
+      console.log(r);
       if (r.length != 0)
         return done(null, false, {});
-
+      
+      const password2 = req.body.password2;
+      const firstName = req.body.firstName;
+      const lastName = req.body.lastName;
+      const email = req.body.email;
+      const phone = req.body.phone;
+      const birthday = req.body.birthday;
+      const address = req.body.address;
+      const city = req.body.city;
+      const zipCode = req.body.zipCode;
+      
       Adapter.addUser(username, firstName, lastName, password, password2, email, phone, birthday, address, city, zipCode, (e, r) => {
-        return done(null, r);
+        Adapter.getUserByUsername(username, (e, r) => {
+          if (e)
+            return done(e);
+    
+          if (r.length == 0)
+            return done(null, false, {}); // req.flash is the way to set flashdata using connect-flash
+    
+          // all is well, return successful user
+          return done(null, r[0]);
+        })
+        //return done(null, r[0]);
       });
       
       
       // all is well, return successful user
-      return done(null, r[0]);
+
     })
   }
 ));
 
-passport.use('local-login-employee', new LocalStrategy({
+passport.use('local-loginEmployee', new LocalStrategy({
       passReqToCallback: true // allows us to pass back the entire request to the callback
   }, function(req,username, password, done) { // callback with email and password from our form
     Adapter.getEmployeeByUsername(username, (e, r) => {
@@ -86,13 +106,13 @@ passport.use('local-login-employee', new LocalStrategy({
   }
 ));
 
-passport.use('local-login-user', new LocalStrategy({
+passport.use('local-loginUser', new LocalStrategy({
       passReqToCallback: true // allows us to pass back the entire request to the callback
   }, function(req,username, password, done) { // callback with email and password from our form
     Adapter.getUserByUsername(username, (e, r) => {
       if (e)
         return done(e);
-
+      console.log(r);
       if (r.length == 0)
         return done(null, false, {}); // req.flash is the way to set flashdata using connect-flash
 

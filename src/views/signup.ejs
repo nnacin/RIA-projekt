@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Pizzamins Staff Panel</title>
+	<meta name="description" content="description">
+	<meta name="author" content="DevOOPS">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="/css/bootstrap.css" rel="stylesheet">
+	<link href="/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+	<link href="/css/jquery-ui.min.css" rel="stylesheet">
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+	<link href='https://fonts.googleapis.com/css?family=Righteous' rel='stylesheet' type='text/css'>
+	<link href="/css/style_v2.css" rel="stylesheet">
+	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+	<script src="http://getbootstrap.com/docs-assets/js/html5shiv.js"></script>
+	<script src="http://getbootstrap.com/docs-assets/js/respond.min.js"></script>
+	<![endif]-->
+</head>
+
+<form method="POST" action="/signup">
+	<div class="form-group">
+		<label>First Name</label>
+		<input  class="form-control" type="text" name="firstName">
+	</div>
+	<div class="form-group">
+		<label>Last Name</label>
+		<input  class="form-control" type="passtextord" name="lastName">
+	</div>
+	<div class="form-group">
+		<label>Userame</label>
+		<input  class="form-control" type="text" name="username">
+	</div>
+	<div class="form-group">
+		<label>Email</label>
+		<input  class="form-control" type="text" name="email">
+	</div>
+	<div class="form-group">
+		<label>Password</label>
+		<input  class="form-control" type="password" name="password">
+	</div>
+	<div class="form-group">
+		<label>Repeat Password</label>
+		<input  class="form-control" type="password" name="password2">
+	</div>
+	<div class="form-group">
+		<label>Phone</label>
+		<input  class="form-control" type="text" name="phone">
+	</div>
+	<label>Birthday</label>
+	<div class='input-group date datetimepicker'>
+        <input type='text' class="form-control" name="birthday"/>
+        <span class="input-group-addon">
+            <span class="glyphicon glyphicon-calendar"></span>
+        </span>
+    </div>
+	<div class="form-group">
+		<label>Address</label>
+		<input  class="form-control" type="text" name="address">
+	</div>
+	<div class="form-group">
+		<label>City</label>
+		<input  class="form-control" type="text" name="city">
+	</div>
+	<div class="form-group">
+		<label>Zip Code</label>
+		<input  class="form-control" type="text" name="zipCode">
+	</div>
+	<button class="btn-primary">Signup</button>
+</form>
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery-ui.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/moment.min.js"></script>
+<script src="/js/bootstrap-datetimepicker.min.js"></script>
+</body>
+</html>
+
+<script type="text/javascript">
+  	$(function () {
+	    $('.datetimepicker').datetimepicker({
+	        format: 'DD-MM-YYYY'
+	    });
+	});
+</script>
+

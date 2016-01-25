@@ -241,6 +241,7 @@ router.get('/locations', isLoggedIn, (req, res, next) => {
 
 function isLoggedIn(req, res, next) {
     // if user is authenticated in the session, carry on 
+    console.log(req);
     if (req.isAuthenticated())
         return next();
 
