@@ -75,7 +75,7 @@
                                 <li class="<%= path.complete == '/locations' ? 'active' : '' %>"><a href="/locations">Locations</a></li>
                                 <li class="<%= path.complete == '/about' ? 'active' : '' %>"><a href="/about">About</a></li>
                                 <% if (locals.user) { %>
-                                  <% if (locals.user.birthday) { %>
+                                  <% if (!locals.user.active) { %>
                                     <li><a href="/profile?id=<%= locals.user.id %>">My Profile</a></li>
                                   <% } else { %>
                                     <li class="<%= path.complete == '/login' ? 'active' : '' %>"><a class="login-link" href="/login">Login</a></li>

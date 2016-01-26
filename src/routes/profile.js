@@ -16,16 +16,15 @@ router.get('/profile', isLoggedIn, (req, res, next) => {
 });
 
 router.post('/profile', isLoggedIn, (req, res, next) => {
-  console.log(req.body);
   const id = req.body.id;
   const firstName = req.body.firstName;
   const lastName = req.body.lastName;
-  const email = req.body.email;
-  const location = req.body.location;
-  const active = req.body.active;
-  const admin = req.body.admin;
-  Adapter.editEmployee(id, firstName, lastName, email, location, active, admin, (e, r) => {
-    res.redirect('index');
+  const phone = req.body.phone;
+  const address = req.body.address;
+  const city = req.body.city;
+  const zipCode = req.body.zipCode;
+  Adapter.editUser(id, firstName, lastName, phone, address, city, zipCode, (e, r) => {
+    res.redirect('/');
   })
 
 });
