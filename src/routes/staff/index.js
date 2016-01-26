@@ -72,17 +72,25 @@ router.get('/employees', isLoggedInAdmin, (req, res, next) => {
 router.get('/employee', isLoggedInAdmin, (req, res, next) => {
   const id = req.query.id;
   Adapter.getEmployee(id, (e, r) => {
-    res.render('staff/employee', { results: r });
+    getAllLocation().then(loc => {
+      res.render('staff/employee', { results: r , locations: loc});
+    })
   })
 });
 
-/*post route - not yet functional
+//post route - not yet functional
 router.post('/employee', isLoggedIn, (req, res, next) => {
-  const id = req.query.id;
-  Adapter.editEmployee(id, (e, r) => {
-    res.render('staff/employee', { results: r });
+  console.log(req.body);
+  const id = req.body.id;
+  const firstName = req.body.firstName;
+  const lastName = req.body.lastName;
+  const email = req.body.email;
+  const active = req.body.active;
+  const location = req.body.location;
+  Adapter.editEmployee(id, firstName, lastName, email, location, active, (e, r) => {
+    res.redirect('employees');
   })
-});*/
+});
 //end employees
 
 //login
