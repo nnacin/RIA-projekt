@@ -27,17 +27,16 @@ router.get('/drink', isLoggedIn, (req, res, next) => {
 
 router.post('/drink', isLoggedIn, (req, res, next) => {
   const id = req.body.id;
+  
+  const name = req.body.name;
+  const price = req.body.price;
+  const quantity = req.body.quantity;
+      
   if (id) {
-      const name = req.body.name;
-      const price = req.body.price;
-      const quantity = req.body.quantity;
       Adapter.editDrink(id, name, price, quantity, (e, r) => {
         res.redirect('drink?id=' + id);
       });
   } else {
-      const name = req.body.name;
-      const price = req.body.price;
-      const quantity = req.body.quantity;
       Adapter.addDrink(name, price, quantity, (e, r) => {
         res.redirect('drinks');
       });
@@ -65,7 +64,9 @@ router.get('/deletedrink', isLoggedIn, (req, res, next) => {
 router.get('/employees', isLoggedInAdmin, (req, res, next) => {
   getAllEmployee()
         .then(r => {
-        res.render('staff/employees', { employees: r });
+          getAllLocation().then(loc => {
+            res.render('staff/employees', { employees: r , locations: loc});
+          })
     });
 });
 
@@ -82,15 +83,28 @@ router.get('/employee', isLoggedInAdmin, (req, res, next) => {
 router.post('/employee', isLoggedIn, (req, res, next) => {
   console.log(req.body);
   const id = req.body.id;
+  
   const firstName = req.body.firstName;
   const lastName = req.body.lastName;
   const email = req.body.email;
   const location = req.body.location;
-  const active = req.body.active;
-  const admin = req.body.admin;
-  Adapter.editEmployee(id, firstName, lastName, email, location, active, admin, (e, r) => {
-    res.redirect('employees');
-  })
+  
+  if (id) { 
+    const active = req.body.active;
+    const admin = req.body.admin;
+    Adapter.editEmployee(id, firstName, lastName, email, location, active, admin, (e, r) => {
+      res.redirect('employees');
+    });
+  } else {
+    const username = req.body.username;
+    const password = 'Pizzamins_staff';
+    const password2 = 'Pizzamins_staff';
+    Adapter.addEmployee(username, firstName, lastName, password, password2, email, location, (e, r) => {
+      console.log(e);
+      console.log(r);
+      res.redirect('employees');
+    });
+  }
 });
 //end employees
 
