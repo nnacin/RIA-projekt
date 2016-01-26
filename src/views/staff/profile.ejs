@@ -106,7 +106,7 @@
 					</a>
 				</li>
 
-				<li class="active">
+				<li>
 					<a href="/staff/drinks" class="ajax-link">
 						<i class="fa fa-drinks"></i>
 						<span>Drinks</span>
@@ -121,7 +121,7 @@
 				</li>
 
 				<% if (locals.user.admin) { %>
-					<li>
+					<li class="active">
 						<a href="/staff/employees" class="ajax-link">
 							<i class="fa fa-employees"></i>
 							<span>Employees</span>
@@ -143,12 +143,30 @@
 			<form method="POST" action="/staff/profile">
 				<input  type="hidden" name="id" value="<%= results[0]._id %>">
 				<div class="form-group">
-					<label>Name</label>
-					<input  class="form-control" type="text" name="firstName" value="<%= results[0].firstName %>">
+					<input type="radio" name="active" value="true" <%= (results[0].active) ? 'checked' : ''  %> hidden>
+					<input type="radio" name="active" value="false" <%= !(results[0].active) ? 'checked' : ''  %> hidden>
 				</div>
 				<div class="form-group">
-					<label>Price</label>
-					<input  class="form-control" type="text" name="lastName" value="<%= results[0].lastName %>">
+					<input type="radio" name="admin" value="true" <%= (results[0].admin) ? 'checked' : ''  %> hidden>
+					<input type="radio" name="admin" value="false" <%= !(results[0].admin) ? 'checked' : ''  %> hidden>
+				</div>
+				<div class="form-group">
+					<label>First Name</label>
+					<input type="text" name="firstName" value="<%= results[0].firstName %>">
+				</div>
+				<div class="form-group">
+					<label>Last Name</label>
+					<input type="text" name="lastName" value="<%= results[0].lastName %>" >
+				</div>
+				<div class="form-group">
+					<label>Email</label>
+					<input type="text" name="email" value="<%= results[0].email %>" >
+				</div>
+				<div class="form-group">
+
+					<input value="<%= results[0].location._id %>" name ="location" hidden />
+
+
 				</div>
 				<button class="btn-primary">Update</button>
 			</form>

@@ -94,12 +94,6 @@ router.post('/employee', isLoggedIn, (req, res, next) => {
 });
 //end employees
 
-//login
-// zasto je ovo tu?
-/*router.get('/login', (req, res, next) => {
-  res.render('staff/login');
-});*/
-//end login 
 
 //profile 
 router.get('/profile', isLoggedIn, (req, res, next) => {
@@ -110,15 +104,17 @@ router.get('/profile', isLoggedIn, (req, res, next) => {
 });
 
 router.post('/profile', isLoggedIn, (req, res, next) => {
+  console.log(req.body);
   const id = req.body.id;
-  
   const firstName = req.body.firstName;
-  const lastName = req.body.firstName;
-  const birthday = req.body.lastName;
-  
-  Adapter.editEmployee(id, firstName, lastName, birthday, (e, r) => {
-    res.redirect('profile?id=' + id);
-  });
+  const lastName = req.body.lastName;
+  const email = req.body.email;
+  const location = req.body.location;
+  const active = req.body.active;
+  const admin = req.body.admin;
+  Adapter.editEmployee(id, firstName, lastName, email, location, active, admin, (e, r) => {
+    res.redirect('orders');
+  })
 
 });
 
