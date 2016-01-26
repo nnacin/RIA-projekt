@@ -85,9 +85,10 @@ router.post('/employee', isLoggedIn, (req, res, next) => {
   const firstName = req.body.firstName;
   const lastName = req.body.lastName;
   const email = req.body.email;
-  const active = req.body.active;
   const location = req.body.location;
-  Adapter.editEmployee(id, firstName, lastName, email, location, active, (e, r) => {
+  const active = req.body.active;
+  const admin = req.body.admin;
+  Adapter.editEmployee(id, firstName, lastName, email, location, active, admin, (e, r) => {
     res.redirect('employees');
   })
 });

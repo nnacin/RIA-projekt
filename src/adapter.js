@@ -132,8 +132,8 @@ Adapter.prototype.getAllEmployee = (callback) => {
   query(endpoints.EMPLOYEE, 'GET', data, callback);
 };
 
-Adapter.prototype.editEmployee = (id, firstName, lastName, email, location, active, callback) => {
-  let data = {id: id, firstName: firstName, lastName: lastName, email: email, location: location, active: active};
+Adapter.prototype.editEmployee = (id, firstName, lastName, email, location, active, admin, callback) => {
+  let data = {id: id, firstName: firstName, lastName: lastName, email: email, location: location, active: active, admin: admin};
   query(endpoints.EMPLOYEE, 'PUT', data, callback);
 }
 
