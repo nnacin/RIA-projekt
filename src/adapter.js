@@ -112,8 +112,8 @@ Adapter.prototype.addUser = (username, firstName, lastName, password, password2,
   query(endpoints.USER, 'POST', data, callback);
 }
 
-Adapter.prototype.editUser = (id, firstName, lastName, phone, address, city, zipCode, callback) => {
-  let data = {id: id, firstName: firstName, lastName: lastName, phone: phone, address: address, city: city, zipCode: zipCode}
+Adapter.prototype.editUser = (data, callback) => {
+  //let data = {id: id, firstName: firstName, lastName: lastName, phone: phone, address: address, city: city, zipCode: zipCode}
   query(endpoints.USER, 'PUT', data, callback);
 }
 

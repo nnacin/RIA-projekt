@@ -8,32 +8,25 @@ const ad = require('../adapter');
 const Adapter = new ad();
 const debug = require('debug')('staff/index');
 
-router.get('/profile', isLoggedIn, (req, res, next) => {
-  const id = req.query.id;
-  Adapter.getUser(id, (e, r) => {
-    res.render('profile', { results: r });
-  })
+router.get('/changePassword', isLoggedIn, (req, res, next) => {
+    res.render('changePassword');
+
 });
 
-router.post('/profile', isLoggedIn, (req, res, next) => {
+router.post('/changePassword', isLoggedIn, (req, res, next) => {
   const id = req.body.id;
-  const firstName = req.body.firstName;
-  const lastName = req.body.lastName;
-  const phone = req.body.phone;
-  const address = req.body.address;
-  const city = req.body.city;
-  const zipCode = req.body.zipCode;
+  const password = req.body.password;
+  const password2 = req.body.password2;
   const data = {
-    id: id,
-    firstName: firstName,
-    lastName: lastName,
-    phone: phone,
-    address: address,
-    city: city,
-    zipCode: zipCode
+      id: id,
+      password: password,
+      password2: password2
   }
+  console.log(data);
   Adapter.editUser(data, (e, r) => {
-    res.redirect('/');
+      console.log(e);
+      console.log(r);
+    res.redirect('/profile?id='+id);
   })
 
 });
