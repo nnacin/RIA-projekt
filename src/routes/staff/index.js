@@ -92,7 +92,16 @@ router.post('/employee', isLoggedIn, (req, res, next) => {
   if (id) { 
     const active = req.body.active;
     const admin = req.body.admin;
-    Adapter.editEmployee(id, firstName, lastName, email, location, active, admin, (e, r) => {
+    const data = {
+      id: id,
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      location: location,
+      active: active,
+      admin: admin
+    } 
+    Adapter.editEmployee(data, (e, r) => {
       res.redirect('employees');
     });
   } else {
@@ -126,13 +135,46 @@ router.post('/profile', isLoggedIn, (req, res, next) => {
   const location = req.body.location;
   const active = req.body.active;
   const admin = req.body.admin;
-  Adapter.editEmployee(id, firstName, lastName, email, location, active, admin, (e, r) => {
+  const data = {
+    id: id,
+    firstName: firstName,
+    lastName: lastName,
+    email: email,
+    location: location,
+    active: active,
+    admin: admin
+  }
+  Adapter.editEmployee(data, (e, r) => {
     res.redirect('orders');
   })
 
 });
 
 //end profile
+
+//change password
+router.get('/changePassword', isLoggedIn, (req, res, next) => {
+    res.render('staff/changePassword');
+});
+
+router.post('/changePassword', isLoggedIn, (req, res, next) => {
+  const id = req.body.id;
+  const password = req.body.password;
+  const password2 = req.body.password2;
+  const data = {
+      id: id,
+      password: password,
+      password2: password2
+  }
+  console.log(data);
+  Adapter.editEmployee(data, (e, r) => {
+      console.log(e);
+      console.log(r);
+    res.redirect('orders');
+  })
+
+});
+//end changepassword
 
 //orders
 router.get('/orders', isLoggedIn, (req, res, next) => {
