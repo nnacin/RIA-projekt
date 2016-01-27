@@ -1,149 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-	<title>Pizzamins Staff Panel</title>
-	<meta name="description" content="description">
-	<meta name="author" content="DevOOPS">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link href="/css/bootstrap.css" rel="stylesheet">
-	<link href="/css/jquery-ui.min.css" rel="stylesheet">
-	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-	<link href='https://fonts.googleapis.com/css?family=Righteous' rel='stylesheet' type='text/css'>
-	<link href="/css/style_v2.css" rel="stylesheet">
-	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-	<!--[if lt IE 9]>
-	<script src="http://getbootstrap.com/docs-assets/js/html5shiv.js"></script>
-	<script src="http://getbootstrap.com/docs-assets/js/respond.min.js"></script>
-	<![endif]-->
-</head>
-<body>
-<!--Start Header-->
-<div id="screensaver">
-	<canvas id="canvas"></canvas>
-	<i class="fa fa-lock" id="screen_unlock"></i>
+<% include ./header %>
+<!--Start Content-->
+<div id="content" class="col-xs-12 col-sm-10">
+	<a class="btn btn-success" data-toggle="modal" data-target="#add-employee">Add new</a>
+	<% employees.forEach(employee => { %>
+		<div class="item-title">
+			<a href="/staff/employee?id=<%= employee._id %>"><%= employee.username %></a> 
+		</div>
+  <% }) %>
 </div>
-<div id="modalbox">
-	<div class="devoops-modal">
-		<div class="devoops-modal-header">
-			<div class="modal-header-name">
-				<span>Basic table</span>
-			</div>
-			<div class="box-icons">
-				<a class="close-link">
-					<i class="fa fa-times"></i>
-				</a>
-			</div>
-		</div>
-		<div class="devoops-modal-inner">
-		</div>
-		<div class="devoops-modal-bottom">
-		</div>
-	</div>
-</div>
-<header class="navbar">
-	<div class="container-fluid expanded-panel">
-		<div class="row">
-			<div id="logo" class="col-xs-12 col-sm-2">
-				<a href="/">Pizzamins</a>
-			</div>
-			<div id="top-panel" class="col-xs-12 col-sm-10">
-				<div class="row">
-					<div class="col-xs-8 col-sm-4">
-
-					</div>
-					<div class="col-xs-4 col-sm-8 top-panel-right">
-						<ul class="nav navbar-nav pull-right panel-menu">
-							<li class="dropdown">
-								<a href="#" class="dropdown-toggle account" data-toggle="dropdown">
-									<div class="avatar">
-									</div>
-									<i class="fa fa-angle-down pull-right"></i>
-									<div class="user-mini pull-right">
-										<span class="welcome">Welcome,</span>
-										<span><%= user.firstName %></span>
-									</div>
-								</a>
-								<ul class="dropdown-menu">
-									<li>
-										<a href="/staff/profile?id=<%= user.id %>">
-											<i class="fa fa-user"></i>
-											<span>Profile</span>
-										</a>
-									</li>
-									<li>
-										<a href="/staff/logout">
-											<i class="fa fa-power-off"></i>
-											<span>Logout</span>
-										</a>
-									</li>
-								</ul>
-							</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</header>
-<!--End Header-->
-<!--Start Container-->
-<div id="main" class="container-fluid">
-	<div class="row">
-		<div id="sidebar-left" class="col-xs-2 col-sm-2">
-			<ul class="nav main-menu">
-				<li>
-					<a href="/staff/orders" class="ajax-link">
-						<i class="fa fa-orders"></i>
-						<span>Orders</span>
-					</a>
-				</li>
-
-				<li>
-					<a href="/staff/pizzas" class="ajax-link">
-						<i class="fa fa-pizzas"></i>
-						<span>Pizzas</span>
-					</a>
-				</li>
-
-				<li>
-					<a href="/staff/drinks" class="ajax-link">
-						<i class="fa fa-drinks"></i>
-						<span>Drinks</span>
-					</a>
-				</li>
-
-				<% if (locals.user.admin) { %>
-					<li class="active">
-						<a href="/staff/employees" class="ajax-link">
-							<i class="fa fa-employees"></i>
-							<span>Employees</span>
-						</a>
-					</li>
-				<% } %>
-
-
-
-
-
-
-
-
-			</ul>
-		</div>
-		<!--Start Content-->
-		<div id="content" class="col-xs-12 col-sm-10">
-			<a class="btn btn-success" data-toggle="modal" data-target="#add-employee">Add new</a>
-			<% employees.forEach(employee => { %>
-            	<div class="item-title">
-            		<a href="/staff/employee?id=<%= employee._id %>"><%= employee.username %></a> 
-        		</div>
-          	<% }) %>
-
-		</div>
-		<!--End Content-->
-	</div>
-</div>
+<!--End Content-->
 <% include ./footer %>
 
 <div class="modal fade" id="add-employee" tabindex="-1" role="dialog">
@@ -151,50 +16,36 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Modal title</h4>
+        <h4 class="modal-title">Crete Employee</h4>
       </div>
       <div class="modal-body">
-      	
-
-<form method="POST" action="/staff/employee">
-	<div class="form-group">
-		<label>First Name</label>
-		<input  class="form-control" type="text" name="firstName">
-	</div>
-	<div class="form-group">
-		<label>Last Name</label>
-		<input  class="form-control" type="text" name="lastName">
-	</div>
-	<div class="form-group">
-		<label>Userame</label>
-		<input  class="form-control" type="text" name="username">
-	</div>
-	<div class="form-group">
-		<label>Email</label>
-		<input  class="form-control" type="text" name="email">
-	</div>
-	<div class="form-group">
-		<label>Location</label>
-		<select name="location">
-			<% locations.forEach(function (location) { %>
-				<option value="<%= location._id %>" ><%= location.name %></option>
-			<% }) %>
-		</select>
-
-	</div>
-	<button class="btn-primary">Save</button>
-
-
-
-
-			</form>
-
-      	
-      	
-        
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<form method="POST" action="/staff/employee">
+					<div class="form-group">
+						<label>First Name</label>
+						<input  class="form-control" type="text" name="firstName" required>
+					</div>
+					<div class="form-group">
+						<label>Last Name</label>
+						<input  class="form-control" type="text" name="lastName" required>
+					</div>
+					<div class="form-group">
+						<label>Userame</label>
+						<input  class="form-control" type="text" name="username" required>
+					</div>
+					<div class="form-group">
+						<label>Email</label>
+						<input  class="form-control" type="email" name="email" required>
+					</div>
+					<div class="form-group">
+						<label>Location</label>
+						<select name="location" required>
+							<% locations.forEach(function (location) { %>
+								<option value="<%= location._id %>" ><%= location.name %></option>
+							<% }) %>
+						</select>
+					</div>
+					<button class="btn-primary">Save</button>
+				</form>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
