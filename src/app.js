@@ -180,6 +180,8 @@ app.use(function (req, res, next) {
 
 //load all routes from ./routes
 routeLoader(app, __dirname + '/routes');
+app.use('/staff', require('./staff/index'));
+app.use('/staff', require('./staff/login'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
