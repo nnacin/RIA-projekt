@@ -7,5 +7,15 @@ Za potrebe projekta, kreirat će se jednostavno API sučelje za komunikaciju s b
 Specifikacija projekta:
 https://dl.dropboxusercontent.com/u/51070823/Projekt%20-%20Specifikacija.docx
 
+# Setup
+NOTE: Postoje problemi s Windows OS-om pa je preporučen Linux (debian/Ubuntu)
 
+1. Instalirati i pokrenuti MongoDB:
+https://www.mongodb.org/downloads
 
+2. Pokrenuti API po priloženim uputama:
+https://github.com/nnacin/RIA-projekt-api/
+
+3. Preimenovati .json.example datoteke u .json
+
+4. DEBUG=* npm start
