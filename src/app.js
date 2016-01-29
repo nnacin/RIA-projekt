@@ -6,6 +6,8 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
+const flash = require('connect-flash');
+const bcrypt = require('bcrypt');
 const request = require('request');
 const routeLoader = require('express4-route-loader');
 const Promise = require('bluebird');
@@ -25,6 +27,7 @@ app.use(require('express-session')({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(flash());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -41,6 +44,7 @@ app.use(function (req, res, next) {
   res.locals.path = {
     complete: req.path
   };
+  res.locals.error_message = req.flash('error_message');
   next();
 });
 
@@ -48,11 +52,13 @@ passport.use('local-signup', new LocalStrategy({
       passReqToCallback: true // allows us to pass back the entire request to the callback
   }, function(req, username, password, done) { // callback with email and password from our form
     Adapter.getUserByUsername(username, (e, r) => {
+     
+          
       if (e)
         return done(e);
       if (r.length != 0)
-        return done(null, false, {});
-      
+        return done(null, false, req.flash('error_message','User already exists.'));
+
       const password2 = req.body.password2;
       const firstName = req.body.firstName;
       const lastName = req.body.lastName;
@@ -64,12 +70,15 @@ passport.use('local-signup', new LocalStrategy({
       const zipCode = req.body.zipCode;
       
       Adapter.addUser(username, firstName, lastName, password, password2, email, phone, birthday, address, city, zipCode, (e, r) => {
+        console.log(r);
+          console.log(e);
         Adapter.getUserByUsername(username, (e, r) => {
+        
           if (e)
             return done(e);
     
           if (r.length == 0)
-            return done(null, false, {}); // req.flash is the way to set flashdata using connect-flash
+            return done(null, false, req.flash('error_message','Unsuccessful signup.')); // req.flash is the way to set flashdata using connect-flash
     
           // all is well, return successful user
           return done(null, r[0]);
@@ -92,11 +101,11 @@ passport.use('local-loginEmployee', new LocalStrategy({
         return done(e);
 
       if (r.length == 0)
-        return done(null, false, {}); // req.flash is the way to set flashdata using connect-flash
+        return done(null, false, req.flash('error_message', 'Employee not found.')); // req.flash is the way to set flashdata using connect-flash
 
       // if the user is found but the password is wrong
       if (!isValidPassword(r[0], password))
-          return done(null, false, {}); // create the loginMessage and save it to session as flashdata
+          return done(null, false, req.flash('error_message', 'Invalid password.')); // create the loginMessage and save it to session as flashdata
 
       
       // all is well, return successful user
@@ -111,12 +120,12 @@ passport.use('local-loginUser', new LocalStrategy({
     Adapter.getUserByUsername(username, (e, r) => {
       if (e)
         return done(e);
-      if (r.length == 0)
-        return done(null, false, {}); // req.flash is the way to set flashdata using connect-flash
-
+      if (r.length == 0) {
+        return done(null, false,  req.flash('error_message', 'User not found.')); // req.flash is the way to set flashdata using connect-flash
+      }
       // if the user is found but the password is wrong
       if (!isValidPassword(r[0], password))
-          return done(null, false, {}); // create the loginMessage and save it to session as flashdata
+          return done(null, false, req.flash('error_message', 'Invalid password.')); // create the loginMessage and save it to session as flashdata
 
       // all is well, return successful user
       return done(null, r[0]);
@@ -214,8 +223,9 @@ app.use(function(err, req, res, next) {
   });
 });
 
-var isValidPassword = function(user, password){
-  return (password == user.password);
+
+var isValidPassword = function(user, password) {
+  return bcrypt.compareSync(password, user.password);
 }
 
 module.exports = app;
