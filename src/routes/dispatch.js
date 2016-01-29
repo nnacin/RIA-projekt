@@ -15,9 +15,21 @@ router.get('/dispatch', isLoggedIn, (req, res, next) => {
   if (!order.pizzas) return res.redirect('menu');
   getAllLocation()
   .then(loc => {
+    let newLocations =  [];
+    let dayOfWeek = moment().format('dddd').toLowerCase();
+    let now = moment().format("HH:mm");
+    let finish = moment().add(2, 'hours');
+    finish = moment(finish).format('HH:mm');
+
+    loc.forEach(function (l) {
+      if (l.workHours[dayOfWeek].open <= now && l.workHours[dayOfWeek].close > finish) {
+        newLocations.push(l);
+      }
+    });
+    
     getUser(id)
     .then(user => {
-      res.render('dispatch', { user: user, order: order, location: loc });
+      res.render('dispatch', { user: user, order: order, location: newLocations });
     })
   })
 });
