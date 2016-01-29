@@ -12,7 +12,7 @@ const debug = require('debug')('pizzamins:menuDrinks');
 router.get('/drinks', (req, res, next) => {
   let order = req.session.order;
   if (!order) return res.redirect('menu');
-  if (!menu.pizzas) return res.redirect('menu');
+  if (!order.pizzas) return res.redirect('menu');
   getAllDrink()
   .then(r => {
     res.render('menuDrinks', { drink: r });
@@ -20,16 +20,24 @@ router.get('/drinks', (req, res, next) => {
 });
 
 router.post('/drinks', (req, res, next) => {
+  console.log(req.body);
   let menu = req.body;
   if (!menu) return res.redirect('menu');
-  if (!menu.pizzas) return res.redirect('menu');
+  if (!menu.id) return res.redirect('menu');
 
-  let order = req.session.order;
-  if (!order) req.session.order = {};
-  order.pizzas = menu.pizzas;
-  debug(`req.session ${req.session.order}`)
-  debug(`order ${order}`)
-  return res.redirect(drinks);
+  let pizzas = [];
+  menu.name.forEach((e, i) => {
+    pizzas.push({
+      name: req.body.name[i],
+      id: req.body.id[i],
+      price: req.body.price[i],
+      quantity: req.body.quantity[i]
+    });
+  })
+
+  let order = req.session.order = {};
+  order.pizzas = pizzas;
+  return res.redirect('drinks');
 });
 
 module.exports = router;

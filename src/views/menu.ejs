@@ -47,6 +47,7 @@
         </div><!-- .row close -->
     </div><!-- .containe close -->
 </section><!-- #price close -->
+<div id="hiddenForm" style="display:none"></div>
 
 <% include ./footer %>
 <script>
@@ -107,7 +108,14 @@
       });
 
       $('#next').on('click', function (event) {
-        //make hidden fields and submit
+        var form = $('<form method="POST" action="drinks"></form>').appendTo('#hiddenForm');
+        $.each(orderForm, function (i, v) {
+          $('<input>').attr('name','name').appendTo(form).val(v.name);
+          $('<input>').attr('name','id').appendTo(form).val(v.id);
+          $('<input>').attr('name','price').appendTo(form).val(v.price);
+          $('<input>').attr('name','quantity').appendTo(form).val(v.quantity);
+        })
+        form.submit();
       });
     });
 </script>
