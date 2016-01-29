@@ -24,7 +24,7 @@ router.post('/continue', (req, res, next) => {
       price: req.body.price,
       quantity: req.body.quantity
     });
-    total = req.body.price * req.body.quantity;
+    total += req.body.price * req.body.quantity;
   } else {
     menu.name.forEach((e, i) => {
       drinks.push({
