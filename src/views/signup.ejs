@@ -8,50 +8,50 @@
 <form method="POST" action="/signup">
 	<div class="form-group">
 		<label>First Name</label>
-		<input  class="form-control" type="text" name="firstName">
+		<input  class="form-control" type="text" name="firstName" required>
 	</div>
 	<div class="form-group">
 		<label>Last Name</label>
-		<input  class="form-control" type="passtextord" name="lastName">
+		<input  class="form-control" type="passtextord" name="lastName" required>
 	</div>
 	<div class="form-group">
 		<label>Userame</label>
-		<input  class="form-control" type="text" name="username">
+		<input  class="form-control" type="text" name="username" required>
 	</div>
 	<div class="form-group">
 		<label>Email</label>
-		<input  class="form-control" type="text" name="email">
+		<input  class="form-control" type="text" name="email" required>
 	</div>
 	<div class="form-group">
 		<label>Password</label>
-		<input  class="form-control" type="password" name="password">
+		<input  class="form-control" type="password" name="password" required>
 	</div>
 	<div class="form-group">
 		<label>Repeat Password</label>
-		<input  class="form-control" type="password" name="password2">
+		<input  class="form-control" type="password" name="password2" required>
 	</div>
 	<div class="form-group">
 		<label>Phone</label>
-		<input  class="form-control" type="text" name="phone">
+		<input  class="form-control" type="text" name="phone" required>
 	</div>
 	<label>Birthday</label>
 	<div class='input-group date datetimepicker'>
-        <input type='text' class="form-control" name="birthday"/>
+        <input type='text' class="form-control" name="birthday"required />
         <span class="input-group-addon">
             <span class="glyphicon glyphicon-calendar"></span>
         </span>
     </div>
 	<div class="form-group">
 		<label>Address</label>
-		<input  class="form-control" type="text" name="address">
+		<input  class="form-control" type="text" name="address" required>
 	</div>
 	<div class="form-group">
 		<label>City</label>
-		<input  class="form-control" type="text" name="city">
+		<input  class="form-control" type="text" name="city" required>
 	</div>
 	<div class="form-group">
 		<label>Zip Code</label>
-		<input  class="form-control" type="text" name="zipCode">
+		<input  class="form-control" type="text" name="zipCode" required>
 	</div>
 	<button class="btn btn-default btn-more-info wow bounceIn animated" style="background: #ff530a">Signup</button>
 			</form>
@@ -60,6 +60,7 @@
 </div>
 <br>
 <% include ./footer %>
+<% include ./errorModal %>
 
 <script src="/js/jquery.min.js"></script>
 <script src="/js/jquery-ui.min.js"></script>
