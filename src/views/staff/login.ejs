@@ -11,6 +11,7 @@
 	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 	<link href='https://fonts.googleapis.com/css?family=Righteous' rel='stylesheet' type='text/css'>
 	<link href="/css/style_v2.css" rel="stylesheet">
+	<style>a:hover { }</style>
 	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!--[if lt IE 9]>
 	<script src="http://getbootstrap.com/docs-assets/js/html5shiv.js"></script>
@@ -89,39 +90,19 @@
 </header>
 <div id="main" class="container-fluid">
 	<div class="row">
-		<div id="sidebar-left" class="col-xs-2 col-sm-2">
-			<ul class="nav main-menu">
-				<li>
-					<a>
-						<i ></i>
-						<span></span>
-					</a>
-				</li>
 
-			
-		
-
-
-
-
-
-
-
-
-			</ul>
-		</div>
 <!--Start Content-->
-<div id="content" class="col-xs-12 col-sm-10">
+<div id="content" class="col-xs-12 col-sm-12">
 	<form method="POST" action="/staff/login">
 		<div class="form-group">
 			<label>Username</label>
-			<input  class="form-control" type="text" name="username" required>
+			<input  class="form-control" type="text" name="username" style="width:20%" required>
 		</div>
 		<div class="form-group">
 			<label>Password</label>
-			<input  class="form-control" type="password" name="password" required>
+			<input  class="form-control" type="password" name="password" style="width:20%" required>
 		</div>
-		<button class="btn-primary">Login</button>
+		<button class="btn btn-primary">Login</button>
 	</form>
 </div>
 <!--End Content-->

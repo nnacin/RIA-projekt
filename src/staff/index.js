@@ -185,7 +185,7 @@ router.get('/orders', isLoggedIn, (req, res, next) => {
         order.dateFinished = moment(order.dateFinished).format("YYYY-MM-DD HH:mm:ss");
       });
       
-      res.render('staff/orders', { orders: r , today: moment().format("YYYY-MM-DD HH:mm:ss")});
+      res.render('staff/orders', { orders: r , today: moment().utcOffset('+0100').format("YYYY-MM-DD HH:mm:ss")});
   });
 });
 
