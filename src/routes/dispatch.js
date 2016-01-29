@@ -44,7 +44,7 @@ router.post('/dispatch', isLoggedIn, (req, res, next) => {
 
     let address = req.body.address;
     let city = req.body.city;
-    let zipCode = req.body.address
+    let zipCode = req.body.zipCode;
     if (address && city && zipCode) {
       order.deliveryLocation = {
         address: address,
