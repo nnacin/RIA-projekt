@@ -38,6 +38,7 @@
 			  <div class="panel-body">
 			    <% if (orders.length === 0) { %>
 						You have no orders yet!
+						<a href="menu" class="btn btn-default" style="width:100%;margin-top:5%">Order now</a>
 					<% } else { %>
 						<% orders.forEach((e, i) => { %>
 							<% if (i < 3) { %>
@@ -67,6 +68,7 @@
 
 								<%- 'Total: ' + e.total + 'kn <br>'%>
 						<% }}) %>
+						<a href="myOrders" class="btn btn-default" style="width:100%;margin-top:5%">All orders</a>
 					<% } %>
 			  </div>
 			</div>

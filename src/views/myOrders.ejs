@@ -1,0 +1,54 @@
+<% include ./header %>
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<table class="table table-hover" style="margin-top: 2%">
+		    <thead>
+		      <tr>
+						<th>#ID</th>
+						<th>Date</th>
+		        <th>Pizza</th>
+		        <th>Drink</th>
+						<th>Total</th>
+						<th>Status</th>
+		      </tr>
+		    </thead>
+		    <tbody>
+					<% orders.forEach((order, i) => { %>
+						<tr>
+			        <td>
+								<%= order._id %>
+							</td>
+			        <td>
+								<%= moment(order.dateCreated).format("DD-MM-YYYY") %>
+							</td>
+							<td>
+								<% order.items[0].forEach((pizza, i) => { %>
+									<%- pizza.name + '<br>' %>
+								<% }); %>
+							</td>
+							<td>
+								<% order.items[1].forEach((drink, i) => { %>
+									<%- drink.name + '<br>' %>
+								<% }); %>
+							</td>
+							<td>
+								<%= order.total %>
+							</td>
+			        <td>
+								<% var remaining = moment(order.dateFinished).diff(moment(), 'minutes'); %>
+								<% var status = ''; %>
+								<% if (remaining > 60) {status = 'Pending'} %>
+								<% if (remaining < 60) {status = 'Preparing'} %>
+								<% if (remaining < 0) {status = 'Complete'} %>
+								<%- status %>
+							</td>
+			      </tr>
+					<% }); %>
+		    </tbody>
+		  </table>
+		</div>
+	</div>
+</div>
+
+<% include ./footer %>
