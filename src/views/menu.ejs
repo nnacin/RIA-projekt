@@ -117,5 +117,12 @@
         })
         form.submit();
       });
+
+      function restoreOrder () {
+        <% session.forEach((e, i) => { %>
+          $('div[data-id="<%= e.id %>"]').trigger("click");
+        <% }) %>
+      }
+      restoreOrder();
     });
 </script>

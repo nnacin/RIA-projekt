@@ -20,20 +20,28 @@ router.get('/drinks', (req, res, next) => {
 });
 
 router.post('/drinks', (req, res, next) => {
-  console.log(req.body);
   let menu = req.body;
   if (!menu) return res.redirect('menu');
   if (!menu.id) return res.redirect('menu');
 
   let pizzas = [];
-  menu.name.forEach((e, i) => {
+  if (!menu.id.isArray) {
     pizzas.push({
-      name: req.body.name[i],
-      id: req.body.id[i],
-      price: req.body.price[i],
-      quantity: req.body.quantity[i]
+      name: req.body.name,
+      id: req.body.id,
+      price: req.body.price,
+      quantity: req.body.quantity
     });
-  })
+  } else {
+    menu.name.forEach((e, i) => {
+      pizzas.push({
+        name: req.body.name[i],
+        id: req.body.id[i],
+        price: req.body.price[i],
+        quantity: req.body.quantity[i]
+      });
+    })
+  }
 
   let order = req.session.order = {};
   order.pizzas = pizzas;
