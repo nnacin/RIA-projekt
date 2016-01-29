@@ -72,9 +72,11 @@
 
 <script type="text/javascript">
   	$(function () {
+  		var now = moment()
 	    $('.datetimepicker').datetimepicker({
-	        format: 'DD-MM-YYYY'
-	    });
+	        format: 'DD-MM-YYYY',
+	        maxDate: now
+	  	});
 	});
 </script>
 
