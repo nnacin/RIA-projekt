@@ -15,9 +15,9 @@
                         <ul>
                           <% drink.forEach(drink => { %>
                             <li class="wow fadeInUp" data-wow-duration="300ms" data-wow-delay="400ms">
-                                <div class="item">
+                                <div class="item" data-id="<%= drink._id %>" data-price="<%= drink.price %>" data-name="<%= drink.name %>">
                                     <div class="item-title">
-                                        <h2 class="drink-link" id="<%= drink.name %>" data-price="<%= drink.price %>"><%= drink.name %></h2>
+                                        <h2 class="drink-link" id="<%= drink.name %>"><%= drink.name %></h2>
                                         <div class="border-bottom"></div>
                                         <span><%= drink.price %>kn</span>
                                     </div>
@@ -27,71 +27,104 @@
                           <% }) %>
                         </ul>
                     </div>
-                    <form id="form" method="POST" action="/continue">
-                        <div id="order">
-                            
-                        </div>
-                        <div class="total"></div>
-                        <button id="next" class="btn btn-default" type="submit" style="display:none">Next</button>
-                    </form>
-                    
+                    <div id="orderHolder" style="display:none">
+                      <div class="title">
+                          <h3>Your <span>order</span></h3>
+                      </div>
+                          <div id="order" class="pricing-list" style="padding:0px">
+
+                          </div>
+                          <div style="clear:both;"></div>
+                          <div style="float:left;font-size:2em;padding-top:2em">
+                            <div class="total"><div style="float:left">Total:</div><div id="total" style="float:right;padding-left:1em">0</div></div>
+                          </div>
+                          <div style="clear:both;"></div>
+                          <button id="next" class="btn btn-default" style="float: right">Next</button>
+                    </div>
+
                 </div>
             </div><!-- .col-md-12 close -->
         </div><!-- .row close -->
     </div><!-- .containe close -->
 </section><!-- #price close -->
+<div id="hiddenForm" style="display:none"></div>
 
 <% include ./footer %>
 <script>
-    $(function(){
-        NodeList.prototype.forEach = Array.prototype.forEach;
-        
-        $('.drink-link').on('click', function (e) {
-            //PROVJERA DA LI VEC POSTOJI TO PICE, AKO DA - samo quantity povecat
-            var drink = $(e.target).eq(0)
-            var drink_entry = "<div class='row drink-order'><div class='col-md-4'>" + drink.attr("id") + "</div><div class='col-md-4'><input  class='form-control' type='number' min='1' name='quantity' value='1'></div><div class='col-md-3 price' style='text-align:right;'>" + drink.attr("data-price") + "</div><div class='col-md-1'><button class='remove'>x</button></div></div>";
-            drink_entry += "<input type='hidden' name='id' value='"+drink.attr("data-db-id")+"'/>";
-            $( "#order" ).append(drink_entry);
-            recalculateTotal();
-        })
-        $( "#order" ).on( "change", "input", function(e) {
-            recalculateTotal();
-        });
-        
-        $( "#order" ).on( "click", ".remove", function(e) {
-            $(this).closest('.drink-order').remove();
-            recalculateTotal();
-            //$( "#total" ).replaceWith( "<div id='total'>TOTAL: " + total + "</div>");
-        });
-        
-        function recalculateTotal () {
-            var total = 0
-            var drinks = $('.drink-order');
-            console.log(drinks.length);
-            if (drinks.length) {
-                $('#next').css("display", "block");
-            } else {
-                //total se nece izbrisat ne znan zasto
-                $( ".total" ).replaceWith( "<div class='total'></div>");
-                 $('#next').css("display", "none");
-                 
-                 console.log('makni');
-            }
-            
-            
-            for (i = 0; i <	drinks.length; i++) {
-                console.log(drinks[i]);
-                drinks[i] =  $(drinks[i]).clone();
-                var quantity = Number(drinks[i].find('input').val());
-                var price = Number(drinks[i].find('.price').text());
-                total += quantity * price;
-            }
+  var orderForm = [];
+  var pizzaTotal = 0;
+  $(document).ready(function() {
+    NodeList.prototype.forEach = Array.prototype.forEach;
 
-            //pizzas.find('input').val()
-            
-            //foreach element/pizza with class order-pizza-name and order-pizza-quantity multiply those too and this is the new total
-            $( ".total" ).replaceWith( "<div class='total'>TOTAL: " + total + "</div>");
-        }
+    $('.item').on('click', function (event) {
+      $(this).parent().hide();
+      $('#orderHolder').show();
+      $('#order').append(addOrderEntry(this));
+      recalcTotal();
     });
-</script>
 
+    function addOrderEntry (e) {
+      var target = e.attributes;
+      var name = target['data-name'].value
+      var id = target['data-id'].value
+      var price = target['data-price'].value;
+      orderForm.push({
+        name: name,
+        id: id,
+        price: price,
+        quantity: 1
+      });
+      return entry = '<ul style="padding:0px"><li><div class="item"><div class="item-title" style="width:90%; float:left"><h2 class="pizza-link" id="' + name + '" data-price="100">' + name + '</h2><div class="border-bottom"></div><span>' + price + 'kn</span></div><div style="width:5%;float:left;"><input name="quantity" data-id="' + id + '" value=1 type="number" min="1" max="9" class="form-control" style="margin:0 30%;padding:0 0 0 10%;width:80%;height:80%;"></input></div><div style="width:5%;float:right;" class="removeEntry"><i class="fa fa-close" data-id="' + id + '" style="padding:0 40%"></div></div></ul>';
+    }
+
+    function recalcTotal () {
+      var total = pizzaTotal;
+      $.each(orderForm, function (i, e) {
+        total += e.quantity * e.price;
+      })
+      $('#total').text(total);
+    }
+
+    $('#order').on('click', '.fa', function (event) {
+      var id = $(this).attr('data-id');
+      orderForm = $.grep(orderForm, function (e, i) {
+        return e.id !== id;
+      });
+      $('div[data-id=' + id + ']').parent().show();
+      $(this).parents().eq(3).remove();
+      recalcTotal();
+      if (orderForm.length === 0) $('#orderHolder').hide();
+    });
+
+    $('#order').on('change', '[name="quantity"]', function (event) {
+      var quantity = $(this).val();
+      var id = $(this).attr('data-id');
+      if (quantity > 9) return $(this).val(9);
+      if (quantity < 1) return $(this).val(1);
+      $.each(orderForm, function (i, v) {
+        if (v.id === id)
+          v.quantity = quantity;
+      })
+      recalcTotal();
+    });
+
+    $('#next').on('click', function (event) {
+      var form = $('<form method="POST" action="drinks"></form>').appendTo('#hiddenForm');
+      $.each(orderForm, function (i, v) {
+        $('<input>').attr('name','name').appendTo(form).val(v.name);
+        $('<input>').attr('name','id').appendTo(form).val(v.id);
+        $('<input>').attr('name','price').appendTo(form).val(v.price);
+        $('<input>').attr('name','quantity').appendTo(form).val(v.quantity);
+      })
+      form.submit();
+    });
+
+    function restoreOrder () {
+      <% session.forEach((e, i) => { %>
+        $('div[data-id="<%= e.id %>"]').trigger("click");
+      <% }) %>
+      pizzaTotal = <%= total %>
+    }
+    restoreOrder();
+  });
+</script>

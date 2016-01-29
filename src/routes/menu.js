@@ -9,7 +9,7 @@ const getAllPizza = Promise.promisify(Adapter.getAllPizza);
 const debug = require('debug')('menu');
 
 router.get('/menu', (req, res, next) => {
-  let pizzas = null;
+  let pizzas = [];
   let order = req.session.order;
   if (order)
     if (order.pizzas)

@@ -119,6 +119,7 @@
       });
 
       function restoreOrder () {
+      <% console.log(session) %>
         <% session.forEach((e, i) => { %>
           $('div[data-id="<%= e.id %>"]').trigger("click");
         <% }) %>
