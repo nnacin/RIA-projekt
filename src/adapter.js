@@ -154,8 +154,8 @@ Adapter.prototype.getAllOrder = (callback) => {
   query(endpoints.ORDER, 'GET', data, callback);
 }
 
-Adapter.prototype.getUserOrder = (id, callback) => {
-  let data = {id: id};
+Adapter.prototype.getUserOrder = (user, callback) => {
+  let data = {user: user};
   query(endpoints.ORDER, 'GET', data, callback);
 }
 

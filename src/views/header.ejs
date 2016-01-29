@@ -34,17 +34,17 @@
     <script src="js/plugins.js"></script>
     <script src="js/wow.min.js"></script>
     <script src="js/main.js"></script>
-    
+
 	</head>
 	<body>
 	<!--
-	header-img start 
+	header-img start
 	============================== -->
     <section id="hero-area">
       <img class="img-responsive" src="images/header2.jpg" alt="">
     </section>
 	<!--
-    Header start 
+    Header start
 	============================== -->
 	<nav id="navigation">
         <div class="container">
@@ -76,7 +76,8 @@
                                 <li class="<%= path.complete == '/about' ? 'active' : '' %>"><a href="/about">About</a></li>
                                 <% if (locals.user) { %>
                                   <% if (!locals.user.employee) { %>
-                                    <li><a href="/profile?id=<%= locals.user.id %>">My Profile</a></li>
+                                    <li><a class="login-link" href="/profile">My Profile</a></li>
+																		<li class=""><a href="/logout">Logout</a></li>
                                   <% } else { %>
                                     <li class="<%= path.complete == '/login' ? 'active' : '' %>"><a class="login-link" href="/login">Login</a></li>
                                   <% } %>
