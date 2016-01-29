@@ -8,22 +8,22 @@
       </div>
 			<div class="pickup">
 				<form method="POST" action="/dispatch">
-				<div class="form-group">
-					<label>Location</label>
-					<select name="location" required>
-						<% location.forEach(function (location) { %>
-							<option value="<%= location._id %>" ><%= location.name %></option>
-						<% }) %>
-					</select>
-				</div>
-				<div class="form-group">
-					<label>Date Finished</label>
+					<div class="form-group">
+						<label>Location</label>
+						<select name="location" required>
+							<% location.forEach(function (location) { %>
+								<option value="<%= location._id %>" ><%= location.name %></option>
+							<% }) %>
+						</select>
+					</div>
+					<div class="form-group">
+						<label>Date Finished</label>
 						<div class='input-group date datetimepicker'>
-			        <input type='text' class="form-control" name="dateFinished" required/>
-			        <span class="input-group-addon">
-			            <span class="glyphicon glyphicon-calendar"></span>
-			        </span>
-			    	</div>
+				        	<input type='text' class="form-control" id="datetimepicker-pickup" name="dateFinished" required/>
+				        	<span class="input-group-addon">
+				            	<span class="glyphicon glyphicon-calendar"></span>
+				        	</span>
+				    	</div>
 					</div>
 					<button class="btn btn-default btn-more-info wow bounceIn animated" style="background: #ff530a">Finish</button>
 				</form>
@@ -32,30 +32,30 @@
 
 			<div class="delivery" style="display:none">
 				<form method="POST" action="/dispatch">
-				<div class="form-group">
-					<label>Address</label>
-					<input  class="form-control" type="text" name="address" value="<%= user[0].location.address %>">
-				</div>
-				<div class="form-group">
-					<label>City</label>
-					<input  class="form-control" type="text" name="city" value="<%= user[0].location.city %>">
-				</div>
-				<div class="form-group">
-					<label>Zip Code</label>
-					<input  class="form-control" type="text" name="zipCode" value="<%= user[0].location.zipCode %>">
-				</div>
-				<hr>
-				<div class="form-group">
-					<label>Date Finished</label>
-				<div class='input-group date datetimepicker'>
-		        <input type='text' class="form-control" name="dateFinished" required/>
-		        <span class="input-group-addon">
-		            <span class="glyphicon glyphicon-calendar"></span>
-		        </span>
-			    </div>
+					<div class="form-group">
+						<label>Address</label>
+						<input  class="form-control" type="text" name="address" value="<%= user[0].location.address %>">
+					</div>
+					<div class="form-group">
+						<label>City</label>
+						<input  class="form-control" type="text" name="city" value="<%= user[0].location.city %>">
+					</div>
+					<div class="form-group">
+						<label>Zip Code</label>
+						<input  class="form-control" type="text" name="zipCode" value="<%= user[0].location.zipCode %>">
+					</div>
+					<hr>
+					<div class="form-group">
+						<label>Date Finished</label>
+						<div class='input-group date datetimepicker'>
+			        		<input type='text' class="form-control" id="datetimepicker-delivery" name="dateFinished" required/>
+			        		<span class="input-group-addon">
+			            		<span class="glyphicon glyphicon-calendar"></span>
+			        		</span>
+				    	</div>
 					</div>
 					<button class="btn btn-default btn-more-info wow bounceIn animated" style="background: #ff530a">Finish</button>
-			</form>
+				</form>
 			</div>
     </div>
   </div>
@@ -77,9 +77,21 @@
 			$('.delivery').show();
 		});
 
-		$('.datetimepicker').datetimepicker({
-				format: 'HH:mm'
+		var deliveryMinDate = moment().add(2, 'hours');
+		var pickupMinDate = moment().add(1, 'hours');
+		
+		$('#datetimepicker-delivery').datetimepicker({
+				format: 'HH:mm',
+				defaultDate: moment().add(2, 'hours'),
+				minDate: deliveryMinDate
 		});
+		
+		$('#datetimepicker-pickup').datetimepicker({
+				format: 'HH:mm',
+				defaultDate: moment().add(1, 'hours'),
+				minDate: pickupMinDate
+		});
+		
 	});
 
 </script>
