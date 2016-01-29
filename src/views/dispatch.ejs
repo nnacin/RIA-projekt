@@ -11,6 +11,7 @@
 					<div class="form-group">
 						<label>Location</label>
 						<select name="location" class="form-control" required>
+							<option disabled selected></option>
 							<% location.forEach(function (location) { %>
 								<option value="<%= location._id %>" ><%= location.name %> (<%= location.address %>, <%= location.city %>)</option>
 							<% }) %>
