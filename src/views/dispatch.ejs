@@ -1,0 +1,85 @@
+<% include ./header %>
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+      <div class="btn-group btn-group-justified" role="group" style="text-align:center">
+        <button type="button" id="pickup-button" class="btn btn-default active" style="width:30%">Pickup</button>
+        <button type="button" id="delivery-button" class="btn btn-default" style="width:30%">Delivery</button>
+      </div>
+			<div class="pickup">
+				<form method="POST" action="/dispatch">
+				<div class="form-group">
+					<label>Location</label>
+					<select name="location" required>
+						<% location.forEach(function (location) { %>
+							<option value="<%= location._id %>" ><%= location.name %></option>
+						<% }) %>
+					</select>
+				</div>
+				<div class="form-group">
+					<label>Date Finished</label>
+						<div class='input-group date datetimepicker'>
+			        <input type='text' class="form-control" name="dateFinished" required/>
+			        <span class="input-group-addon">
+			            <span class="glyphicon glyphicon-calendar"></span>
+			        </span>
+			    	</div>
+					</div>
+					<button class="btn btn-default btn-more-info wow bounceIn animated" style="background: #ff530a">Finish</button>
+				</form>
+			</div>
+
+
+			<div class="delivery" style="display:none">
+				<form method="POST" action="/dispatch">
+				<div class="form-group">
+					<label>Address</label>
+					<input  class="form-control" type="text" name="address" value="<%= user[0].location.address %>">
+				</div>
+				<div class="form-group">
+					<label>City</label>
+					<input  class="form-control" type="text" name="city" value="<%= user[0].location.city %>">
+				</div>
+				<div class="form-group">
+					<label>Zip Code</label>
+					<input  class="form-control" type="text" name="zipCode" value="<%= user[0].location.zipCode %>">
+				</div>
+				<hr>
+				<div class="form-group">
+					<label>Date Finished</label>
+				<div class='input-group date datetimepicker'>
+		        <input type='text' class="form-control" name="dateFinished" required/>
+		        <span class="input-group-addon">
+		            <span class="glyphicon glyphicon-calendar"></span>
+		        </span>
+			    </div>
+					</div>
+					<button class="btn btn-default btn-more-info wow bounceIn animated" style="background: #ff530a">Finish</button>
+			</form>
+			</div>
+    </div>
+  </div>
+</div>
+<% include ./footer %>
+<script>
+	$(document).ready(function() {
+		$('#pickup-button').on('click', function (event) {
+			$('#pickup-button').addClass('active');
+			$('#delivery-button').removeClass('active');
+			$('.pickup').show();
+			$('.delivery').hide();
+		});
+
+		$('#delivery-button').on('click', function (event) {
+			$('#delivery-button').addClass('active');
+			$('#pickup-button').removeClass('active');
+			$('.pickup').hide();
+			$('.delivery').show();
+		});
+
+		$('.datetimepicker').datetimepicker({
+				format: 'HH:mm'
+		});
+	});
+
+</script>

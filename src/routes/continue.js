@@ -6,7 +6,7 @@ const Promise = require('bluebird')
 const debug = require('debug')('staff/pizzamins:continue');
 
 router.get('/continue', isLoggedIn, (req, res, next) => {
-  res.redirect('menu');
+  res.redirect('dispatch');
 })
 
 router.post('/continue', (req, res, next) => {

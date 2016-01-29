@@ -3,11 +3,11 @@ var passport = require('passport');
 var router = express.Router();
 
 router.get('/signup', function(req, res) {
-    res.render('signup'); 
+    res.render('signup');
 });
-    
+
 router.post('/signup', passport.authenticate('local-signup',  {
-    successRedirect : '/menu', // redirect to the secure profile section
+    successRedirect : '/redirectHandler', // redirect to the secure profile section
     failureRedirect : '/signup', // redirect back to the signup page if there is an error
     session: true
 }));
