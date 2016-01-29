@@ -1,36 +1,33 @@
 const express = require('express');
 const router = express.Router();
-const request = require('request');
 const moment = require('moment');
-const creds = require('../../creds');
 const Promise = require('bluebird')
-const ad = require('../adapter');
-const Adapter = new ad();
-const debug = require('debug')('staff/index');
+const debug = require('debug')('pizzamins:profile');
 
 router.get('/profile', isLoggedIn, (req, res, next) => {
-  const id = req.query.id;
-  Adapter.getUser(id, (e, r) => {
-    res.render('profile', { results: r });
+  const adapter = req.app.get('adapter');
+  const getUser = Promise.promisify(adapter.getUser);
+  const getUserOrder = Promise.promisify(adapter.getUserOrder);
+  let id = req.user._id;
+  getUser(id)
+  .then(r => {
+    getUserOrder(id)
+    .then(orders => {
+      res.render('profile', { results: r, orders: orders, moment : moment });
+    })
   })
 });
 
 router.post('/profile', isLoggedIn, (req, res, next) => {
-  const id = req.body.id;
-  const firstName = req.body.firstName;
-  const lastName = req.body.lastName;
-  const phone = req.body.phone;
-  const address = req.body.address;
-  const city = req.body.city;
-  const zipCode = req.body.zipCode;
-  const data = {
-    id: id,
-    firstName: firstName,
-    lastName: lastName,
-    phone: phone,
-    address: address,
-    city: city,
-    zipCode: zipCode
+  const Adapter = req.app.get('adapter');
+  let data = {
+    id: req.body.id,
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    phone: req.body.phone,
+    address: req.body.address,
+    city: req.body.city,
+    zipCode: req.body.zipCode
   }
   Adapter.editUser(data, (e, r) => {
     res.redirect('/');
@@ -39,7 +36,7 @@ router.post('/profile', isLoggedIn, (req, res, next) => {
 });
 
 function isLoggedIn(req, res, next) {
-    // if user is authenticated in the session, carry on 
+    // if user is authenticated in the session, carry on
     if (req.isAuthenticated())
         return next();
 

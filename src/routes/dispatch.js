@@ -26,7 +26,7 @@ router.get('/dispatch', isLoggedIn, (req, res, next) => {
         newLocations.push(l);
       }
     });
-    
+
     getUser(id)
     .then(user => {
       res.render('dispatch', { user: user, order: order, location: newLocations });
@@ -68,7 +68,7 @@ router.post('/dispatch', isLoggedIn, (req, res, next) => {
     .then(r => {
       console.log(order);
       console.log(r);
-      order = {};
+      req.session.order = {};
       res.redirect('/');
     })
   });
