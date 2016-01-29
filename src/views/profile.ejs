@@ -40,9 +40,33 @@
 						You have no orders yet!
 					<% } else { %>
 						<% orders.forEach((e, i) => { %>
-							<% if (i < 3) {}%>
-								<%= %>
-						<% }) %>
+							<% if (i < 3) { %>
+								<% if (i > 0) { %>
+									<%- '<hr>' %>
+								<% } %>
+								<%- '<b>' + 'Order: #' + e._id + '</b><br>'%>
+								<%- 'Date: ' + moment(e.dateCreated).format('DD-MM-YYYY') + '<br>'%>
+								<% var remaining = moment(e.dateFinished).diff(moment(), 'minutes'); %>
+								<% var status = ''; %>
+								<% if (remaining > 60) {status = 'Pending'} %>
+								<% if (remaining < 60) {status = 'Preparing'} %>
+								<% if (remaining < 0) {status = 'Complete'} %>
+								<%- 'Status: ' + status + '<br>'%>
+
+								<%- 'Pizza: ' %>
+								<% e.items[0].forEach((pizza) => { %>
+									<%- pizza.name + ' ' %>
+								<% }) %>
+								<%- '<br>'%>
+
+								<%- 'Drink: ' %>
+								<% e.items[1].forEach((drink) => { %>
+									<%- drink.name + ' ' %>
+								<% }) %>
+								<%- '<br>'%>
+
+								<%- 'Total: ' + e.total + 'kn <br>'%>
+						<% }}) %>
 					<% } %>
 			  </div>
 			</div>

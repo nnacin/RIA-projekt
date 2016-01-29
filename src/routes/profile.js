@@ -13,7 +13,7 @@ router.get('/profile', isLoggedIn, (req, res, next) => {
   .then(r => {
     getUserOrder(id)
     .then(orders => {
-      res.render('profile', { results: r, orders: orders });
+      res.render('profile', { results: r, orders: orders, moment : moment });
     })
   })
 });
