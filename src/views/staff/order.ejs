@@ -3,40 +3,40 @@
 <div id="content" class="col-xs-12 col-sm-10">
         <div class="form-group">
 			<label>Username</label>
-			<input type="text" name="firstName" value="<%= results[0].user.username %>" disabled>
+			<input class="form-control" type="text" name="username" value="<%= results[0].user.username %>" disabled>
 		</div>
 		<div class="form-group">
 			<label>First Name</label>
-			<input type="text" name="firstName" value="<%= results[0].user.firstName %>" disabled>
+			<input class="form-control" type="text" name="firstName" value="<%= results[0].user.firstName %>" disabled>
 		</div>
 		<div class="form-group">
 			<label>Last Name</label>
-			<input type="text" name="lastName" value="<%= results[0].user.lastName %>" disabled>
+			<input class="form-control" type="text" name="lastName" value="<%= results[0].user.lastName %>" disabled>
 		</div>
 		<div class="form-group">
 			<label>Location</label>
-			<input type="text" name="email" value="<%= results[0].location.name %>" disabled>
+			<input class="form-control" type="text" name="locationName" value="<%= results[0].location.name %>" disabled>
 		</div>
 		<div class="form-group">
 			<label>Total</label>
-			<input type="text" name="email" value="<%= results[0].total %> kn" disabled>
+			<input class="form-control" type="text" name="total" value="<%= results[0].total %> kn" disabled>
 		</div>
 		<div class="form-group">
 			<label>Date Finished</label>
-			<input type="text" name="email" value="<%= results[0].dateFinished %>" disabled>
+			<input class="form-control" type="text" name="dateFinished" value="<%= results[0].dateFinished %>" disabled>
 		</div>
 		<div class="form-group">
 			<label>Date Created</label>
-			<input type="text" name="email" value="<%= results[0].dateCreated %>" disabled>
+			<input class="form-control" type="text" name="dateCreated" value="<%= results[0].dateCreated %>" disabled>
 		</div>
 		<div class="form-group">
 			<label>Items</label>
-			<input type="text" name="email" value="<%= results[0].items %>" disabled>
+			<input class="form-control" type="text" name="items" value="<%= results[0].items %>" disabled>
 		</div>
 		<% if (results[0].deliveryLocation.address) { %>
 			<div class="form-group">
 				<label>Delivery Location</label>
-				<input type="text" name="email" value="<%= results[0].deliveryLocation.address %>, <%= results[0].deliveryLocation.city %>" disabled>
+				<input class="form-control" type="text" name="deliveryLocation" value="<%= results[0].deliveryLocation.address %>, <%= results[0].deliveryLocation.city %>" disabled>
 			</div>
 		<% } %>
 </div>
