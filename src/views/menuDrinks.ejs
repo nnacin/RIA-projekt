@@ -39,6 +39,7 @@
                             <div class="total"><div style="float:left">Total:</div><div id="total" style="float:right;padding-left:1em">0</div></div>
                           </div>
                           <div style="clear:both;"></div>
+                          <button id="back" class="btn btn-default" style="float: left">Back</button>
                           <button id="next" class="btn btn-default" style="float: right">Next</button>
                     </div>
 
@@ -109,7 +110,7 @@
     });
 
     $('#next').on('click', function (event) {
-      var form = $('<form method="POST" action="drinks"></form>').appendTo('#hiddenForm');
+      var form = $('<form method="POST" action="continue"></form>').appendTo('#hiddenForm');
       $.each(orderForm, function (i, v) {
         $('<input>').attr('name','name').appendTo(form).val(v.name);
         $('<input>').attr('name','id').appendTo(form).val(v.id);
