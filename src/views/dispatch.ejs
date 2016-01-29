@@ -2,17 +2,17 @@
 <div class="container">
 	<div class="row">
 		<div class="col-md-12">
-      <div class="btn-group btn-group-justified" role="group" style="text-align:center">
-        <button type="button" id="pickup-button" class="btn btn-default active" style="width:30%">Pickup</button>
-        <button type="button" id="delivery-button" class="btn btn-default" style="width:30%">Delivery</button>
-      </div>
+			<div class="btn-group btn-group-justified" role="group" style="text-align:center">
+				<button type="button" id="pickup-button" class="btn btn-default active" style="width:30%">Pickup</button>
+				<button type="button" id="delivery-button" class="btn btn-default" style="width:30%">Delivery</button>
+			</div>
 			<div class="pickup">
 				<form method="POST" action="/dispatch">
 					<div class="form-group">
 						<label>Location</label>
-						<select name="location" required>
+						<select name="location" class="form-control" required>
 							<% location.forEach(function (location) { %>
-								<option value="<%= location._id %>" ><%= location.name %></option>
+								<option value="<%= location._id %>" ><%= location.name %> (<%= location.address %>, <%= location.city %>)</option>
 							<% }) %>
 						</select>
 					</div>
@@ -57,8 +57,8 @@
 					<button class="btn btn-default btn-more-info wow bounceIn animated" style="background: #ff530a">Finish</button>
 				</form>
 			</div>
-    </div>
-  </div>
+    	</div>
+  	</div>
 </div>
 <% include ./footer %>
 <script>

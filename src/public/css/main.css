@@ -728,3 +728,7 @@ nav .block .navbar-default .navbar-nav > li > a.login-link:focus {
 #footer-bottom p a {
   color: #FF4F02;
 }
+
+.datetimepicker {
+  z-index: 99999;
+}
