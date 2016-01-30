@@ -8,7 +8,6 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const flash = require('connect-flash');
 const bcrypt = require('bcrypt');
-const request = require('request');
 const routeLoader = require('express4-route-loader');
 const Promise = require('bluebird');
 const Adpt = require('./adapter');
@@ -52,8 +51,8 @@ passport.use('local-signup', new LocalStrategy({
       passReqToCallback: true // allows us to pass back the entire request to the callback
   }, function(req, username, password, done) { // callback with email and password from our form
     Adapter.getUserByUsername(username, (e, r) => {
-     
-          
+
+
       if (e)
         return done(e);
       if (r.length != 0)
@@ -68,25 +67,25 @@ passport.use('local-signup', new LocalStrategy({
       const address = req.body.address;
       const city = req.body.city;
       const zipCode = req.body.zipCode;
-      
+
       Adapter.addUser(username, firstName, lastName, password, password2, email, phone, birthday, address, city, zipCode, (e, r) => {
         console.log(r);
           console.log(e);
         Adapter.getUserByUsername(username, (e, r) => {
-        
+
           if (e)
             return done(e);
-    
+
           if (r.length == 0)
             return done(null, false, req.flash('error_message','Unsuccessful signup.')); // req.flash is the way to set flashdata using connect-flash
-    
+
           // all is well, return successful user
           return done(null, r[0]);
         })
         //return done(null, r[0]);
       });
-      
-      
+
+
       // all is well, return successful user
 
     })
@@ -109,7 +108,7 @@ passport.use('local-loginEmployee', new LocalStrategy({
 
       if (!r[0].active)
           return done(null, false, req.flash('error_message', 'You no longer have permission to login.')); // create the loginMessage and save it to session as flashdata
-          
+
       // all is well, return successful user
       return done(null, r[0]);
     })
@@ -140,11 +139,11 @@ passport.serializeUser( function(user, done) {
     user = {
       id: user._id,
       employee: true
-    } 
+    }
   } else {
     user = {
       id: user._id,
-    } 
+    }
   }
   done(null, user);
 });
@@ -165,7 +164,7 @@ app.use(function (req, res, next) {
   if (!req.isAuthenticated()) {
     return next();
   }
-  
+
   if (req.user.active) {
     res.locals.user = {
       id: req.user._id,
