@@ -3,23 +3,23 @@
 	<div class="row">
 		<div class="col-md-12">
 			<table class="table table-hover" style="margin-top: 2%">
-		    <thead>
-		      <tr>
+			    <thead>
+			    	<tr>
 						<th>#ID</th>
 						<th>Date</th>
-		        <th>Pizza</th>
-		        <th>Drink</th>
+				        <th>Pizza</th>
+				        <th>Drink</th>
 						<th>Total</th>
 						<th>Status</th>
-		      </tr>
-		    </thead>
-		    <tbody>
+			      	</tr>
+			    </thead>
+			    <tbody>
 					<% orders.forEach((order, i) => { %>
 						<tr>
-			        <td>
+				        	<td>
 								<%= order._id %>
 							</td>
-			        <td>
+				        	<td>
 								<%= moment(order.dateCreated).format("DD-MM-YYYY") %>
 							</td>
 							<td>
@@ -35,7 +35,7 @@
 							<td>
 								<%= order.total %>
 							</td>
-			        <td>
+				        	<td>
 								<% var remaining = moment(order.dateFinished).diff(moment(), 'minutes'); %>
 								<% var status = ''; %>
 								<% if (remaining > 60) {status = 'Pending'} %>
@@ -43,10 +43,10 @@
 								<% if (remaining < 0) {status = 'Complete'} %>
 								<%- status %>
 							</td>
-			      </tr>
+				      	</tr>
 					<% }); %>
-		    </tbody>
-		  </table>
+			    </tbody>
+		  	</table>
 		</div>
 	</div>
 </div>
