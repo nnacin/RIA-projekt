@@ -16,7 +16,7 @@ router.get('/myOrders', isLoggedIn, (req, res, next) => {
 });
 
 function isLoggedIn(req, res, next) {
-    if (req.isAuthenticated())
+    if (req.isAuthenticated() && !req.user.active)
         return next();
     res.redirect('/login');
 }
