@@ -1,146 +1,159 @@
 <% include ./header %>
 <!--Start Content-->
-<div id="content" class="col-xs-12 col-sm-10">
+<div id="content" class="col-xs-12 col-sm-10" style="padding-top: 2em">
 	<div class="row">
 		<div class="col-md-3 col-sm-3">
-		    <% locations.forEach(location => { %>
-				<div class="row">
-    		    	<div class="item-title">
-    		    		<div class="col-md-6">
-    		    			<a href="/staff/location?id=<%= location._id %>"><%= location.name %></a> 
-    		    		</div>
-    		    		<div class="col-md-4 col-md-offset-2">
-    		    			<a class="btn btn-danger" href="/staff/deletelocation?id=<%= location._id %>">Delete</a>
-    		    		</div>
-    				</div>
+			<div class="panel panel-default">
+  			<div class="panel-heading">Current locations</div>
+				<div class="panel-body">
+				    <% locations.forEach((location, i) => { %>
+							<% if (i !== 0) { %>
+								<div style="width: 100%; height: 1px; background: #ddd; overflow: hidden; margin-bottom: 15px"></div>
+							<% } %>
+							<div class="row">
+	    		    	<div class="item-title">
+	    		    		<div class="col-md-6">
+	    		    			<a href="/staff/location?id=<%= location._id %>"><%= location.name %></a>
+	    		    		</div>
+	    		    		<div class="col-md-4 col-md-offset-2">
+	    		    			<a class="btn btn-xs btn-danger" href="/staff/deletelocation?id=<%= location._id %>">Delete</a>
+	    		    		</div>
+		    				</div>
+						</div>
+				  <% }) %>
 				</div>
-		  <% }) %>
+			</div>
 	  </div>
 	  <div class="col-md-9 col-sm-9">
-  		<form method="POST" action="/staff/location">
-			    
-    		<div class="form-group">
-    			<label>Name</label>
-    			<input  class="form-control" type="text" name="name" required>
-    		</div>
-    		<div class="form-group">
-    			<label>Address</label>
-    			<input  class="form-control" type="text" name="address" required>
-    		</div>
-    		<div class="form-group">
-    			<label>City</label>
-    			<input  class="form-control" type="text" name="city" required>
-    		</div>
-    		<div class="form-group">
-    			<label>Zip Code</label>
-    			<input  class="form-control" type="text" name="zipCode" placeholder="Zip Code must be a number." required>
-    		</div>
-    		<div class="form-group">
-    			<label>Phone</label>
-    			<input  class="form-control" type="text" name="phone" required>
-    		</div>
-    		<label><u>Work Hours</u></label>
-    		<div class="form-group">
-    		    <label>Monday</label>
-    			<div class='input-group date datetimepicker'>
-                    <input type='text' class="form-control" name="monday" placeholder="Opening time (HH:mm format)" required />
-                    <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
-                </div>
-    			<div class='input-group date datetimepicker'>
-                    <input type='text' class="form-control" name="monday" placeholder="Closing time (HH:mm format)" required />
-                    <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
-                </div>
-    			
-    			<label>Tuesday</label>
-    			<div class='input-group date datetimepicker'>
-                    <input type='text' class="form-control" name="tuesday" placeholder="Opening time (HH:mm format)" required />
-                    <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
-                </div>
-                <div class='input-group date datetimepicker'>
-                    <input type='text' class="form-control" name="tuesday" placeholder="Closing time (HH:mm format)" required />
-                    <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
-                </div>
-    			
-    			<label>Wednesay</label>
-    			<div class='input-group date datetimepicker'>
-                    <input type='text' class="form-control" name="wednesday" placeholder="Opening time (HH:mm format)" required />
-                    <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
-                </div>
-                <div class='input-group date datetimepicker'>
-                    <input type='text' class="form-control" name="wednesday" placeholder="Closing time (HH:mm format)" required />
-                    <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
-                </div>
-    			
-    			<label>Thursday</label>
-    			<div class='input-group date datetimepicker'>
-                    <input type='text' class="form-control" name="thursday" placeholder="Opening time (HH:mm format)" required />
-                    <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
-                </div>
-                <div class='input-group date datetimepicker'>
-                    <input type='text' class="form-control" name="thursday" placeholder="Closing time (HH:mm format)" required />
-                    <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
-                </div>
-    			
-    			<label>Friday</label>
-    			<div class='input-group date datetimepicker'>
-                    <input type='text' class="form-control" name="friday" placeholder="Opening time (HH:mm format)" required />
-                    <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
-                </div>
-                <div class='input-group date datetimepicker'>
-                    <input type='text' class="form-control" name="friday" placeholder="Closing time (HH:mm format)" required />
-                    <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
-                </div>
-    			
-    			<label>Saturday</label>
-    			<div class='input-group date datetimepicker'>
-                    <input type='text' class="form-control" name="saturday" placeholder="Opening time (HH:mm format)" required />
-                    <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
-                </div>
-                <div class='input-group date datetimepicker'>
-                    <input type='text' class="form-control" name="saturday" placeholder="Closing time (HH:mm format)" required />
-                    <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
-                </div>
-    			
-    			<label>Sunday</label>
-    			<div class='input-group date datetimepicker'>
-                    <input type='text' class="form-control" name="sunday" placeholder="Opening time (HH:mm format)" required />
-                    <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
-                </div>
-                <div class='input-group date datetimepicker'>
-                    <input type='text' class="form-control" name="sunday" placeholder="Closing time (HH:mm format)" required />
-                    <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
-                </div>
-    		</div>
-			<button class="btn-primary">Save</button>
-		</form>
+				<div class="panel panel-default">
+	  			<div class="panel-heading">Add a location</div>
+					<div class="panel-body">
+			  		<form method="POST" action="/staff/location">
+
+			    		<div class="form-group">
+			    			<label>Name</label>
+			    			<input  class="form-control" type="text" name="name" required>
+			    		</div>
+			    		<div class="form-group">
+			    			<label>Address</label>
+			    			<input  class="form-control" type="text" name="address" required>
+			    		</div>
+			    		<div class="form-group">
+			    			<label>City</label>
+			    			<input  class="form-control" type="text" name="city" required>
+			    		</div>
+			    		<div class="form-group">
+			    			<label>Zip Code</label>
+			    			<input  class="form-control" type="text" name="zipCode" placeholder="Zip Code must be a number." required>
+			    		</div>
+			    		<div class="form-group">
+			    			<label>Phone</label>
+			    			<input  class="form-control" type="text" name="phone" required>
+			    		</div>
+			    		<label><u>Work Hours</u></label>
+			    		<div class="form-group">
+			    		    <label>Monday</label>
+			    			<div class='input-group date datetimepicker'>
+			                    <input type='text' class="form-control" name="monday" placeholder="Opening time (HH:mm format)" required />
+			                    <span class="input-group-addon">
+			                        <span class="glyphicon glyphicon-calendar"></span>
+			                    </span>
+			                </div>
+			    			<div class='input-group date datetimepicker'>
+			                    <input type='text' class="form-control" name="monday" placeholder="Closing time (HH:mm format)" required />
+			                    <span class="input-group-addon">
+			                        <span class="glyphicon glyphicon-calendar"></span>
+			                    </span>
+			                </div>
+
+			    			<label>Tuesday</label>
+			    			<div class='input-group date datetimepicker'>
+			                    <input type='text' class="form-control" name="tuesday" placeholder="Opening time (HH:mm format)" required />
+			                    <span class="input-group-addon">
+			                        <span class="glyphicon glyphicon-calendar"></span>
+			                    </span>
+			                </div>
+			                <div class='input-group date datetimepicker'>
+			                    <input type='text' class="form-control" name="tuesday" placeholder="Closing time (HH:mm format)" required />
+			                    <span class="input-group-addon">
+			                        <span class="glyphicon glyphicon-calendar"></span>
+			                    </span>
+			                </div>
+
+			    			<label>Wednesay</label>
+			    			<div class='input-group date datetimepicker'>
+			                    <input type='text' class="form-control" name="wednesday" placeholder="Opening time (HH:mm format)" required />
+			                    <span class="input-group-addon">
+			                        <span class="glyphicon glyphicon-calendar"></span>
+			                    </span>
+			                </div>
+			                <div class='input-group date datetimepicker'>
+			                    <input type='text' class="form-control" name="wednesday" placeholder="Closing time (HH:mm format)" required />
+			                    <span class="input-group-addon">
+			                        <span class="glyphicon glyphicon-calendar"></span>
+			                    </span>
+			                </div>
+
+			    			<label>Thursday</label>
+			    			<div class='input-group date datetimepicker'>
+			                    <input type='text' class="form-control" name="thursday" placeholder="Opening time (HH:mm format)" required />
+			                    <span class="input-group-addon">
+			                        <span class="glyphicon glyphicon-calendar"></span>
+			                    </span>
+			                </div>
+			                <div class='input-group date datetimepicker'>
+			                    <input type='text' class="form-control" name="thursday" placeholder="Closing time (HH:mm format)" required />
+			                    <span class="input-group-addon">
+			                        <span class="glyphicon glyphicon-calendar"></span>
+			                    </span>
+			                </div>
+
+			    			<label>Friday</label>
+			    			<div class='input-group date datetimepicker'>
+			                    <input type='text' class="form-control" name="friday" placeholder="Opening time (HH:mm format)" required />
+			                    <span class="input-group-addon">
+			                        <span class="glyphicon glyphicon-calendar"></span>
+			                    </span>
+			                </div>
+			                <div class='input-group date datetimepicker'>
+			                    <input type='text' class="form-control" name="friday" placeholder="Closing time (HH:mm format)" required />
+			                    <span class="input-group-addon">
+			                        <span class="glyphicon glyphicon-calendar"></span>
+			                    </span>
+			                </div>
+
+			    			<label>Saturday</label>
+			    			<div class='input-group date datetimepicker'>
+			                    <input type='text' class="form-control" name="saturday" placeholder="Opening time (HH:mm format)" required />
+			                    <span class="input-group-addon">
+			                        <span class="glyphicon glyphicon-calendar"></span>
+			                    </span>
+			                </div>
+			                <div class='input-group date datetimepicker'>
+			                    <input type='text' class="form-control" name="saturday" placeholder="Closing time (HH:mm format)" required />
+			                    <span class="input-group-addon">
+			                        <span class="glyphicon glyphicon-calendar"></span>
+			                    </span>
+			                </div>
+
+			    			<label>Sunday</label>
+			    			<div class='input-group date datetimepicker'>
+			                    <input type='text' class="form-control" name="sunday" placeholder="Opening time (HH:mm format)" required />
+			                    <span class="input-group-addon">
+			                        <span class="glyphicon glyphicon-calendar"></span>
+			                    </span>
+			                </div>
+			                <div class='input-group date datetimepicker'>
+			                    <input type='text' class="form-control" name="sunday" placeholder="Closing time (HH:mm format)" required />
+			                    <span class="input-group-addon">
+			                        <span class="glyphicon glyphicon-calendar"></span>
+			                    </span>
+			                </div>
+			    		</div>
+						<button class="btn-primary">Save</button>
+					</form>
+				</div>
+			</div>
 	  </div>
   </div>
 </div>

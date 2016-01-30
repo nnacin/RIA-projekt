@@ -6,7 +6,10 @@
 			<div class="panel panel-default">
   			<div class="panel-heading">Current pizzas</div>
 				<div class="panel-body">
-					<% pizza.forEach(pizza => { %>
+					<% pizza.forEach((pizza, i) => { %>
+						<% if (i !== 0) { %>
+							<div style="width: 100%; height: 1px; background: #ddd; overflow: hidden; margin-bottom: 15px"></div>
+						<% } %>
 				  	<div class="item-title">
 				  		<div class="col-md-6">
 				    		<a href="/staff/pizza?id=<%= pizza._id %>"><%= pizza.name %></a>
@@ -17,7 +20,7 @@
 						</div>
 					<% }) %>
 				</div>
-				</div>
+			</div>
 	  </div>
   	<div class="col-md-9 col-sm-9">
 			<div class="panel panel-default">
