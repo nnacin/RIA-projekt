@@ -15,11 +15,11 @@
         <!-- Font-awesome.min css -->
 		<link rel="stylesheet" href="css/font-awesome.min.css">
         <!-- Main Stylesheet -->
-        <link rel="stylesheet" href="css/animate.min.css">
-        <!-- Datepicker Stylesheet -->
-        <link href="/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
-        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-	<link href='https://fonts.googleapis.com/css?family=Righteous' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="css/animate.min.css">
+    <!-- Datepicker Stylesheet -->
+    <link href="/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+	  <link href='https://fonts.googleapis.com/css?family=Righteous' rel='stylesheet' type='text/css'>
 
 		<link rel="stylesheet" href="css/main.css">
         <!-- Responsive Stylesheet -->
@@ -46,52 +46,50 @@
 	<!--
     Header start
 	============================== -->
-	<nav id="navigation">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="block">
-                        <nav class="navbar navbar-default">
-                          <div class="container-fluid">
-                            <!-- Brand and toggle get grouped for better mobile display -->
-                            <div class="navbar-header">
-                              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                                <span class="sr-only">Toggle navigation</span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                              </button>
-                                  <a class="navbar-brand" href="/" style="padding: 5px 0px;">
-                                    <img src="images/logo3.png" alt="Logo">
-                                  </a>
-
-                            </div>
-
-                            <!-- Collect the nav links, forms, and other content for toggling -->
-                            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                              <ul class="nav navbar-nav navbar-right">
-                                <li class="<%= path.complete == '/' ? 'active' : '' %>"><a href="/">Home</a></li>
-                                <li class="<%= path.complete == '/menu' ? 'active' : '' %>"><a href="/menu">Menu</a></li>
-                                <li class="<%= path.complete == '/locations' ? 'active' : '' %>"><a href="/locations">Locations</a></li>
-                                <li class="<%= path.complete == '/about' ? 'active' : '' %>"><a href="/about">About</a></li>
-                                <% if (locals.user) { %>
-                                  <% if (!locals.user.employee) { %>
-                                    <li class="<%= (path.complete == '/profile' || path.complete == '/myOrders') ? 'active' : '' %>"><a class="login-link" href="/profile">&nbsp;My Profile&nbsp;</a></li>
-																		<li class=""><a href="/logout">Logout</a></li>
+  	<nav id="navigation">
+          <div class="container">
+              <div class="row">
+                  <div class="col-md-12">
+                      <div class="block">
+                          <nav class="navbar navbar-default">
+                            <div class="container-fluid">
+                              <!-- Brand and toggle get grouped for better mobile display -->
+                              <div class="navbar-header">
+                                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                                  <span class="sr-only">Toggle navigation</span>
+                                  <span class="icon-bar"></span>
+                                  <span class="icon-bar"></span>
+                                  <span class="icon-bar"></span>
+                                </button>
+                                    <a class="navbar-brand" href="/" style="padding: 5px 0px;">
+                                      <img src="images/logo3.png" alt="Logo">
+                                    </a>
+  
+                              </div>
+  
+                              <!-- Collect the nav links, forms, and other content for toggling -->
+                              <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                                <ul class="nav navbar-nav navbar-right">
+                                  <li class="<%= path.complete == '/' ? 'active' : '' %>"><a href="/">Home</a></li>
+                                  <li class="<%= path.complete == '/menu' ? 'active' : '' %>"><a href="/menu">Menu</a></li>
+                                  <li class="<%= path.complete == '/locations' ? 'active' : '' %>"><a href="/locations">Locations</a></li>
+                                  <li class="<%= path.complete == '/about' ? 'active' : '' %>"><a href="/about">About</a></li>
+                                  <% if (locals.user) { %>
+                                    <% if (!locals.user.employee) { %>
+                                      <li class="<%= (path.complete == '/profile' || path.complete == '/myOrders') ? 'active' : '' %>"><a class="login-link" href="/profile">&nbsp;My Profile&nbsp;</a></li>
+  																		<li class=""><a href="/logout">Logout</a></li>
+                                    <% } else { %>
+                                      <li class="<%= path.complete == '/login' ? 'active' : '' %>"><a class="login-link" href="/login">&nbsp;Login&nbsp;</a></li>
+                                    <% } %>
                                   <% } else { %>
                                     <li class="<%= path.complete == '/login' ? 'active' : '' %>"><a class="login-link" href="/login">&nbsp;Login&nbsp;</a></li>
                                   <% } %>
-                                <% } else { %>
-                                  <li class="<%= path.complete == '/login' ? 'active' : '' %>"><a class="login-link" href="/login">&nbsp;Login&nbsp;</a></li>
-                                <% } %>
-                              </ul>
-                            </div><!-- /.navbar-collapse -->
-                          </div><!-- /.container-fluid -->
-                        </nav>
-                    </div>
-                </div><!-- .col-md-12 close -->
-            </div><!-- .row close -->
-        </div><!-- .container close -->
-	</nav><!-- header close -->
-	<script src="/js/moment.min.js"></script>
-<script src="/js/bootstrap-datetimepicker.min.js"></script>
+                                </ul>
+                              </div><!-- /.navbar-collapse -->
+                            </div><!-- /.container-fluid -->
+                          </nav>
+                      </div>
+                  </div><!-- .col-md-12 close -->
+              </div><!-- .row close -->
+          </div><!-- .container close -->
+  	</nav><!-- header close -->
