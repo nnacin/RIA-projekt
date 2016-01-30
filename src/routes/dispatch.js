@@ -16,8 +16,8 @@ router.get('/dispatch', isLoggedIn, (req, res, next) => {
   getAllLocation()
   .then(loc => {
     let newLocations =  [];
-    let dayOfWeek = moment().format('dddd').toLowerCase();
-    let now = moment().format("HH:mm");
+    let dayOfWeek = moment().utcOffset('+0100').format('dddd').toLowerCase();
+    let now = moment().utcOffset('+0100').format("HH:mm");
     let finish = moment().add(2, 'hours');
     finish = moment(finish).format('HH:mm');
 
