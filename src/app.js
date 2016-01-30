@@ -107,7 +107,9 @@ passport.use('local-loginEmployee', new LocalStrategy({
       if (!isValidPassword(r[0], password))
           return done(null, false, req.flash('error_message', 'Invalid password.')); // create the loginMessage and save it to session as flashdata
 
-      
+      if (!r[0].active)
+          return done(null, false, req.flash('error_message', 'You no longer have permission to login.')); // create the loginMessage and save it to session as flashdata
+          
       // all is well, return successful user
       return done(null, r[0]);
     })
