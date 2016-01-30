@@ -38,8 +38,6 @@ router.post('/dispatch', isLoggedIn, (req, res, next) => {
   const adapter = req.app.get('adapter');
   const getAllLocation = Promise.promisify(adapter.getAllLocation);
   const addOrder = Promise.promisify(adapter.addOrder);
-  console.log(req.body);
-  console.log(req.body.dateFinished);
 
   getAllLocation()
   .then(loc => {

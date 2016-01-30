@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const request = require('request');
 const moment = require('moment');
-const creds = require('../../creds');
 const Promise = require('bluebird');
 const bcrypt = require('bcrypt');
 const ad = require('../adapter');
