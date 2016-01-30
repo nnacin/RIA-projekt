@@ -4,36 +4,36 @@
 	<form method="POST" action="/staff/employee">
 		<input  type="hidden" name="id" value="<%= results[0]._id %>">
 		<div class="form-group">
-			<label>Active</label>
-			True<input type="radio" name="active" value="true" <%= (results[0].active) ? 'checked' : ''  %>>
-			False<input type="radio" name="active" value="false" <%= !(results[0].active) ? 'checked' : ''  %>>
-		</div>
-		<div class="form-group">
-			<label>Admin</label>
-			True<input type="radio" name="admin" value="true" <%= (results[0].admin) ? 'checked' : ''  %>>
-			False<input type="radio" name="admin" value="false" <%= !(results[0].admin) ? 'checked' : ''  %>>
-		</div>
-		<div class="form-group">
 			<label>First Name</label>
-			<input type="text" name="firstName" value="<%= results[0].firstName %>" required>
+			<input class="form-control" type="text" name="firstName" value="<%= results[0].firstName %>" required>
 		</div>
 		<div class="form-group">
 			<label>Last Name</label>
-			<input type="text" name="lastName" value="<%= results[0].lastName %>" required>
+			<input class="form-control" type="text" name="lastName" value="<%= results[0].lastName %>" required>
 		</div>
 		<div class="form-group">
 			<label>Email</label>
-			<input type="text" name="email" value="<%= results[0].email %>" required>
+			<input class="form-control" type="text" name="email" value="<%= results[0].email %>" required>
 		</div>
 		<div class="form-group">
 			<label>Location</label>
-			<select name="location" required>
+			<select class="form-control" name="location" required>
 				<% locations.forEach(function (location) { %>
 					<option value="<%= location._id %>" ><%= location.name %></option>
 				<% }) %>
 			</select>
 		</div>
-		<button class="btn-primary">Update</button>
+		<div class="form-group">
+			<label>Active</label><br>
+			<input type="radio" name="active" value="true" <%= (results[0].active) ? 'checked' : ''  %>> True<br>
+			<input type="radio" name="active" value="false" <%= !(results[0].active) ? 'checked' : ''  %>> False
+		</div>
+		<div class="form-group">
+			<label>Admin</label><br>
+			<input type="radio" name="admin" value="true" <%= (results[0].admin) ? 'checked' : ''  %>> True<br>
+			<input type="radio" name="admin" value="false" <%= !(results[0].admin) ? 'checked' : ''  %>> False<br>
+		</div>
+		<button class="btn btn-primary">Update</button>
 	</form>
 </div>
 <!--End Content-->
