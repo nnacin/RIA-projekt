@@ -181,7 +181,7 @@ router.get('/orders', isLoggedIn, (req, res, next) => {
   getAllOrder()
       .then(r => {
       r.forEach(function (order){
-        order.dateFinished = moment(order.dateFinished).format("YYYY-MM-DD HH:mm:ss");
+        order.dateFinished = moment(order.dateFinished).utcOffset('+0100').format("YYYY-MM-DD HH:mm:ss");
       });
 
       res.render('staff/orders', { orders: r , today: moment().utcOffset('+0100').format("YYYY-MM-DD HH:mm:ss")});
@@ -192,8 +192,8 @@ router.get('/order', isLoggedIn, (req, res, next) => {
   let id = req.query.id;
   Adapter.getOrder(id, (e, r) => {
     r.forEach(function (order){
-        order.dateFinished = moment(order.dateFinished).format("YYYY-MM-DD HH:mm:ss");
-        order.dateCreated = moment(order.dateCreated).format("YYYY-MM-DD HH:mm:ss");
+        order.dateFinished = moment(order.dateFinished).utcOffset('+0100').format("YYYY-MM-DD HH:mm:ss");
+        order.dateCreated = moment(order.dateCreated).utcOffset('+0100').format("YYYY-MM-DD HH:mm:ss");
       });
     res.render('staff/order', { results: r });
   })
