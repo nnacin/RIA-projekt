@@ -19,13 +19,18 @@ router.get('/dispatch', isLoggedIn, (req, res, next) => {
     let dayOfWeek = moment().utcOffset('+0100').format('dddd').toLowerCase();
     let now = moment().utcOffset('+0100').format("HH:mm");
     let finish = moment().add(2, 'hours');
-    finish = moment(finish).format('HH:mm');
+    finish = moment(finish).utcOffset('+0100').format('HH:mm');
 
     loc.forEach(function (l) {
       if (l.workHours[dayOfWeek].open <= now && l.workHours[dayOfWeek].close > finish) {
         newLocations.push(l);
       }
     });
+    
+    if (!newLocations.length) {
+      req.flash('error_message','All locations are currently closed.');
+      return res.redirect('/');
+    }
 
     getUser(id)
     .then(user => {
