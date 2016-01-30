@@ -14,7 +14,7 @@ const getAllEmployee = Promise.promisify(Adapter.getAllEmployee);
 const debug = require('debug')('staff/index');
 
 router.get('/', isLoggedIn , function (req, res)  {
-  res.render('staff/orders');
+  res.redirect('staff/orders');
 });
 
 // drinks
