@@ -30,7 +30,7 @@ https://github.com/nnacin/RIA-projekt-api/
 7. Za izvršavanje aplikacije (API dijela) se koristi BABEL koj služi za prijevod ES6 sintakse u ES5. Iako NodeJS tj. njegov engine V8 podržava neke dijelove nove specifikacije, neke funkcionalnosti nisu podržane.
 
 # Main App Description
-1. Kao i u API dijelu podijeli smo aplikaciju na server i glavni app.
+1. Kao i u API dijelu podijelili smo aplikaciju na server i glavni app.
 2. Za autentifikaciju koristimo local strategy iz Passport (i passport-local) paketa. Kreirali smo tri različite lokalne strategije kako bi omogućili autentifikaciju različitih uloga (user-login i signup; employee-login).
 3. Za pamćenje korisnikovih podataka koristi se express-session, u session spremamo njegove najosnovnije podatke odnosno ID i podatak ako je običan korisnik ili zaposlenik. Tako je omogućen persistentan login, a korisnikovi podaci spremljeni u sessionu su svedeni na minimum. Iz tako spremljenog serijaliziranog stringa se prilikom svakog idućeg zahtjeva taj string deserijalizira i dohvaća (najčešće) ID ulogiranog korisnika te se radi provjera ako je on zapravo validan.
 4. Za komunikaciju s API-em, a time i s bazom podataka koristimo poseban adapter (adapter.js) koji sadrži metode za jednostavnu razmjenu podataka. Adapter prihvaća argumente koje mu pošaljemo, formatira ih u HTTP request te ga šalje API-u, a natrag nam vraća API-ev odgovor. Koristimo uvijek samo jednu instancu Adaptera do koje možemo doći preko glavnog app modula.
