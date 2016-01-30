@@ -1,27 +1,23 @@
 <% include ./header %>
 <!--Start Content-->
 <div id="content" class="col-xs-12 col-sm-10">
-	<a class="btn btn-success" data-toggle="modal" data-target="#add-location">Add new</a>
-	<% locations.forEach(location => { %>
-    	<div class="item-title">
-    		<a href="/staff/location?id=<%= location._id %>"><%= location.name %></a> 
-    		<a class="btn btn-danger" href="/staff/deletelocation?id=<%= location._id %>">Delete</a>
-		</div>
-  	<% }) %>
-</div>
-<!--End Content-->
-
-<% include ./footer %>
-
-<div class="modal fade" id="add-location" tabindex="-1" role="dialog">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Create Location title</h4>
-      </div>
-      <div class="modal-body">
-        <form method="POST" action="/staff/location">
+	<div class="row">
+		<div class="col-sm-3">
+		    <% locations.forEach(location => { %>
+				<div class="row">
+    		    	<div class="item-title">
+    		    		<div class="col-md-6">
+    		    			<a href="/staff/location?id=<%= location._id %>"><%= location.name %></a> 
+    		    		</div>
+    		    		<div class="col-md-6">
+    		    			<a class="btn btn-danger" href="/staff/deletelocation?id=<%= location._id %>">Delete</a>
+    		    		</div>
+    				</div>
+				</div>
+		  <% }) %>
+	  </div>
+	  <div class="col-md-9">
+  		<form method="POST" action="/staff/location">
 			    
     		<div class="form-group">
     			<label>Name</label>
@@ -37,24 +33,23 @@
     		</div>
     		<div class="form-group">
     			<label>Zip Code</label>
-    			<input  class="form-control" type="text" name="zipCode" required>
+    			<input  class="form-control" type="text" name="zipCode" placeholder="Zip Code must be a number." required>
     		</div>
     		<div class="form-group">
     			<label>Phone</label>
     			<input  class="form-control" type="text" name="phone" required>
     		</div>
+    		<label><u>Work Hours</u></label>
     		<div class="form-group">
-    		    <label>Work Hours</label>
-    		    
     		    <label>Monday</label>
     			<div class='input-group date datetimepicker'>
-                    <input type='text' class="form-control" name="monday" required />
+                    <input type='text' class="form-control" name="monday" placeholder="Opening time (HH:mm format)" required />
                     <span class="input-group-addon">
                         <span class="glyphicon glyphicon-calendar"></span>
                     </span>
                 </div>
     			<div class='input-group date datetimepicker'>
-                    <input type='text' class="form-control" name="monday" required />
+                    <input type='text' class="form-control" name="monday" placeholder="Closing time (HH:mm format)" required />
                     <span class="input-group-addon">
                         <span class="glyphicon glyphicon-calendar"></span>
                     </span>
@@ -62,13 +57,13 @@
     			
     			<label>Tuesday</label>
     			<div class='input-group date datetimepicker'>
-                    <input type='text' class="form-control" name="tuesday" required />
+                    <input type='text' class="form-control" name="tuesday" placeholder="Opening time (HH:mm format)" required />
                     <span class="input-group-addon">
                         <span class="glyphicon glyphicon-calendar"></span>
                     </span>
                 </div>
                 <div class='input-group date datetimepicker'>
-                    <input type='text' class="form-control" name="tuesday" required />
+                    <input type='text' class="form-control" name="tuesday" placeholder="Closing time (HH:mm format)" required />
                     <span class="input-group-addon">
                         <span class="glyphicon glyphicon-calendar"></span>
                     </span>
@@ -76,13 +71,13 @@
     			
     			<label>Wednesay</label>
     			<div class='input-group date datetimepicker'>
-                    <input type='text' class="form-control" name="wednesday" required />
+                    <input type='text' class="form-control" name="wednesday" placeholder="Opening time (HH:mm format)" required />
                     <span class="input-group-addon">
                         <span class="glyphicon glyphicon-calendar"></span>
                     </span>
                 </div>
                 <div class='input-group date datetimepicker'>
-                    <input type='text' class="form-control" name="wednesday" required />
+                    <input type='text' class="form-control" name="wednesday" placeholder="Closing time (HH:mm format)" required />
                     <span class="input-group-addon">
                         <span class="glyphicon glyphicon-calendar"></span>
                     </span>
@@ -90,13 +85,13 @@
     			
     			<label>Thursday</label>
     			<div class='input-group date datetimepicker'>
-                    <input type='text' class="form-control" name="thursday" required />
+                    <input type='text' class="form-control" name="thursday" placeholder="Opening time (HH:mm format)" required />
                     <span class="input-group-addon">
                         <span class="glyphicon glyphicon-calendar"></span>
                     </span>
                 </div>
                 <div class='input-group date datetimepicker'>
-                    <input type='text' class="form-control" name="thursday" required />
+                    <input type='text' class="form-control" name="thursday" placeholder="Closing time (HH:mm format)" required />
                     <span class="input-group-addon">
                         <span class="glyphicon glyphicon-calendar"></span>
                     </span>
@@ -104,13 +99,13 @@
     			
     			<label>Friday</label>
     			<div class='input-group date datetimepicker'>
-                    <input type='text' class="form-control" name="friday" required />
+                    <input type='text' class="form-control" name="friday" placeholder="Opening time (HH:mm format)" required />
                     <span class="input-group-addon">
                         <span class="glyphicon glyphicon-calendar"></span>
                     </span>
                 </div>
                 <div class='input-group date datetimepicker'>
-                    <input type='text' class="form-control" name="friday" required />
+                    <input type='text' class="form-control" name="friday" placeholder="Closing time (HH:mm format)" required />
                     <span class="input-group-addon">
                         <span class="glyphicon glyphicon-calendar"></span>
                     </span>
@@ -118,13 +113,13 @@
     			
     			<label>Saturday</label>
     			<div class='input-group date datetimepicker'>
-                    <input type='text' class="form-control" name="saturday" required />
+                    <input type='text' class="form-control" name="saturday" placeholder="Opening time (HH:mm format)" required />
                     <span class="input-group-addon">
                         <span class="glyphicon glyphicon-calendar"></span>
                     </span>
                 </div>
                 <div class='input-group date datetimepicker'>
-                    <input type='text' class="form-control" name="saturday" required />
+                    <input type='text' class="form-control" name="saturday" placeholder="Closing time (HH:mm format)" required />
                     <span class="input-group-addon">
                         <span class="glyphicon glyphicon-calendar"></span>
                     </span>
@@ -132,13 +127,13 @@
     			
     			<label>Sunday</label>
     			<div class='input-group date datetimepicker'>
-                    <input type='text' class="form-control" name="sunday" required />
+                    <input type='text' class="form-control" name="sunday" placeholder="Opening time (HH:mm format)" required />
                     <span class="input-group-addon">
                         <span class="glyphicon glyphicon-calendar"></span>
                     </span>
                 </div>
                 <div class='input-group date datetimepicker'>
-                    <input type='text' class="form-control" name="sunday" required />
+                    <input type='text' class="form-control" name="sunday" placeholder="Closing time (HH:mm format)" required />
                     <span class="input-group-addon">
                         <span class="glyphicon glyphicon-calendar"></span>
                     </span>
@@ -146,12 +141,11 @@
     		</div>
 			<button class="btn-primary">Save</button>
 		</form>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
-
+	  </div>
+  </div>
+</div>
+<!--End Content-->
+<% include ./footer %>
 <script type="text/javascript">
   	$(function () {
 	    $('.datetimepicker').datetimepicker({

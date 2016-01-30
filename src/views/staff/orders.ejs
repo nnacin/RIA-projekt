@@ -5,7 +5,7 @@
 	<% orders.forEach(order => { %>
     	<% if (((user.location && order.location._id == user.location._id) || !user.location) && (order.dateFinished > today)) { %>
         	<div class="item-title">
-        		<a href="/staff/order?id=<%= order._id %>"><%= order._id %></a> - <%= order.dateFinished %>
+        		<a href="/staff/order?id=<%= order._id %>">#<%= order._id %></a> - <%= order.dateFinished %>
     		</div>
     	<% } %>
   	<% }) %>
@@ -14,7 +14,7 @@
 	<% orders.forEach(order => { %>
 		<% if (((user.location && order.location._id == user.location._id) || !user.location) && (order.dateFinished < today)) { %>
 			<div class="item-title">
-				<a href="/staff/order?id=<%= order._id %>"><%= order._id %></a> 
+				<a href="/staff/order?id=<%= order._id %>">#<%= order._id %></a> 
 			</div>
 		<% } %>
   	<% }) %>
