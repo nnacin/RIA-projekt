@@ -1,7 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const request = require('request');
-const Promise = require('bluebird')
 const debug = require('debug')('pizzamins:continue');
 
 router.get('/continue', isLoggedIn, (req, res, next) => {
