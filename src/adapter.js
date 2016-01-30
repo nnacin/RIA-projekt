@@ -113,7 +113,6 @@ Adapter.prototype.addUser = (username, firstName, lastName, password, password2,
 }
 
 Adapter.prototype.editUser = (data, callback) => {
-  //let data = {id: id, firstName: firstName, lastName: lastName, phone: phone, address: address, city: city, zipCode: zipCode}
   query(endpoints.USER, 'PUT', data, callback);
 }
 
@@ -139,7 +138,6 @@ Adapter.prototype.getAllEmployee = (callback) => {
 };
 
 Adapter.prototype.editEmployee = (data, callback) => {
-  //let data = {id: id, firstName: firstName, lastName: lastName, email: email, location: location, active: active, admin: admin};
   query(endpoints.EMPLOYEE, 'PUT', data, callback);
 }
 

@@ -2,15 +2,7 @@ const express = require('express');
 const router = express.Router();
 const request = require('request');
 const moment = require('moment');
-const Promise = require('bluebird');
 const bcrypt = require('bcrypt');
-const ad = require('../adapter');
-const Adapter = new ad();
-const getAllPizza = Promise.promisify(Adapter.getAllPizza);
-const getAllDrink = Promise.promisify(Adapter.getAllDrink);
-const getAllLocation = Promise.promisify(Adapter.getAllLocation);
-const getAllOrder = Promise.promisify(Adapter.getAllOrder);
-const getAllEmployee = Promise.promisify(Adapter.getAllEmployee);
 const debug = require('debug')('staff/index');
 
 router.get('/', isLoggedIn , function (req, res)  {
@@ -19,6 +11,7 @@ router.get('/', isLoggedIn , function (req, res)  {
 
 // drinks
 router.get('/drink', isLoggedIn, (req, res, next) => {
+  const Adapter = req.app.get('adapter');
   let id = req.query.id;
   Adapter.getDrink(id, (e, r) => {
     res.render('staff/drink', { results: r });
@@ -26,6 +19,7 @@ router.get('/drink', isLoggedIn, (req, res, next) => {
 });
 
 router.post('/drink', isLoggedIn, (req, res, next) => {
+  const Adapter = req.app.get('adapter');
   let id = req.body.id;
 
   let name = req.body.name;
@@ -33,25 +27,26 @@ router.post('/drink', isLoggedIn, (req, res, next) => {
   let quantity = req.body.quantity;
 
   if (id) {
-      Adapter.editDrink(id, name, price, quantity, (e, r) => {
-        res.redirect('drink?id=' + id);
-      });
+    Adapter.editDrink(id, name, price, quantity, (e, r) => {
+      res.redirect('drinks');
+    });
   } else {
-      Adapter.addDrink(name, price, quantity, (e, r) => {
-        res.redirect('drinks');
-      });
+    Adapter.addDrink(name, price, quantity, (e, r) => {
+      res.redirect('drinks');
+    });
   }
 
 });
 
 router.get('/drinks', isLoggedIn, (req, res, next) => {
-    getAllDrink()
-        .then(r => {
-        res.render('staff/drinks', { drinks: r });
-    });
+  const Adapter = req.app.get('adapter');
+  Adapter.getAllDrink((e, r) => {
+    res.render('staff/drinks', { drinks: r });
+  });
 });
 
 router.get('/deletedrink', isLoggedIn, (req, res, next) => {
+  const Adapter = req.app.get('adapter');
   let id = req.query.id;
   Adapter.deleteDrink(id, (e, r) => {
     res.redirect('drinks');
@@ -62,26 +57,26 @@ router.get('/deletedrink', isLoggedIn, (req, res, next) => {
 
 // employees
 router.get('/employees', isLoggedInAdmin, (req, res, next) => {
-  getAllEmployee()
-        .then(r => {
-          getAllLocation().then(loc => {
-            res.render('staff/employees', { employees: r , locations: loc});
-          })
-    });
+  const Adapter = req.app.get('adapter');
+  Adapter.getAllEmployee((e, r) => {
+    Adapter.getAllLocation((e, loc) => {
+      res.render('staff/employees', { employees: r , locations: loc});
+    })
+  });
 });
 
 router.get('/employee', isLoggedInAdmin, (req, res, next) => {
+  const Adapter = req.app.get('adapter');
   let id = req.query.id;
   Adapter.getEmployee(id, (e, r) => {
-    getAllLocation().then(loc => {
+    Adapter.getAllLocation((e, loc) => {
       res.render('staff/employee', { results: r , locations: loc});
     })
   })
 });
 
-//post route - not yet functional
 router.post('/employee', isLoggedIn, (req, res, next) => {
-  console.log(req.body);
+  const Adapter = req.app.get('adapter');
   let id = req.body.id;
 
   let firstName = req.body.firstName;
@@ -109,8 +104,6 @@ router.post('/employee', isLoggedIn, (req, res, next) => {
     let password = 'Pizzamins_staff';
     let password2 = 'Pizzamins_staff';
     Adapter.addEmployee(username, firstName, lastName, password, password2, email, location, (e, r) => {
-      console.log(e);
-      console.log(r);
       res.redirect('employees');
     });
   }
@@ -120,6 +113,7 @@ router.post('/employee', isLoggedIn, (req, res, next) => {
 
 //profile
 router.get('/profile', isLoggedIn, (req, res, next) => {
+  const Adapter = req.app.get('adapter');
   let id = req.query.id;
   Adapter.getEmployee(id, (e, r) => {
     res.render('staff/profile', { results: r });
@@ -127,7 +121,7 @@ router.get('/profile', isLoggedIn, (req, res, next) => {
 });
 
 router.post('/profile', isLoggedIn, (req, res, next) => {
-  console.log(req.body);
+  const Adapter = req.app.get('adapter');
   let id = req.body.id;
   let firstName = req.body.firstName;
   let lastName = req.body.lastName;
@@ -158,6 +152,7 @@ router.get('/changePassword', isLoggedIn, (req, res, next) => {
 });
 
 router.post('/changePassword', isLoggedIn, (req, res, next) => {
+  const Adapter = req.app.get('adapter');
   let id = req.body.id;
   let password = req.body.password;
   let password2 = req.body.password2;
@@ -166,10 +161,7 @@ router.post('/changePassword', isLoggedIn, (req, res, next) => {
       password: password,
       password2: password2
   }
-  console.log(data);
   Adapter.editEmployee(data, (e, r) => {
-      console.log(e);
-      console.log(r);
     res.redirect('orders');
   })
 
@@ -178,17 +170,18 @@ router.post('/changePassword', isLoggedIn, (req, res, next) => {
 
 //orders
 router.get('/orders', isLoggedIn, (req, res, next) => {
-  getAllOrder()
-      .then(r => {
-      r.forEach(function (order){
-        order.dateFinished = moment(order.dateFinished).utcOffset('+0100').format("YYYY-MM-DD HH:mm:ss");
-      });
+  const Adapter = req.app.get('adapter');
+  Adapter.getAllOrder((e, r) => {
+    r.forEach(function (order){
+      order.dateFinished = moment(order.dateFinished).utcOffset('+0100').format("YYYY-MM-DD HH:mm:ss");
+    });
 
-      res.render('staff/orders', { orders: r , today: moment().utcOffset('+0100').format("YYYY-MM-DD HH:mm:ss")});
+    res.render('staff/orders', { orders: r , today: moment().utcOffset('+0100').format("YYYY-MM-DD HH:mm:ss")});
   });
 });
 
 router.get('/order', isLoggedIn, (req, res, next) => {
+  const Adapter = req.app.get('adapter');
   let id = req.query.id;
   Adapter.getOrder(id, (e, r) => {
     r.forEach(function (order){
@@ -203,6 +196,7 @@ router.get('/order', isLoggedIn, (req, res, next) => {
 
 //pizzas
 router.get('/pizza', isLoggedIn, (req, res, next) => {
+  const Adapter = req.app.get('adapter');
   let id = req.query.id;
   Adapter.getPizza(id, (e, r) => {
     res.render('staff/pizza', { results: r });
@@ -210,6 +204,7 @@ router.get('/pizza', isLoggedIn, (req, res, next) => {
 });
 
 router.post('/pizza', isLoggedIn, (req, res, next) => {
+  const Adapter = req.app.get('adapter');
   let id = req.body.id;
 
   let name = req.body.name;
@@ -218,7 +213,7 @@ router.post('/pizza', isLoggedIn, (req, res, next) => {
 
   if (id) {
     Adapter.editPizza(id, name, price, ingredients, (e, r) => {
-      res.redirect('pizza?id=' + id);
+      res.redirect('pizzas');
     });
   } else {
     Adapter.addPizza(name, price, ingredients, (e, r) => {
@@ -228,6 +223,7 @@ router.post('/pizza', isLoggedIn, (req, res, next) => {
 });
 
 router.get('/deletepizza', isLoggedIn, (req, res, next) => {
+  const Adapter = req.app.get('adapter');
   let id = req.query.id;
   Adapter.deletePizza(id, (e, r) => {
     res.redirect('pizzas');
@@ -235,15 +231,16 @@ router.get('/deletepizza', isLoggedIn, (req, res, next) => {
 });
 
 router.get('/pizzas', isLoggedIn, (req, res, next) => {
-    getAllPizza()
-        .then(r => {
-        res.render('staff/pizzas', { pizza: r });
-    });
+  const Adapter = req.app.get('adapter');
+  Adapter.getAllPizza((e, r) => {
+      res.render('staff/pizzas', { pizza: r });
+  });
 });
 //end pizzas
 
 //locations
 router.get('/location', isLoggedIn, (req, res, next) => {
+  const Adapter = req.app.get('adapter');
   let id = req.query.id;
   Adapter.getLocation(id, (e, r) => {
     res.render('staff/location', { results: r });
@@ -251,6 +248,7 @@ router.get('/location', isLoggedIn, (req, res, next) => {
 });
 
 router.post('/location', isLoggedIn, (req, res, next) => {
+  const Adapter = req.app.get('adapter');
   let id = req.body.id;
 
   let name = req.body.name;
@@ -302,6 +300,7 @@ router.post('/location', isLoggedIn, (req, res, next) => {
 });
 
 router.get('/deletelocation', isLoggedIn, (req, res, next) => {
+  const Adapter = req.app.get('adapter');
   let id = req.query.id;
   Adapter.deleteLocation(id, (e, r) => {
     res.redirect('locations');
@@ -309,10 +308,10 @@ router.get('/deletelocation', isLoggedIn, (req, res, next) => {
 });
 
 router.get('/locations', isLoggedIn, (req, res, next) => {
-    getAllLocation()
-        .then(r => {
-        res.render('staff/locations', { locations: r });
-    });
+  const Adapter = req.app.get('adapter');
+  Adapter.getAllLocation((e, r) => {
+    res.render('staff/locations', { locations: r });
+  });
 });
 //end location
 
