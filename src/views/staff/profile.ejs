@@ -13,20 +13,20 @@
 		</div>
 		<div class="form-group">
 			<label>First Name</label>
-			<input type="text" name="firstName" value="<%= results[0].firstName %>">
+			<input class="form-control" type="text" name="firstName" value="<%= results[0].firstName %>" <%= results[0].location ? '' : 'disabled' %>>
 		</div>
 		<div class="form-group">
 			<label>Last Name</label>
-			<input type="text" name="lastName" value="<%= results[0].lastName %>" >
+			<input class="form-control" type="text" name="lastName" value="<%= results[0].lastName %>" <%= results[0].location ? '' : 'disabled' %> >
 		</div>
 		<div class="form-group">
 			<label>Email</label>
-			<input type="text" name="email" value="<%= results[0].email %>" >
+			<input class="form-control" type="text" name="email" value="<%= results[0].email %>" <%= results[0].location ? '' : 'disabled' %>>
 		</div>
 		<div class="form-group">
-			<input value="<%= results[0].location._id %>" name ="location" hidden />
+			<input value="<%= results[0].location ? results[0].location._id : '' %>" name ="location" hidden />
 		</div>
-		<button class="btn-primary">Update</button>
+		<button class="btn-primary" <%= results[0].location ? '' : 'hidden' %> >Update</button>
 	</form>
 	<a data-toggle="modal" href="#change-password">Change Password</a>
 </div>
