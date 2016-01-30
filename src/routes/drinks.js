@@ -1,21 +1,15 @@
 const express = require('express');
 const router = express.Router();
-const request = require('request');
-const Promise = require('bluebird')
-const ad = require('../adapter');
-const Adapter = new ad();
-const getAllDrink = Promise.promisify(Adapter.getAllDrink);
 const debug = require('debug')('pizzamins:menuDrinks');
 
-
 router.get('/drinks', (req, res, next) => {
+  const Adapter = req.app.get('adapter');
   let drinks = [];
   let order = req.session.order;
   if (!order) return res.redirect('menu');
   if (!order.pizzas) return res.redirect('menu');
   let total = order.total;
-  getAllDrink()
-  .then(r => {
+  Adapter.getAllDrink((e, r) => {
     res.render('menuDrinks', { drink: r, session: drinks, total: total });
   })
 });

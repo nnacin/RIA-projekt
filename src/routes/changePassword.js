@@ -1,9 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const request = require('request');
-const Promise = require('bluebird')
-const ad = require('../adapter');
-const Adapter = new ad();
 const debug = require('debug')('changePassword');
 
 router.get('/changePassword', isLoggedIn, (req, res, next) => {
@@ -11,6 +7,7 @@ router.get('/changePassword', isLoggedIn, (req, res, next) => {
 });
 
 router.post('/changePassword', isLoggedIn, (req, res, next) => {
+  const Adapter = req.app.get('adapter');
   const id = req.body.id;
   const password = req.body.password;
   const password2 = req.body.password2;
@@ -26,7 +23,7 @@ router.post('/changePassword', isLoggedIn, (req, res, next) => {
 });
 
 function isLoggedIn(req, res, next) {
-    // if user is authenticated in the session, carry on 
+    // if user is authenticated in the session, carry on
     if (req.isAuthenticated())
         return next();
 
