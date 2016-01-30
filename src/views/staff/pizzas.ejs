@@ -1,39 +1,48 @@
 <% include ./header %>
 <!--Start Content-->
-<div id="content" class="col-xs-12 col-sm-10">
+<div id="content" class="col-xs-12 col-sm-10" style="padding-top: 2em">
 	<div class="row">
 		<div class="col-sm-3">
-			<% pizza.forEach(pizza => { %>
-		  	<div class="item-title">
-		  		<div class="col-md-6">
-		    		<a href="/staff/pizza?id=<%= pizza._id %>"><%= pizza.name %></a> 
-		    	</div>
-		    	<div class="col-md-6">
-		    		<a class="btn btn-danger" href="/staff/deletepizza?id=<%= pizza._id %>">Delete</a>
-		    	</div>
+			<div class="panel panel-default">
+  			<div class="panel-heading">Current pizzas</div>
+				<div class="panel-body">
+					<% pizza.forEach(pizza => { %>
+				  	<div class="item-title">
+				  		<div class="col-md-6">
+				    		<a href="/staff/pizza?id=<%= pizza._id %>"><%= pizza.name %></a>
+				    	</div>
+				    	<div class="col-md-6">
+				    		<a class="btn btn-xs btn-danger" href="/staff/deletepizza?id=<%= pizza._id %>">Delete</a>
+				    	</div>
+						</div>
+					<% }) %>
 				</div>
-			<% }) %>
+				</div>
 	  </div>
   	<div class="col-md-9">
-  		<form method="POST" action="/staff/pizza">
-				<div class="form-group">
-					<label>Name</label>
-					<input class="form-control" type="text" name="name" required>
+			<div class="panel panel-default">
+  			<div class="panel-heading">Add a pizza</div>
+				<div class="panel-body">
+		  		<form method="POST" action="/staff/pizza">
+						<div class="form-group">
+							<label>Name</label>
+							<input class="form-control" type="text" name="name" required>
+						</div>
+						<div class="form-group">
+							<label>Price</label>
+							<input class="form-control" type="number" name="price" required>
+						</div>
+						<div class="form-group">
+							<label>Ingridients</label>
+							<input class="form-control" type="text" name="ingredients" required>
+						</div>
+						<button class="btn btn-primary">Save</button>
+					</form>
 				</div>
-				<div class="form-group">
-					<label>Price</label>
-					<input class="form-control" type="number" name="price" required>
-				</div>
-				<div class="form-group">
-					<label>Ingridients</label>
-					<input class="form-control" type="text" name="ingredients" required>
-				</div>
-				<button class="btn btn-primary">Save</button>
-			</form>
+			</div>
   	</div>
   </div>
 </div>
 <!--End Content-->
 <% include ./footer %>
 <% include ../errorModal %>
-
