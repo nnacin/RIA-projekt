@@ -33,7 +33,7 @@
 								<% }); %>
 							</td>
 							<td>
-								<%= order.total %>
+								<%= order.total + ' kn'%>
 							</td>
 				        	<td>
 								<% var remaining = moment(order.dateFinished).diff(moment(), 'minutes'); %>
