@@ -16,9 +16,11 @@ https://github.com/nnacin/RIA-projekt-api/
 
 3. Preimenovati .json.example datoteke u .json
 
-4. set DEBUG=*
+4. npm install
 
-5. npm start (za linux bez 4. koraka: DEBUG=* npm start)
+5. set DEBUG=*
+
+6. npm start (za Linux bez 5. koraka: DEBUG=* npm start)
 
 # API Description
 1. MongoDB: Nije potrebno stvarati bazu podataka jer sama aplikacija (API) tijekom rada stvara kolekcije koje su potrebne za njen rad.
